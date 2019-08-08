@@ -27,7 +27,7 @@ class CreatePage extends Component {
         return (
             <div className="test">
                 <SideNav content={this.links}/>
-                <Link to="https://github.com/codeslayer1/react-ckeditor">Beispiel Editor</Link>
+                <Link to="https://github.com/ckeditor/ckeditor5-react">Beispiel Editor</Link>
                 <h2>Create Page</h2>
                 <Editor onUpdate={this.updateContent}/>
                 <button id="createButton" type="button" onClick={this.onSubmitButton}>Speichern</button>

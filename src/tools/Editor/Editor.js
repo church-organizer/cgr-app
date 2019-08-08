@@ -5,11 +5,14 @@ import {makeStyles} from "@material-ui/core";
 
 
 const useStyles = makeStyles(theme => ({
-    editor: {
+    div: {
         paddingLeft: "250px",
         paddingRight: "250px",
         minWidth: "500px",
-        maxWidth: "1500px"
+        maxWidth: "1500px",
+    },
+    editor: {
+        minHeight: "600px"
     }
 }));
 
@@ -18,8 +21,8 @@ const Editor = (props) => {
 
 
     return (
-        <div className={classes.editor}>
-            <CKEditor editor={ClassicEditor} data="<p>hallo</p>"
+        <div className={classes.div}>
+            <CKEditor className={classes.editor} editor={ClassicEditor} data="<p>hallo</p>"
                       onInit={editor => {
                           // You can store the "editor" and use when it is needed.
                           console.log('Editor is ready to use!', editor);
