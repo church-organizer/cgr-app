@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme => ({
         paddingRight: "250px",
         minWidth: "500px",
         maxWidth: "1500px",
+        textAlign: "left"
     },
     editor: {
         minHeight: "600px"
@@ -18,11 +19,19 @@ const useStyles = makeStyles(theme => ({
 
 const Editor = (props) => {
     const classes = useStyles();
-
+    // man kann den editor bearbeiten ich weiß nur noch nicht wie
+    // const toolbar = ['bold', 'italic', "BlockQuote", "CKFinder", "EasyImage", "Heading", "Heading", "Image"];
+    // ClassicEditor.create(document.querySelector('#editor'), {
+    //     toolbar: toolbar
+    // })
+    //     .catch(error => {
+    //         console.error(error);
+    //         return <p>eroor</p>;
+    //     });
 
     return (
         <div className={classes.div}>
-            <CKEditor className={classes.editor} editor={ClassicEditor} data="<p>hallo</p>"
+            <CKEditor className={classes.editor} editor={ClassicEditor}
                       onInit={editor => {
                           // You can store the "editor" and use when it is needed.
                           console.log('Editor is ready to use!', editor);
