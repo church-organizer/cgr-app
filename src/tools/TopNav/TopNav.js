@@ -1,9 +1,10 @@
 import React from 'react';
 import {AppBar, Button, Toolbar, Typography, makeStyles, InputBase} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import TextField from "@material-ui/core/TextField";
 
 
-const useStyles = makeStyles(theme =>({
+const useStyles = makeStyles(theme => ({
     appBar: {
         position: "static",
         height: "64px"
@@ -29,9 +30,7 @@ const useStyles = makeStyles(theme =>({
         borderRadius: "3px",
         marginLeft: "20%"
     },
-    inputFocus: {
-
-    }
+    inputFocus: {}
 }));
 
 
@@ -52,7 +51,8 @@ const TopNav = (props) => {
                 <Typography variant="h6">
                     <Link to="/media" className="nav-button">Medien</Link>
                 </Typography>
-                <Button href={"https://material-ui.com/getting-started/usage/"} color={"secondary"}>Link zum
+                <Button href={"https://material-ui.com/getting-started/usage/"} color={"secondary"}
+                        variant={"outlined"}>Link zum
                     Design</Button>
 
                 <InputBase
@@ -62,11 +62,11 @@ const TopNav = (props) => {
                         input: classes.inputInput,
                         focused: classes.inputFocus
                     }}
-                    inputProps={{ 'aria-label': 'search' }}
+                    inputProps={{'aria-label': 'search'}}
                 />
 
 
-                <Button color="inherit" className={classes.loginButton}>Login</Button>
+                <Button color="inherit" variant={"outlined"} className={classes.loginButton}>Login</Button>
             </Toolbar>
         </AppBar>
     );

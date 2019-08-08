@@ -6,9 +6,6 @@ import Rating from "./components/rating/Rating";
 import Media from "./components/media/Media";
 import Start from "./components/start/Start"
 import CreatePage from "./components/wiki/CreatePage";
-import {
-    Button,
-} from "@material-ui/core";
 import TopNav from "./tools/TopNav/TopNav";
 
 

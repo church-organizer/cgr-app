@@ -2,24 +2,36 @@ import React, {Component} from 'react';
 import SideNav from "../../tools/SideNav/SideNav";
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit'
-import Editor from '../../tools/Editor/Editor'
 import Link from "@material-ui/core/Link";
+import PageConfig from "./PageConfig";
 
 class CreatePage extends Component {
-    links = [['Seite Speichern', <AddIcon/>, "/wiki/create"], ['Abbruch', <EditIcon/>, '/wiki/:name']];
+    state = {
+        content: 'content',
+        createFile: {
+            isCreated: false,
+            name: ''
+        }
+    };
+    links = [['Seite Speichern', <AddIcon/>, "/wiki:name"], ['Abbruch', <EditIcon/>, '/wiki/']];
 
     constructor(props) {
         super(props);
         this.updateContent = this.updateContent.bind(this);
-        this.state = {
-            content: 'content',
-        }
     }
 
     updateContent(newContent) {
         this.setState({
             content: newContent
-        })
+        });
+    }
+
+    createPage(name) {
+        // create new page
+        console.log("Success", name);
+        this.setState({
+            createFile: {isCreated: true, name: name}
+        });
     }
 
 
@@ -29,8 +41,9 @@ class CreatePage extends Component {
                 <SideNav content={this.links}/>
                 <Link to="https://github.com/ckeditor/ckeditor5-react">Beispiel Editor</Link>
                 <h2>Create Page</h2>
-                <Editor onUpdate={this.updateContent}/>
-                <button id="createButton" type="button" onClick={this.onSubmitButton}>Speichern</button>
+                <PageConfig new={true} onConfirm={this.createPage}/>
+                {/*<Editor onUpdate={this.updateContent}/>*/}
+                {/*<button id="createButton" type="button" onClick={this.onSubmitButton}>Speichern</button>*/}
             </div>
         );
     }
