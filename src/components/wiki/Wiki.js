@@ -12,7 +12,6 @@ class Wiki extends Component {
         return (
             <div className="base">
                 <SideNav content={this.links}/>
-                {/*<button onClick={CreatePopup} >Button</button>*/}
                 <WikiPage/>
             </div>
         );

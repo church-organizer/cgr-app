@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Button, Toolbar, Typography, makeStyles} from "@material-ui/core";
+import {AppBar, Button, Toolbar, Typography, makeStyles, InputBase} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 
@@ -16,6 +16,22 @@ const useStyles = makeStyles(theme =>({
         right: "20px",
         position: "absolute"
     },
+    inputRoot: {
+        color: 'inherit',
+        width: "100%"
+    },
+    inputInput: {
+        position: "relative",
+        padding: theme.spacing(1, 1, 1, 1),
+        transition: theme.transitions.create('width'),
+        width: '30%',
+        border: "1px solid #eee",
+        borderRadius: "3px",
+        marginLeft: "20%"
+    },
+    inputFocus: {
+
+    }
 }));
 
 
@@ -36,6 +52,15 @@ const TopNav = (props) => {
                 <Typography variant="h6">
                     <Link to="/media" className="nav-button">Medien</Link>
                 </Typography>
+                <InputBase
+                    placeholder="Suche…"
+                    classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput,
+                        focused: classes.inputFocus
+                    }}
+                    inputProps={{ 'aria-label': 'search' }}
+                />
 
                 <Button color="inherit" className={classes.loginButton}>Login</Button>
             </Toolbar>

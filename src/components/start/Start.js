@@ -6,7 +6,7 @@ class Start extends Component {
     render() {
         return (
             <div className="base">
-                <SideNav/>
+                <SideNav content={[]}/>
                 <h1>Start</h1>
                 <p>Hier kommt die Startseite hin</p>
             </div>

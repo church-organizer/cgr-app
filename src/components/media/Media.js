@@ -7,7 +7,7 @@ class Media extends Component {
     render() {
         return (
             <div className="base">
-                <SideNav/>
+                <SideNav content={[]}/>
                 <h1>Media</h1>
                 <p>Hier kommt das media hin</p>
             </div>

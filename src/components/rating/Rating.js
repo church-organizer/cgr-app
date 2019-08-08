@@ -7,7 +7,7 @@ class Rating extends Component {
     render() {
         return (
             <div className="base">
-                <SideNav/>
+                <SideNav content={[]}/>
                 <h1>Rating</h1>
                 <p>Hier kommt das Rating hin</p>
             </div>
