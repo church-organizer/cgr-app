@@ -1,16 +1,19 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
 import WikiPage from "./WikiPage";
-import Popup from "../../tools/Popup/popup";
-
+import SideNav from "../../tools/SideNav/SideNav";
+import AddIcon from '@material-ui/icons/Add';
+import EditIcon from '@material-ui/icons/Edit';
+import './Wiki.css'
 
 class Wiki extends Component {
+    links = [['Neue Seite', <AddIcon/>, "/wiki/create"], ['Seite Bearbeiten', <EditIcon/>, '/wiki/:name']];
+
     render() {
         return (
             <div className="base">
-                <Link to="/wiki/create" className="sub-nav-button">Create Page</Link>
+                <SideNav content={this.links}/>
+                {/*<button onClick={CreatePopup} >Button</button>*/}
                 <WikiPage/>
-                <Popup title="Error">Hier kommt der Text hin</Popup>
             </div>
         );
     }

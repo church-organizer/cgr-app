@@ -1,0 +1,9 @@
+a {
+    text-decoration: none;
+    color: #484b48;
+}
+
+.side-nav-entry {
+    display: inline-block;
+    padding: 4px;
+}

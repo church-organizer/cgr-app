@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import Wiki from "./components/wiki/Wiki";
 import Rating from "./components/rating/Rating";
 import Media from "./components/media/Media";
 import Start from "./components/start/Start"
 import CreatePage from "./components/wiki/CreatePage";
+import {
+    Button,
+} from "@material-ui/core";
+import TopNav from "./tools/TopNav/TopNav";
+
 
 class App extends Component {
 
@@ -13,18 +18,19 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
-                    <h1 id="title">Organizer</h1>
-                    <Link to="/" className="homeButton">Start</Link>
-                    <div className="nav">
-                        <Link to="/wiki" className="nav-button">Wiki</Link>
-                        <Link to="/rating" className="nav-button">Bewerten</Link>
-                        <Link to="/media" className="nav-button">Medien</Link>
+                    <TopNav/>
+                    <Button href={"https://material-ui.com/getting-started/usage/"} color={"primary"}>Link zum
+                        Design</Button>
+                    <div className="content">
                         <Route exact path="/" component={Start}/>
                         <Route exact path="/wiki" component={Wiki}/>
-                        <Route exact  path="/rating" component={Rating}/>
-                        <Route exact  path="/media" component={Media}/>
+                        <Route exact path="/rating" component={Rating}/>
+                        <Route exact path="/media" component={Media}/>
                         <Route path="/wiki/create" component={CreatePage}/>
                     </div>
+                    {/*<SnackbarProvider maxSnack={3}>*/}
+                    {/*    <CreatePopup/>*/}
+                    {/*</SnackbarProvider>*/}
                 </div>
             </Router>
         );
