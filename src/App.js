@@ -19,8 +19,7 @@ class App extends Component {
             <Router>
                 <div className="App">
                     <TopNav/>
-                    <Button href={"https://material-ui.com/getting-started/usage/"} color={"primary"}>Link zum
-                        Design</Button>
+
                     <div className="content">
                         <Route exact path="/" component={Start}/>
                         <Route exact path="/wiki" component={Wiki}/>

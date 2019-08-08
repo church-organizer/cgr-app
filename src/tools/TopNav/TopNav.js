@@ -52,6 +52,9 @@ const TopNav = (props) => {
                 <Typography variant="h6">
                     <Link to="/media" className="nav-button">Medien</Link>
                 </Typography>
+                <Button href={"https://material-ui.com/getting-started/usage/"} color={"secondary"}>Link zum
+                    Design</Button>
+
                 <InputBase
                     placeholder="Suche…"
                     classes={{
@@ -61,6 +64,7 @@ const TopNav = (props) => {
                     }}
                     inputProps={{ 'aria-label': 'search' }}
                 />
+
 
                 <Button color="inherit" className={classes.loginButton}>Login</Button>
             </Toolbar>
