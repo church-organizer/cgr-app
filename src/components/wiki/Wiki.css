@@ -10,7 +10,7 @@ a {
 
 #page-content {
     position: relative;
-    left: 220px;
-    /*top: 64px;*/
-    display: flex;
+    top: 10px;
+    left: 250px;
+    display: block;
 }
