@@ -7,3 +7,10 @@ a {
     display: inline-block;
     padding: 4px;
 }
+
+#page-content {
+    position: relative;
+    left: 220px;
+    /*top: 64px;*/
+    display: flex;
+}

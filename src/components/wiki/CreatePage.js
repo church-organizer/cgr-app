@@ -17,7 +17,7 @@ class CreatePage extends Component {
     links = [
         [
             <SideNavItem onClick={this.onSaveHandler} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem onClick={this.onAbortHandler} text={"Seite Speichern"} icon={<CancelIcon/>}/>
+            <SideNavItem onClick={this.onAbortHandler} text={"Abbrechen"} icon={<CancelIcon/>}/>
         ]
     ];
 

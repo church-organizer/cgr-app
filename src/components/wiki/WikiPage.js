@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactMarkdown from "react-markdown";
 import {makeStyles, Typography, Paper, Divider} from "@material-ui/core";
+import Path from "../../tools/Path";
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -8,8 +10,8 @@ const useStyles = makeStyles(theme => ({
         border: "1px",
         padding: "20px",
         textAlign: "left",
-        position: 'relative', left: '50%', top: "100px",
-        transform: 'translate(-50%, -50%)',
+        position: 'relative', left: '5%', top: "40px",
+        transform: 'translate(-22%, 0%)',
         margin: "20px"
     },
     meta: {
@@ -38,13 +40,15 @@ class WikiPage extends Component {
     render() {
         if (this.props.file === "") {
             return (
-                <div>
+                <div id="page-content">
+                    <Path path={['/']} />
                     <Content content={this.pageContentInMD}/>
                 </div>
             );
         }
         return (
-            <div>
+            <div id="page-content">
+                <Path style={{display: "inline-block"}}/>
                 <Content content={""}/>
             </div>
         );
