@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import Draggable from 'react-draggable'
 import FormControl from "@material-ui/core/FormControl";
+import Link from "@material-ui/core/Link";
 
 /**
  * Shows the Config of a Page
@@ -31,11 +32,11 @@ const PageConfig = (props) => {
 
     function handleAbort() {
         setOpen(false);
-        window.history.back()
+        props.onAbort();
     }
 
     function handleConfirm(evt) {
-        console.log(evt.tartget.value);
+        //console.log(evt.tartget.value);
         setOpen(false);
         (props.onConfirm)();
     }
@@ -63,9 +64,11 @@ const PageConfig = (props) => {
                         <Button onClick={handleAbort} color="primary">
                             Abbruch
                         </Button>
-                        <Button type="submit" onClick={handleConfirm} color="primary">
-                            {props.new ? "Erstelle die Seite" : "Speichern"}
-                        </Button>
+                        <Link>
+                            <Button type="submit" onClick={handleConfirm} color="primary">
+                                {props.new ? "Erstelle die Seite" : "Speichern"}
+                            </Button>
+                        </Link>
                     </DialogActions>
                 </FormControl>
             </Dialog>

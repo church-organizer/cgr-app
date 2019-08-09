@@ -1,6 +1,17 @@
 import React from 'react';
-import {Divider, Drawer, List, ListItem, ListItemIcon, ListItemText, makeStyles} from "@material-ui/core";
+import {
+    Divider,
+    Drawer,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    makeStyles,
+    Typography,
+    Button, Portal
+} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import Icon from "@material-ui/core/Icon";
 
 
 const useStyles = makeStyles(theme => ({
@@ -15,9 +26,24 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: 0,
         paddingRight: 0,
         display: "inline-block"
+    },
+    button: {
+        width: "100%",
+        height: "100%"
     }
 }));
-
+export const SideNavItem = (props) => {
+    const classes = useStyles();
+    const show = false;
+    return (
+        <ListItem key={props.text} button className={classes.item} onClick={props.onClick} >
+            <Link component="button" classes={classes.button}>
+                <ListItemIcon className="side-nav-entry">{props.icon}</ListItemIcon>
+                <Typography className="side-nav-entry">{props.text}</Typography>
+            </Link>
+        </ListItem>
+    );
+};
 
 const SideNav = (props) => {
 
@@ -25,14 +51,7 @@ const SideNav = (props) => {
         <div>
             <Divider/>
             <List>
-                {links.map(([k, v, to]) => (
-                    <ListItem button key={k} className={classes.item}>
-                        <Link to={to}>
-                            <ListItemIcon className="side-nav-entry">{v}</ListItemIcon>
-                            <ListItemText primary={k} className="side-nav-entry"/>
-                        </Link>
-                    </ListItem>
-                ))}
+                {links.map(item => item)}
             </List>
             <Divider/>
         </div>

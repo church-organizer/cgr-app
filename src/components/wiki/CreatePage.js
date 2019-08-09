@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
-import SideNav from "../../tools/SideNav/SideNav";
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit'
+import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
 import Link from "@material-ui/core/Link";
 import PageConfig from "./PageConfig";
+import Editor from "../../tools/Editor/Editor";
+import SaveIcon from '@material-ui/icons/Save';
+import CancelIcon from '@material-ui/icons/Cancel';
 
 class CreatePage extends Component {
     state = {
@@ -13,7 +14,12 @@ class CreatePage extends Component {
             name: ''
         }
     };
-    links = [['Seite Speichern', <AddIcon/>, "/wiki:name"], ['Abbruch', <EditIcon/>, '/wiki/']];
+    links = [
+        [
+            <SideNavItem onClick={this.onSaveHandler} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
+            <SideNavItem onClick={this.onAbortHandler} text={"Seite Speichern"} icon={<CancelIcon/>}/>
+        ]
+    ];
 
     constructor(props) {
         super(props);
@@ -26,12 +32,20 @@ class CreatePage extends Component {
         });
     }
 
+    onSaveHandler = () => {
+
+    };
+
+    onAbortHandler = () => {
+
+    };
+
     createPage(name) {
         // create new page
         console.log("Success", name);
-        this.setState({
-            createFile: {isCreated: true, name: name}
-        });
+        // this.setState({
+        //     createFile: {isCreated: true, name: name}
+        // });
     }
 
 
@@ -41,9 +55,8 @@ class CreatePage extends Component {
                 <SideNav content={this.links}/>
                 <Link to="https://github.com/ckeditor/ckeditor5-react">Beispiel Editor</Link>
                 <h2>Create Page</h2>
-                <PageConfig new={true} onConfirm={this.createPage}/>
-                {/*<Editor onUpdate={this.updateContent}/>*/}
-                {/*<button id="createButton" type="button" onClick={this.onSubmitButton}>Speichern</button>*/}
+                <PageConfig new={true} onConfirm={this.createPage} onAbort={this.props.onAbort}/>
+                {this.state.createFile.isCreated ? <Editor onUpdate={this.updateContent}/> : ""}
             </div>
         );
     }

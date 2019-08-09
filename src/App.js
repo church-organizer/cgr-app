@@ -22,7 +22,7 @@ class App extends Component {
                         <Route exact path="/wiki" component={Wiki}/>
                         <Route exact path="/rating" component={Rating}/>
                         <Route exact path="/media" component={Media}/>
-                        <Route path="/wiki/create" component={CreatePage}/>
+                        {/*<Route path="/wiki/create" component={CreatePage}/>*/}
                     </div>
                     {/*<SnackbarProvider maxSnack={3}>*/}
                     {/*    <CreatePopup/>*/}

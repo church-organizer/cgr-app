@@ -1,7 +1,6 @@
 import React from 'react';
 import {AppBar, Button, Toolbar, Typography, makeStyles, InputBase} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import TextField from "@material-ui/core/TextField";
 
 
 const useStyles = makeStyles(theme => ({
@@ -21,6 +20,9 @@ const useStyles = makeStyles(theme => ({
         color: 'inherit',
         width: "100%"
     },
+    homeButton: {
+
+    },
     inputInput: {
         position: "relative",
         padding: theme.spacing(1, 1, 1, 1),
@@ -30,7 +32,11 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "3px",
         marginLeft: "20%"
     },
-    inputFocus: {}
+    navButton: {
+        padding: "8px",
+        margin: "4px",
+        color: "#eee"
+    }
 }));
 
 
@@ -39,21 +45,20 @@ const TopNav = (props) => {
     return (
         <AppBar className={classes.appBar}>
             <Toolbar>
-                <Typography variant="h5">
-                    <Link to="/" className="home-button">Organizer</Link>
+                <Typography className={classes.navButton} variant="h5">
+                    <Link to="/"><Button color={"primary"} variant={"contained"} size={"large"}>Organizer</Button></Link>
                 </Typography>
-                <Typography variant="h6">
-                    <Link to="/wiki" className="nav-button">Wiki</Link>
+                <Typography className={classes.navButton} variant="h6">
+                    <Link to="/wiki" ><Button color={"inherit"} variant={"contained"}>Wiki</Button></Link>
                 </Typography>
-                <Typography variant="h6">
-                    <Link to="/rating" className="nav-button">Bewerten</Link>
+                <Typography color={"secondary"} className={classes.navButton} variant="h6">
+                    <Link to="/rating"><Button color={"inherit"} variant={"contained"}>Bewerten</Button></Link>
                 </Typography>
-                <Typography variant="h6">
-                    <Link to="/media" className="nav-button">Medien</Link>
+                <Typography className={classes.navButton} variant="h6">
+                    <Link to="/media"><Button color={"inherit"} variant={"contained"}>Medien</Button></Link>
                 </Typography>
                 <Button href={"https://material-ui.com/getting-started/usage/"} color={"secondary"}
-                        variant={"outlined"}>Link zum
-                    Design</Button>
+                        variant={"outlined"}>Design</Button>
 
                 <InputBase
                     placeholder="Suche…"
@@ -66,7 +71,7 @@ const TopNav = (props) => {
                 />
 
 
-                <Button color="inherit" variant={"outlined"} className={classes.loginButton}>Login</Button>
+                <Button variant={"contained"} className={classes.loginButton}>Login</Button>
             </Toolbar>
         </AppBar>
     );
