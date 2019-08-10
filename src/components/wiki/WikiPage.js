@@ -26,7 +26,8 @@ const Content = (props) => {
     return (
         <Paper className={classes.paper}>
             <Typography color={"inherit"} variant={"h5"} className={classes.paperHeader}>DateiName</Typography>
-            <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}</Typography>
+            <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet
+                von {"Max Mustermann"} am: {"12.12.12"}</Typography>
             <Divider/>
             <ReactMarkdown source={props.content}/>
         </Paper>
@@ -36,20 +37,25 @@ const Content = (props) => {
 
 class WikiPage extends Component {
     pageContentInMD = '# Das ist die Startseite\n\nDiesen Text kann man bearbeiten';
+    pageContentInMD2 = '# Unterseite\n\nAuch hier kann man den Text ändern';
 
     render() {
-        if (this.props.file === "") {
+        const path = window.location.pathname.replace("/wiki", "");
+        if (path === "" || path === "/") {
             return (
                 <div id="page-content">
-                    <Path path={['home']} />
+                    <Path path={['home']}/>
                     <Content content={this.pageContentInMD}/>
                 </div>
             );
         }
+        const dir = path.split("/");
+        dir.shift();
+        const filename = dir[dir.length - 1];
         return (
             <div id="page-content">
-                <Path path={this.props.file.split('/')}/>
-                <Content content={""}/>
+                <Path path={dir}/>
+                <Content content={'# hi ' + filename}/>
             </div>
         );
 

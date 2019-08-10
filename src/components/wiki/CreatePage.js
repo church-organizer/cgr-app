@@ -43,9 +43,9 @@ class CreatePage extends Component {
     createPage(name) {
         // create new page
         console.log("Success", name);
-        // this.setState({
-        //     createFile: {isCreated: true, name: name}
-        // });
+        this.setState({
+            createFile: {isCreated: true, name: name}
+        });
     }
 
 
@@ -53,10 +53,8 @@ class CreatePage extends Component {
         return (
             <div className="test">
                 <SideNav content={this.links}/>
-                <Link to="https://github.com/ckeditor/ckeditor5-react">Beispiel Editor</Link>
-                <h2>Create Page</h2>
-                <PageConfig new={true} onConfirm={this.createPage} onAbort={this.props.onAbort}/>
-                {this.state.createFile.isCreated ? <Editor onUpdate={this.updateContent}/> : ""}
+                <PageConfig new={true} create={this} onAbort={this.props.onAbort}/>
+                {/*{this.state.createFile.isCreated ? <Editor onUpdate={this.updateContent}/> : ""}*/}
             </div>
         );
     }

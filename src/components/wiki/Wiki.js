@@ -6,6 +6,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import './Wiki.css'
 import CreatePage from "./CreatePage";
 
+/**
+ * Shows all of the Wiki Entries
+ * Can create new, show or edit
+ */
 class Wiki extends Component {
 
 
@@ -33,12 +37,11 @@ class Wiki extends Component {
     ];
 
 
-
     render() {
         return (
             <div className="base">
                 <SideNav content={this.links}/>
-                {this.state.showCreate ? <CreatePage onAbort={this.onAbortCreate}/> : <WikiPage file={""}/>}
+                {this.state.showCreate ? <CreatePage onAbort={this.onAbortCreate}/> : <WikiPage file={"/"}/>}
             </div>
         );
     }

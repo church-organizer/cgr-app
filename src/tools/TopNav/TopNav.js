@@ -59,6 +59,8 @@ const TopNav = (props) => {
                 </Typography>
                 <Button href={"https://material-ui.com/getting-started/usage/"} color={"secondary"}
                         variant={"outlined"}>Design</Button>
+                <Button href={"https://github.com/ckeditor/ckeditor5-react"} color={"secondary"}
+                        variant={"outlined"}>Editor</Button>
 
                 <InputBase
                     placeholder="Suche…"

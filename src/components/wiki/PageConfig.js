@@ -38,7 +38,7 @@ const PageConfig = (props) => {
     function handleConfirm(evt) {
         //console.log(evt.tartget.value);
         setOpen(false);
-        (props.onConfirm)();
+        props.create.createPage('name')
     }
 
     return (
