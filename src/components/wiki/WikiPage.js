@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import ReactMarkdown from "react-markdown";
-import {makeStyles, Typography, Paper, Divider} from "@material-ui/core";
+import {makeStyles, Typography, Paper} from "@material-ui/core";
 import Path from "../../tools/Path/Path";
 import Editor from "../../tools/Editor/Editor";
 
@@ -29,7 +28,7 @@ const Content = (props) => {
             <Typography color={"inherit"} variant={"h5"} className={classes.paperHeader}>DateiName</Typography>
             <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet
                 von {"Max Mustermann"} am: {"12.12.12"}</Typography>
-            <Editor content={props.content}/>
+            <Editor content={props.content} readOnly={props.readOnly}/>
         </Paper>
     );
 };
@@ -45,7 +44,7 @@ class WikiPage extends Component {
             return (
                 <div id="page-content">
                     <Path path={['home']}/>
-                    <Content content={this.pageContentInMD}/>
+                    <Content content={this.pageContentInMD} readOnly={this.props.readOnly}/>
                 </div>
             );
         }
@@ -55,7 +54,7 @@ class WikiPage extends Component {
         return (
             <div id="page-content">
                 <Path path={dir}/>
-                <Content content={'# hi ' + filename}/>
+                <Content content={'# hi ' + filename} readOnly={this.props.readOnly}/>
             </div>
         );
 

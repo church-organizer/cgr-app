@@ -5,13 +5,10 @@ import {
     List,
     ListItem,
     ListItemIcon,
-    ListItemText,
     makeStyles,
     Typography,
-    Button, Portal
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
-import Icon from "@material-ui/core/Icon";
 
 
 const useStyles = makeStyles(theme => ({
@@ -34,7 +31,6 @@ const useStyles = makeStyles(theme => ({
 }));
 export const SideNavItem = (props) => {
     const classes = useStyles();
-    const show = false;
     return (
         <ListItem key={props.text} button className={classes.item} onClick={props.onClick} >
             <Link component="button" classes={classes.button}>

@@ -10,8 +10,8 @@ import {
     Paper
 } from "@material-ui/core";
 import Draggable from 'react-draggable'
-import FormControl from "@material-ui/core/FormControl";
 import Link from "@material-ui/core/Link";
+import FormControl from "@material-ui/core/FormControl";
 
 /**
  * Shows the Config of a Page
@@ -20,7 +20,10 @@ import Link from "@material-ui/core/Link";
  * @constructor
  */
 const PageConfig = (props) => {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen,] = React.useState(true);
+    const [finishedName, setName,] = React.useState('/wiki');
+    let name = '';
+    let path = '';
 
     function PaperComponent(props) {
         return (
@@ -30,15 +33,22 @@ const PageConfig = (props) => {
         );
     }
 
+    const onChangeNameHandler =  (event) => {
+        name = event.target.value
+    };
+    const onChangePathHandler =  (event) => {
+        path = event.target.value
+    };
+
     function handleAbort() {
         setOpen(false);
         props.onAbort();
     }
 
     function handleConfirm(evt) {
-        //console.log(evt.tartget.value);
         setOpen(false);
-        props.create.createPage('name')
+        setName(path + name);
+        props.create.createPage(name, path)
     }
 
     return (
@@ -46,7 +56,7 @@ const PageConfig = (props) => {
             <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title"
                     PaperComponent={PaperComponent}>
                 <DialogTitle id="form-dialog-title" style={{cursor: 'move'}}>Daten</DialogTitle>
-                <FormControl>
+                <FormControl >
                     <DialogContent>
                         <DialogContentText>
                             {props.new ? "Bitte gib zuerst die Daten für deine Seite an." :
@@ -54,18 +64,18 @@ const PageConfig = (props) => {
 
                         </DialogContentText>
                         <TextField
-                            autoFocus margin="dense" id="title" label="Seitenname" type="email" fullWidth
-                            variant={"outlined"}/>
+                            autoFocus margin="dense" id="title" label="Seitenname" type="text" fullWidth
+                            variant={"outlined"} onChange={onChangeNameHandler}/>
                         <TextField
-                            margin="dense" id="path" label="Pfad" type="path" fullWidth placeholder="/"
-                            variant={"outlined"}/>
+                            margin="dense" id="path" label="Pfad" type="path" fullWidth placeholder="/home/andererOrdner"
+                            variant={"outlined"} onChange={onChangePathHandler}/>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={handleAbort} color="primary">
                             Abbruch
                         </Button>
-                        <Link>
-                            <Button type="submit" onClick={handleConfirm} color="primary">
+                        <Link to={finishedName}>
+                            <Button onClick={handleConfirm} color="primary">
                                 {props.new ? "Erstelle die Seite" : "Speichern"}
                             </Button>
                         </Link>

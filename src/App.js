@@ -5,7 +5,6 @@ import Wiki from "./components/wiki/Wiki";
 import Rating from "./components/rating/Rating";
 import Media from "./components/media/Media";
 import Start from "./components/start/Start"
-import CreatePage from "./components/wiki/CreatePage";
 import TopNav from "./tools/TopNav/TopNav";
 
 

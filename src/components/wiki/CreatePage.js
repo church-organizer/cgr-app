@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
-import Link from "@material-ui/core/Link";
 import PageConfig from "./PageConfig";
-import Editor from "../../tools/Editor/Editor";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
+import WikiPage from "./WikiPage";
 
 class CreatePage extends Component {
     state = {
@@ -16,35 +15,14 @@ class CreatePage extends Component {
     };
     links = [
         [
-            <SideNavItem onClick={this.onSaveHandler} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem onClick={this.onAbortHandler} text={"Abbrechen"} icon={<CancelIcon/>}/>
+            <SideNavItem onClick={""} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
+            <SideNavItem onClick={""} text={"Abbrechen"} icon={<CancelIcon/>}/>
         ]
     ];
 
-    constructor(props) {
-        super(props);
-        this.updateContent = this.updateContent.bind(this);
-    }
-
-    updateContent(newContent) {
+    createPage(name, path) {
         this.setState({
-            content: newContent
-        });
-    }
-
-    onSaveHandler = () => {
-
-    };
-
-    onAbortHandler = () => {
-
-    };
-
-    createPage(name) {
-        // create new page
-        console.log("Success", name);
-        this.setState({
-            createFile: {isCreated: true, name: name}
+            createFile: {isCreated: true, name: path + name}
         });
     }
 
@@ -54,7 +32,7 @@ class CreatePage extends Component {
             <div className="test">
                 <SideNav content={this.links}/>
                 <PageConfig new={true} create={this} onAbort={this.props.onAbort}/>
-                {/*{this.state.createFile.isCreated ? <Editor onUpdate={this.updateContent}/> : ""}*/}
+                {this.state.createFile.isCreated ? <WikiPage file={this.state.createFile.name} readOnly={false} /> : ""}
             </div>
         );
     }

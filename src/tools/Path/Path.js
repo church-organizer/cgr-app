@@ -1,6 +1,5 @@
 import React from 'react';
-import {Paper, Breadcrumbs, Link, Typography, makeStyles} from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import {Paper, Breadcrumbs, Link, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -25,7 +24,7 @@ const Path = (props) => {
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
                 {props.path.map(dir => {
                     path += "/" + dir;
-                    return (<Button component={Link} classes={classes.link} color="primary" to={path} onClick={handleClick}>{dir}</Button>);
+                    return (<Link classes={classes.link} color="primary" to={path} onClick={handleClick}>{dir}</Link>);
                 })}
             </Breadcrumbs>
         );
