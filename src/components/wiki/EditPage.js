@@ -13,10 +13,18 @@ class EditPage extends Component {
             name: ''
         }
     };
+
+    /**
+     * todo links working correct
+     * todo login window
+     *
+     * @type {*[][]}
+     */
     links = [
         [
             <SideNavItem key={1} click="" text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem key={2} click="" text={"Abbrechen"} icon={<CancelIcon/>}/>
+            <SideNavItem key={2} click="" text={"Seite löschen"} icon={<SaveIcon/>}/>,
+            <SideNavItem key={3} click="" text={"Abbrechen"} icon={<CancelIcon/>}/>
         ]
     ];
 
