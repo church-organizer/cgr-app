@@ -4,7 +4,7 @@ import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import './Wiki.css'
-import CreatePage from "./CreatePage";
+import EditPage from "./EditPage";
 
 /**
  * Shows all of the Wiki Entries
@@ -41,7 +41,7 @@ class Wiki extends Component {
         return (
             <div className="base">
                 <SideNav content={this.links}/>
-                {this.state.showCreate ? <CreatePage onAbort={this.onAbortCreate}/> : <WikiPage file={"/"}/>}
+                {this.state.showCreate ? <EditPage onAbort={this.onAbortCreate}/> : <WikiPage file={"/"}/>}
             </div>
         );
     }

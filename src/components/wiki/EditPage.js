@@ -5,7 +5,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import WikiPage from "./WikiPage";
 
-class CreatePage extends Component {
+class EditPage extends Component {
     state = {
         content: 'content',
         createFile: {
@@ -38,4 +38,4 @@ class CreatePage extends Component {
     }
 }
 
-export default CreatePage;
+export default EditPage;
