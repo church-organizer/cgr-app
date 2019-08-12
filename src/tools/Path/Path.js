@@ -22,9 +22,9 @@ const Path = (props) => {
         let path = "";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
-                {props.path.map(dir => {
+                {props.path.map((dir, index) => {
                     path += "/" + dir;
-                    return (<Link classes={classes.link} color="primary" to={path} onClick={handleClick}>{dir}</Link>);
+                    return (<Link key={index} component={'a'} className={classes.link} color="primary" to={path} onClick={handleClick}>{dir}</Link>);
                 })}
             </Breadcrumbs>
         );

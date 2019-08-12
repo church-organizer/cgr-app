@@ -8,7 +8,7 @@ import {
     makeStyles,
     Typography,
 } from "@material-ui/core";
-import {Link} from "react-router-dom";
+import HomeIcon from '@material-ui/icons/Home';
 
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,8 @@ const useStyles = makeStyles(theme => ({
     item: {
         paddingLeft: 0,
         paddingRight: 0,
-        display: "inline-block"
+        display: "inline-block",
+        borderRadius: '2px'
     },
     button: {
         width: "100%",
@@ -32,11 +33,11 @@ const useStyles = makeStyles(theme => ({
 export const SideNavItem = (props) => {
     const classes = useStyles();
     return (
-        <ListItem key={props.text} button className={classes.item} onClick={props.onClick} >
-            <Link component="button" classes={classes.button}>
+        <ListItem key={props.text.replace(" ", "")} button className={classes.item} onClick={props.click} >
+            <div  className={classes.button}>
                 <ListItemIcon className="side-nav-entry">{props.icon}</ListItemIcon>
                 <Typography className="side-nav-entry">{props.text}</Typography>
-            </Link>
+            </div>
         </ListItem>
     );
 };
@@ -45,6 +46,7 @@ const SideNav = (props) => {
 
     const forSideNav = (links) => (
         <div>
+            <SideNavItem onClick={""} text={"Startseite"} icon={<HomeIcon/>}/>
             <Divider/>
             <List>
                 {links.map(item => item)}

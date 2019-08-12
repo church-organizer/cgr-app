@@ -42,7 +42,7 @@ const Editor = (props) => {
                               contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
                           },
                           image: {
-                              toolbar: ['imageTextAlternative', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight']
+                              toolbar: ['imageTextAlternative', 'imageStyle:full']
                           },
 
                       }}
