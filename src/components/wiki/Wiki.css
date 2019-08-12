@@ -16,5 +16,7 @@ a {
 }
 
 #editor-content .ck-editor .ck-editor__main .ck-content {
-    border: none;
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
 }

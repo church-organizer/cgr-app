@@ -31,8 +31,8 @@ class Wiki extends Component {
 
     links = [
         [
-            <SideNavItem key={1} onClick={this.onCreateButton} text={"Neue Seite"} icon={<AddIcon/>}/>,
-            <SideNavItem key={2} onClick={this.onEditHandler} text={"Seite bearbeiten"} icon={<EditIcon/>}/>
+            <SideNavItem key={1} click={this.onCreateButton} text={"Neue Seite"} icon={<AddIcon/>}/>,
+            <SideNavItem key={2} click={this.onEditHandler} text={"Seite bearbeiten"} icon={<EditIcon/>}/>
         ]
     ];
 
