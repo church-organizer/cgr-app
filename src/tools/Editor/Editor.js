@@ -13,9 +13,6 @@ const useStyles = makeStyles(theme => ({
         textAlign: "left",
         border: 'none'
     },
-    editor: {
-        minHeight: "600px"
-    }
 }));
 
 const Editor = (props) => {
@@ -34,8 +31,8 @@ const Editor = (props) => {
     ]: [];
 
     return (
-        <div className={classes.div}>
-            <CKEditor className={classes.editor} editor={ClassicEditor} data={props.content}
+        <div className={classes.div} id="editor-content">
+            <CKEditor editor={ClassicEditor} data={props.content}
                       config={{
                           toolbar: toolbar,
                           table: {

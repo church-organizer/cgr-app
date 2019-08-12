@@ -35,8 +35,8 @@ const Content = (props) => {
 
 
 class WikiPage extends Component {
-    pageContentInMD = '# Das ist die Startseite\n\nDiesen Text kann man bearbeiten';
-    pageContentInMD2 = `# Unterseite\n\nAuch hier kann man den Text ändern`;
+    pageContentInMD = '<h1>Das ist die Startseite</h1><br><br><p>Diesen Text kann man bearbeiten</p>';
+    pageContentInMD2 = `<h1> Unterseite</h1><br><br><p>Auch hier kann man den Text ändern</p>`;
 
     render() {
         const path = window.location.pathname.replace("/wiki", "");

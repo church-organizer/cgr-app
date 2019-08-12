@@ -14,3 +14,7 @@ a {
     left: 250px;
     display: block;
 }
+
+#editor-content .ck-editor .ck-editor__main .ck-content {
+    border: none;
+}
