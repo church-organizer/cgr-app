@@ -3,6 +3,7 @@ import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
 import PageConfig from "./PageConfig";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
+import DeleteIcon from '@material-ui/icons/Delete';
 import WikiPage from "./WikiPage";
 
 class EditPage extends Component {
@@ -22,9 +23,9 @@ class EditPage extends Component {
      */
     links = [
         [
-            <SideNavItem key={1} click="" text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem key={2} click="" text={"Seite löschen"} icon={<SaveIcon/>}/>,
-            <SideNavItem key={3} click="" text={"Abbrechen"} icon={<CancelIcon/>}/>
+            <SideNavItem key={1} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
+            <SideNavItem key={2} text={"Seite löschen"} icon={<DeleteIcon/>}/>,
+            <SideNavItem key={3} text={"Abbrechen"} icon={<CancelIcon/>}/>
         ]
     ];
 
