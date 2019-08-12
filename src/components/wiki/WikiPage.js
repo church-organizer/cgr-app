@@ -25,7 +25,7 @@ const Content = (props) => {
     const classes = useStyles();
     return (
         <Paper className={classes.paper}>
-            <Typography color={"inherit"} variant={"h5"} className={classes.paperHeader}>DateiName</Typography>
+            <Typography color={"inherit"} variant={"h5"} className={classes.paperHeader}>{props.title.replace('-', ' ')}</Typography>
             <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet
                 von {"Max Mustermann"} am: {"12.12.12"}</Typography>
             <Editor content={props.content} readOnly={props.readOnly}/>
@@ -43,8 +43,8 @@ class WikiPage extends Component {
         if (path === "" || path === "/") {
             return (
                 <div id="page-content">
-                    <Path path={['home']}/>
-                    <Content content={this.pageContentInMD} readOnly={this.props.readOnly}/>
+                    <Path path={[]}/>
+                    <Content title={'Startseite'} content={this.pageContentInMD} readOnly={this.props.readOnly}/>
                 </div>
             );
         }
@@ -54,7 +54,7 @@ class WikiPage extends Component {
         return (
             <div id="page-content">
                 <Path path={dir}/>
-                <Content content={'# hi ' + filename} readOnly={this.props.readOnly}/>
+                <Content title={filename} content={'# hi ' + filename} readOnly={this.props.readOnly}/>
             </div>
         );
 
