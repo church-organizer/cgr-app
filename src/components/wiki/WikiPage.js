@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ReactMarkdown from "react-markdown";
 import {makeStyles, Typography, Paper, Divider} from "@material-ui/core";
 import Path from "../../tools/Path/Path";
+import Editor from "../../tools/Editor/Editor";
 
 
 const useStyles = makeStyles(theme => ({
@@ -18,7 +19,7 @@ const useStyles = makeStyles(theme => ({
         display: "inline-block",
         marginRight: "10px"
     },
-    paperHeader: {}
+    paperHeader: {},
 }));
 
 const Content = (props) => {
@@ -28,8 +29,7 @@ const Content = (props) => {
             <Typography color={"inherit"} variant={"h5"} className={classes.paperHeader}>DateiName</Typography>
             <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet
                 von {"Max Mustermann"} am: {"12.12.12"}</Typography>
-            <Divider/>
-            <ReactMarkdown source={props.content}/>
+            <Editor content={props.content}/>
         </Paper>
     );
 };
@@ -37,7 +37,7 @@ const Content = (props) => {
 
 class WikiPage extends Component {
     pageContentInMD = '# Das ist die Startseite\n\nDiesen Text kann man bearbeiten';
-    pageContentInMD2 = '# Unterseite\n\nAuch hier kann man den Text ändern';
+    pageContentInMD2 = `# Unterseite\n\nAuch hier kann man den Text ändern`;
 
     render() {
         const path = window.location.pathname.replace("/wiki", "");

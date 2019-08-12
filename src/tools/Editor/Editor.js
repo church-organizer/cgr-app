@@ -6,11 +6,12 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     div: {
-        paddingLeft: "250px",
-        paddingRight: "250px",
+        // paddingLeft: "250px",
+        // paddingRight: "250px",
         minWidth: "500px",
         maxWidth: "1500px",
-        textAlign: "left"
+        textAlign: "left",
+        border: 'none'
     },
     editor: {
         minHeight: "600px"
@@ -20,19 +21,33 @@ const useStyles = makeStyles(theme => ({
 const Editor = (props) => {
     const classes = useStyles();
     // man kann den editor bearbeiten ich weiß nur noch nicht wie
-    // const toolbar = ['bold', 'italic', "BlockQuote", "CKFinder", "EasyImage", "Heading", "Heading", "Image"];
-    // ClassicEditor.create(document.querySelector('#editor'), {
-    //     toolbar: toolbar
-    // })
-    //     .catch(error => {
-    //         console.error(error);
-    //         return <p>eroor</p>;
-    //     });
+    let readOnly = false;
+    if (props.readOnly === undefined || props.readOnly) {
+        readOnly = true;
+    }
+    const toolbar = !readOnly ? [
+        "Heading", '|', 'bold', 'italic', '|',
+        'bulletedList', 'numberedList',
+        "BlockQuote", "insertTable", '|',
+        "Link", "CKFinder", 'imageUpload', '|',
+        'undo', 'redo',
+    ]: [];
 
     return (
         <div className={classes.div}>
-            <CKEditor className={classes.editor} editor={ClassicEditor}
+            <CKEditor className={classes.editor} editor={ClassicEditor} data={props.content}
+                      config={{
+                          toolbar: toolbar,
+                          table: {
+                              contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
+                          },
+                          image: {
+                              toolbar: ['imageTextAlternative', 'imageStyle:alignLeft', 'imageStyle:full', 'imageStyle:alignRight']
+                          },
+
+                      }}
                       onInit={editor => {
+                          editor.isReadOnly = readOnly;
                           // You can store the "editor" and use when it is needed.
                           console.log('Editor is ready to use!', editor);
                       }}
@@ -46,7 +61,6 @@ const Editor = (props) => {
                       onFocus={editor => {
                           console.log('Focus.', editor);
                       }}/>
-            {/*<CKEditor  activeClass="editor" content={""} onChange={props.onUpdate} />*/}
         </div>
     );
 };
