@@ -17,7 +17,8 @@
     "react-draggable": "^3.3.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "1.1.5",
-    "simplemde": "^1.11.2"
+    "simplemde": "^1.11.2",
+    "@material-ui/system": "latest"
   },
   "scripts": {
     "start": "react-scripts start",

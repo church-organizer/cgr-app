@@ -6,6 +6,7 @@ import Rating from "./components/rating/Rating";
 import Media from "./components/media/Media";
 import Start from "./components/start/Start"
 import TopNav from "./tools/TopNav/TopNav";
+import Login from "./tools/Login/Login";
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
                         <Route exact path="/media" component={Media}/>
                         <Route path="/wiki/:name" component={Wiki}/>
                     </div>
+                    <Login/>
                     {/*<SnackbarProvider maxSnack={3}>*/}
                     {/*    <CreatePopup/>*/}
                     {/*</SnackbarProvider>*/}
