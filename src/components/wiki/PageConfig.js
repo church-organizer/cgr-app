@@ -59,7 +59,7 @@ const PageConfig = (props) => {
             <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title"
                     PaperComponent={PaperComponent}>
                 <DialogTitle id="form-dialog-title" style={{cursor: 'move'}}>Daten</DialogTitle>
-                <FormControl>
+                <FormControl component={"form"} target={finishedName}>
                     <DialogContent>
                         <DialogContentText>
                             {props.new ? "Bitte gib zuerst die Daten für deine Seite an." :
@@ -83,11 +83,9 @@ const PageConfig = (props) => {
                         <Button onClick={handleAbort} color="primary">
                             Abbruch
                         </Button>
-                        <Link to={finishedName}>
-                            <Button onClick={handleConfirm} color="primary">
+                            <Button type={"submit"} onClick={handleConfirm} color="primary">
                                 {props.new ? "Erstelle die Seite" : "Speichern"}
                             </Button>
-                        </Link>
                     </DialogActions>
                 </FormControl>
             </Dialog>
