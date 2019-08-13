@@ -43,6 +43,10 @@ const Content = (props) => {
 
 
 class WikiPage extends Component {
+    filename;
+    content;
+    dir = [];
+    path;
 
     constructor(props) {
         super(props);
@@ -55,7 +59,17 @@ class WikiPage extends Component {
                 isReadOnly: !(this.props.readOnly === false)
             }
         };
-        console.log(this.props.readOnly === false);
+
+        this.path = this.props.pathname.replace("/wiki", "");
+        if (this.path === "" || this.path === "/") {
+            this.filename = "Startseite";
+            this.content = this.pageContentInMD;
+        } else {
+            this.dir = this.path.split("/");
+            this.dir.shift();
+            this.filename = this.dir[this.dir.length - 1];
+            this.content = this.pageContentInMD2;
+        }
     }
 
     pageContentInMD = '<h1>Das ist die Startseite</h1><br><br><p>Diesen Text kann man bearbeiten</p>';
@@ -70,11 +84,20 @@ class WikiPage extends Component {
     };
 
     onSaveHandler = () => {
-
+        //todo save file here
+        this.setState({
+            readOnly: {
+                isReadOnly: true
+            }
+        });
     };
 
     onEditAbort = () => {
-
+        this.setState({
+            readOnly: {
+                isReadOnly: true
+            }
+        });
     };
 
     onDeleteHandler = () => {
@@ -107,28 +130,17 @@ class WikiPage extends Component {
 
     render() {
         const path = this.props.pathname.replace("/wiki", "");
-        let filename, content;
-        let dir = [];
-        if (path === "" || path === "/") {
-            filename = "Startseite";
-            content = this.pageContentInMD;
-        } else {
-            dir = path.split("/");
-            dir.shift();
-            filename = dir[dir.length - 1];
-            content = this.pageContentInMD2;
-        }
 
         return (
             <div id="page-content">
                 <SideNav
                     content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
                 />
-                <Path path={dir}/>
-                <Content title={filename} content={content} readOnly={this.state.readOnly.isReadOnly}/>
+                <Path path={this.dir}/>
+                <Content title={this.filename} content={this.content} readOnly={this.state.readOnly.isReadOnly}/>
                 {this.state.config.show ?
-                    <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={""}
-                                path={""}/> : ""}
+                    <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={this.filename}
+                                path={this.path}/> : ""}
             </div>
         );
 

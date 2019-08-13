@@ -19,8 +19,8 @@ import FormControl from "@material-ui/core/FormControl";
  */
 const PageConfig = (props) => {
     const [open, setOpen,] = React.useState(true);
-    const [name, setName,] = React.useState('');
-    const [path, setPath,] = React.useState('');
+    const [name, setName,] = React.useState(props.name ? props.name : "");
+    const [path, setPath,] = React.useState(props.path ? props.path : "");
 
 
 
