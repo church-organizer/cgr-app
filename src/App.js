@@ -26,7 +26,7 @@ class App extends Component {
                     <Route exact path="/register" component={Register}/>
                     {!this.state.login.isLoggedIn ? <Login onLogin={this}/> : (
                             <div className="content">
-                                <TopNav/>
+                                <TopNav username={this.state.login.username}/>
                                 <Route exact path="/" component={Start}/>
                                 <Route exact path="/wiki" component={Wiki}/>
                                 <Route exact path="/rating" component={Rating}/>

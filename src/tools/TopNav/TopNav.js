@@ -1,6 +1,10 @@
 import React from 'react';
 import {AppBar, Button, Toolbar, Typography, makeStyles, InputBase} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
+import FaceIcon from '@material-ui/icons/Face';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,6 +40,15 @@ const useStyles = makeStyles(theme => ({
         padding: "8px",
         margin: "4px",
         color: "#eee"
+    },
+    login: {
+        height: "50px",
+        borderRadius: "20px",
+        minWidth: "110px",
+        padding: "10px"
+    },
+    avatar: {
+        margin: "7px"
     }
 }));
 
@@ -71,9 +84,20 @@ const TopNav = (props) => {
                     }}
                     inputProps={{'aria-label': 'search'}}
                 />
+                <Chip
+                    avatar={
+                        <Avatar className={classes.avatar}>
+                            <FaceIcon />
+                        </Avatar>
+                    }
+                    label={"Hi " + props.username}
+                    className={classes.login}
+                />
 
 
-                <Button variant={"contained"} className={classes.loginButton}>Login</Button>
+
+
+                {/*<Button variant={"contained"} className={classes.loginButton}>Login</Button>*/}
             </Toolbar>
         </AppBar>
     );

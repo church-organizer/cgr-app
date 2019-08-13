@@ -22,19 +22,19 @@ const Editor = (props) => {
     if (props.readOnly === undefined || props.readOnly) {
         readOnly = true;
     }
-    const toolbar = !readOnly ? [
+    const toolbar = [
         "Heading", '|', 'bold', 'italic', '|',
         'bulletedList', 'numberedList',
         "BlockQuote", "insertTable", '|',
         "Link", "CKFinder", 'imageUpload', '|',
         'undo', 'redo',
-    ]: [];
+    ];
 
     return (
         <div className={classes.div} id={readOnly ? "editor-content" : "editor-content-readOnly"}>
             <CKEditor editor={ClassicEditor} data={props.content}
                       config={{
-                          toolbar: toolbar,
+                          toolbar: readOnly ? [] : toolbar,
                           table: {
                               contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
                           },
