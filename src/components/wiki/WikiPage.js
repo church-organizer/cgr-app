@@ -107,31 +107,25 @@ class WikiPage extends Component {
 
     render() {
         const path = this.props.pathname.replace("/wiki", "");
+        let filename, content;
+        let dir = [];
         if (path === "" || path === "/") {
-            return (
-                <div id="page-content">
-                    <SideNav
-                        content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
-                    />
-                    <Path path={[]}/>
-                    <Content title={'Startseite'} content={this.pageContentInMD}
-                             readOnly={this.state.readOnly.isReadOnly}/>
-                    {this.state.config.show ?
-                        <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={""}
-                                    path={""}/> : ""}
-                </div>
-            );
+            filename = "Startseite";
+            content = this.pageContentInMD;
+        } else {
+            dir = path.split("/");
+            dir.shift();
+            filename = dir[dir.length - 1];
+            content = this.pageContentInMD2;
         }
-        const dir = path.split("/");
-        dir.shift();
-        const filename = dir[dir.length - 1];
+
         return (
             <div id="page-content">
                 <SideNav
                     content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
                 />
                 <Path path={dir}/>
-                <Content title={filename} content={'# hi ' + filename} readOnly={this.state.readOnly.isReadOnly}/>
+                <Content title={filename} content={content} readOnly={this.state.readOnly.isReadOnly}/>
                 {this.state.config.show ?
                     <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={""}
                                 path={""}/> : ""}
