@@ -43,25 +43,37 @@ const Content = (props) => {
 
 
 class WikiPage extends Component {
-    state = {
-        config: {
-            show: false,
-            type: ''
-        }
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            config: {
+                show: false,
+                type: ''
+            },
+            readOnly: {
+                isReadOnly: !(this.props.readOnly === false)
+            }
+        };
+        console.log(this.props.readOnly === false);
+    }
+
     pageContentInMD = '<h1>Das ist die Startseite</h1><br><br><p>Diesen Text kann man bearbeiten</p>';
     pageContentInMD2 = `<h1> Unterseite</h1><br><br><p>Auch hier kann man den Text ändern</p>`;
 
     onCreateHandler = () => {
-        console.log('create');
         this.setState({config: {show: true, type: 'create'}});
     };
 
     onEditHandler = () => {
-
+        this.setState({config: {show: true, type: 'edit'}});
     };
 
     onSaveHandler = () => {
+
+    };
+
+    onEditAbort = () => {
 
     };
 
@@ -69,33 +81,44 @@ class WikiPage extends Component {
 
     };
 
+    onConfigAbort = () => {
+        this.setState({
+            config: {
+                show: false,
+                type: ''
+            }
+        });
+    };
+
 
     editLinks = [
         [
             <SideNavItem key={1} click={this.onSaveHandler} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem key={2} click={this.onDeleteHandler} text={"Abbrechen"} icon={<CancelIcon/>}/>
+            <SideNavItem key={2} click={this.onEditAbort()} text={"Abbrechen"} icon={<CancelIcon/>}/>
         ]
     ];
     showLinks = [
         [
             <SideNavItem key={1} click={this.onCreateHandler} text={"Neue Seite"} icon={<AddIcon/>}/>,
             <SideNavItem key={2} click={this.onEditHandler} text={"Seite bearbeiten"} icon={<EditIcon/>}/>,
-            <SideNavItem key={3} text={"Seite löschen"} icon={<DeleteIcon/>}/>
+            <SideNavItem key={3} click={this.onDeleteHandler} text={"Seite löschen"} icon={<DeleteIcon/>}/>
         ]
     ];
 
     render() {
-        console.log(this.state.config.show);
-        const path = window.location.pathname.replace("/wiki", "");
+        const path = this.props.pathname.replace("/wiki", "");
         if (path === "" || path === "/") {
             return (
                 <div id="page-content">
                     <SideNav
-                        content={this.props.readOnly || this.props.readOnly === undefined ? this.showLinks : this.editLinks}
+                        content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
                     />
                     <Path path={[]}/>
-                    <Content title={'Startseite'} content={this.pageContentInMD} readOnly={this.props.readOnly}/>
-                    {this.state.config.show ? <PageConfig new={this.state.type === 'create'} name={""} path={""}/> : ""}
+                    <Content title={'Startseite'} content={this.pageContentInMD}
+                             readOnly={this.state.readOnly.isReadOnly}/>
+                    {this.state.config.show ?
+                        <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={""}
+                                    path={""}/> : ""}
                 </div>
             );
         }
@@ -105,11 +128,13 @@ class WikiPage extends Component {
         return (
             <div id="page-content">
                 <SideNav
-                    content={this.props.readOnly || this.props.readOnly === undefined ? this.showLinks : this.editLinks}
+                    content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
                 />
                 <Path path={dir}/>
-                <Content title={filename} content={'# hi ' + filename} readOnly={this.props.readOnly}/>
-                {this.state.config.show ? <PageConfig new={this.state.type === 'create'} name={""} path={""}/> : ""}
+                <Content title={filename} content={'# hi ' + filename} readOnly={this.state.readOnly.isReadOnly}/>
+                {this.state.config.show ?
+                    <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={""}
+                                path={""}/> : ""}
             </div>
         );
 

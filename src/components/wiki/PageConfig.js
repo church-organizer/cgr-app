@@ -34,8 +34,9 @@ const PageConfig = (props) => {
 
     function handleAbort() {
         setOpen(false);
+        props.onAbort();
     }
-
+    console.log(props);
     return (
         <div>
             <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title">
@@ -57,7 +58,7 @@ const PageConfig = (props) => {
                             placeholder="/home/andererOrdner"
                             variant={"outlined"} onChange={onChangeInputHandler}
                             required={true} value={path}
-                            helperText={"Hier der andere Text"}
+                            helperText={"Mit einem '/' kannst du Unterordner erstellen"}
                         />
                     </DialogContent>
                     <DialogActions>
@@ -65,7 +66,7 @@ const PageConfig = (props) => {
                             Abbruch
                         </Button>
                         <Button color="primary" type={"submit"}>
-                            <Link to={'/wiki/' + path + '/' + name}>
+                            <Link to={{pathname: '/wiki/' + path + '/' + name, readOnly: false}}>
                                 {props.new ? "Erstelle die Seite" : "Speichern"}
                             </Link>
                         </Button>
