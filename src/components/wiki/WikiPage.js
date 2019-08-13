@@ -39,6 +39,9 @@ class WikiPage extends Component {
     pageContentInMD2 = `<h1> Unterseite</h1><br><br><p>Auch hier kann man den Text ändern</p>`;
 
     render() {
+
+        console.log('wikipage');
+        console.log(this.props);
         const path = window.location.pathname.replace("/wiki", "");
         if (path === "" || path === "/") {
             return (

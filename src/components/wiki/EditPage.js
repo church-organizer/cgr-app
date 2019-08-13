@@ -37,11 +37,13 @@ class EditPage extends Component {
 
 
     render() {
+        console.log('edit');
+        console.log(this.props);
         return (
             <div className="test">
                 <SideNav content={this.links}/>
-                <PageConfig new={true} create={this} onAbort={this.props.onAbort}/>
-                {this.state.createFile.isCreated ? <WikiPage file={this.state.createFile.name} readOnly={false} /> : ""}
+                <PageConfig new={true} onAbort={this.props.onAbort}/>
+                {/*{this.state.createFile.isCreated ? <WikiPage file={this.state.createFile.name} readOnly={false} /> : ""}*/}
             </div>
         );
     }

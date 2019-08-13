@@ -12,7 +12,7 @@ import Register from "./tools/Login/Register";
 
 class App extends Component {
     state = {
-        login: {isLoggedIn: false, username: ''}
+        login: {isLoggedIn: true, username: 'Dieter'}
     };
 
     // onLogIn = (name) => {

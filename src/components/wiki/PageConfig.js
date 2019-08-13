@@ -10,10 +10,11 @@ import {
     Paper
 } from "@material-ui/core";
 import Draggable from 'react-draggable'
-import Link from "@material-ui/core/Link";
+import {Link} from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Divider from "@material-ui/core/Divider";
+import Card from "@material-ui/core/Card";
 
 /**
  * Shows the Config of a Page
@@ -23,23 +24,18 @@ import Divider from "@material-ui/core/Divider";
  */
 const PageConfig = (props) => {
     const [open, setOpen,] = React.useState(true);
-    const [finishedName, setName,] = React.useState('/wiki');
-    let name = '';
-    let path = '';
+    const [name, setName,] = React.useState('');
+    const [path, setPath,] = React.useState('');
 
-    function PaperComponent(props) {
-        return (
-            <Draggable cancel={'[class*="MuiDialogContent-root"]'}>
-                <Paper {...props} />
-            </Draggable>
-        );
-    }
+    // const [input, setInput,] = React.useState({name: '', path: ''});
 
-    const onChangeNameHandler = (event) => {
-        name = event.target.value
-    };
-    const onChangePathHandler = (event) => {
-        path = event.target.value
+
+    const onChangeInputHandler = (event) => {
+        if (event.target.id === 'title') {
+            setName(event.target.value);
+        } else if (event.target.id === 'path') {
+            setPath(event.target.value);
+        }
     };
 
     function handleAbort() {
@@ -47,19 +43,16 @@ const PageConfig = (props) => {
         props.onAbort();
     }
 
-    function handleConfirm(evt) {
-        setOpen(false);
-        setName(path + name);
-        console.log(finishedName);
-        props.create.createPage(name, path)
-    }
+    // function handleConfirm(evt) {
+    //     setOpen(false);
+    //     console.log('/wiki/' + path + '/' + name);
+    // }
 
     return (
         <div>
-            <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title"
-                    PaperComponent={PaperComponent}>
-                <DialogTitle id="form-dialog-title" style={{cursor: 'move'}}>Daten</DialogTitle>
-                <FormControl component={"form"} target={finishedName}>
+            <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Daten</DialogTitle>
+                <FormControl component={"form"}>
                     <DialogContent>
                         <DialogContentText>
                             {props.new ? "Bitte gib zuerst die Daten für deine Seite an." :
@@ -67,15 +60,15 @@ const PageConfig = (props) => {
                         </DialogContentText>
                         <TextField
                             autoFocus margin="dense" id="title" label="Seitenname" type="text" fullWidth
-                            variant={"outlined"} onChange={onChangeNameHandler}
-                            required={true}
+                            variant={"outlined"} onChange={onChangeInputHandler}
+                            required={true} value={name}
                             helperText={"Für den Namen keine Bindestriche nutzen"}
                         />
                         <TextField
                             margin="dense" id="path" label="Pfad" type="path" fullWidth
                             placeholder="/home/andererOrdner"
-                            variant={"outlined"} onChange={onChangePathHandler}
-                            required={true}
+                            variant={"outlined"} onChange={onChangeInputHandler}
+                            required={true} value={path}
                             helperText={"Hier der andere Text"}
                         />
                     </DialogContent>
@@ -83,9 +76,11 @@ const PageConfig = (props) => {
                         <Button onClick={handleAbort} color="primary">
                             Abbruch
                         </Button>
-                            <Button type={"submit"} onClick={handleConfirm} color="primary">
+                        <Button color="primary" type={"submit"}>
+                            <Link to={'/wiki/' + path + '/' + name}>
                                 {props.new ? "Erstelle die Seite" : "Speichern"}
-                            </Button>
+                            </Link>
+                        </Button>
                     </DialogActions>
                 </FormControl>
             </Dialog>

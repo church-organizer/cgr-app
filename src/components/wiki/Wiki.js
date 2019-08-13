@@ -38,10 +38,13 @@ class Wiki extends Component {
 
 
     render() {
+        console.log('wiki');
+        console.log(this.props.location);
         return (
             <div className="base">
                 <SideNav content={this.links}/>
-                {this.state.showCreate ? <EditPage onAbort={this.onAbortCreate}/> : <WikiPage file={"/"}/>}
+                {this.state.showCreate ? <EditPage onAbort={this.onAbortCreate} /> :
+                    <WikiPage file={"/"}/>}
             </div>
         );
     }
