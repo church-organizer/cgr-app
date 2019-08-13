@@ -7,14 +7,9 @@ import {
     DialogContentText,
     TextField,
     DialogActions,
-    Paper
 } from "@material-ui/core";
-import Draggable from 'react-draggable'
 import {Link} from "react-router-dom";
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
-import Divider from "@material-ui/core/Divider";
-import Card from "@material-ui/core/Card";
 
 /**
  * Shows the Config of a Page
@@ -42,11 +37,6 @@ const PageConfig = (props) => {
         setOpen(false);
         props.onAbort();
     }
-
-    // function handleConfirm(evt) {
-    //     setOpen(false);
-    //     console.log('/wiki/' + path + '/' + name);
-    // }
 
     return (
         <div>

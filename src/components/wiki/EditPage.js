@@ -4,7 +4,6 @@ import PageConfig from "./PageConfig";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
-import WikiPage from "./WikiPage";
 
 class EditPage extends Component {
     state = {
@@ -29,13 +28,6 @@ class EditPage extends Component {
         ]
     ];
 
-    createPage(name, path) {
-        this.setState({
-            createFile: {isCreated: true, name: path + name}
-        });
-    }
-
-
     render() {
         console.log('edit');
         console.log(this.props);
@@ -43,7 +35,6 @@ class EditPage extends Component {
             <div className="test">
                 <SideNav content={this.links}/>
                 <PageConfig new={true} onAbort={this.props.onAbort}/>
-                {/*{this.state.createFile.isCreated ? <WikiPage file={this.state.createFile.name} readOnly={false} /> : ""}*/}
             </div>
         );
     }
