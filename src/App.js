@@ -7,6 +7,7 @@ import Media from "./components/media/Media";
 import Start from "./components/start/Start"
 import TopNav from "./tools/TopNav/TopNav";
 import Login from "./tools/Login/Login";
+import Register from "./tools/Login/Register";
 
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
         return (
             <Router>
                 <div className="App">
+                    <Route exact path="/register" component={Register}/>
                     {!this.state.login.isLoggedIn ? <Login onLogin={this}/> : (
                             <div className="content">
                                 <TopNav/>
@@ -30,9 +32,9 @@ class App extends Component {
                                 <Route exact path="/rating" component={Rating}/>
                                 <Route exact path="/media" component={Media}/>
                                 <Route path="/wiki/:name" component={Wiki}/>
-                                <Route exact path="/register" component={""}/>
                             </div>)
                     }
+
 
 
                     {/*<SnackbarProvider maxSnack={3}>*/}

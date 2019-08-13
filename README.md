@@ -1,6 +1,6 @@
 # Todos
 
-- [ ] Login Maske
+- [x] Login Maske
 - [ ] Alle Link zeigen auf Componenten
 - [ ] bessere Möglichkeit Sidebar Links zu erstellen
 - [ ] Startseite
@@ -14,3 +14,9 @@
 - [ ] Medien
   - Oberfläche
 - [ ] Popups(Snackbars)
+
+# Installation
+alle Dependencies installieren
+``npm install``
+# Starten
+``npm start``
