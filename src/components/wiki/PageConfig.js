@@ -22,7 +22,6 @@ const PageConfig = (props) => {
     const [name, setName,] = React.useState('');
     const [path, setPath,] = React.useState('');
 
-    // const [input, setInput,] = React.useState({name: '', path: ''});
 
 
     const onChangeInputHandler = (event) => {
@@ -35,7 +34,6 @@ const PageConfig = (props) => {
 
     function handleAbort() {
         setOpen(false);
-        props.onAbort();
     }
 
     return (
