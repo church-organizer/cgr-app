@@ -31,7 +31,7 @@ const Editor = (props) => {
     ]: [];
 
     return (
-        <div className={classes.div} id="editor-content">
+        <div className={classes.div} id={readOnly ? "editor-content" : "editor-content-readOnly"}>
             <CKEditor editor={ClassicEditor} data={props.content}
                       config={{
                           toolbar: toolbar,

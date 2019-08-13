@@ -19,8 +19,8 @@ import FormControl from "@material-ui/core/FormControl";
  */
 const PageConfig = (props) => {
     const [open, setOpen,] = React.useState(true);
-    const [name, setName,] = React.useState(props.name ? props.name : "");
-    const [path, setPath,] = React.useState(props.path ? props.path : "");
+    const [name, setName,] = React.useState(props.name && !props.new ? props.name : "");
+    const [path, setPath,] = React.useState(props.path && !props.new ? props.path : "");
 
 
 
@@ -36,7 +36,6 @@ const PageConfig = (props) => {
         setOpen(false);
         props.onAbort();
     }
-    console.log(props);
     return (
         <div>
             <Dialog open={open} onClose={handleAbort} aria-labelledby="form-dialog-title">
