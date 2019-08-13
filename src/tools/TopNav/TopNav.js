@@ -46,7 +46,7 @@ const TopNav = (props) => {
         <AppBar className={classes.appBar}>
             <Toolbar>
                 <Typography className={classes.navButton} variant="h5">
-                    <Link to="/"><Button color={"primary"} variant={"contained"} size={"large"}>Organizer</Button></Link>
+                    <Link id={"homeButton"} to="/"><Button color={"primary"} variant={"contained"} size={"large"}>Organizer</Button></Link>
                 </Typography>
                 <Typography className={classes.navButton} variant="h6">
                     <Link to="/wiki" ><Button color={"inherit"} variant={"contained"}>Wiki</Button></Link>
