@@ -46,6 +46,13 @@ const TabPanel = (props) => {
 };
 
 
+/**
+ * Mask for Login
+ * no params required
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 const Login = (props) => {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);

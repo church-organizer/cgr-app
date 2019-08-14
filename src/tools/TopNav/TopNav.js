@@ -76,6 +76,13 @@ const linkNames = () => {
         <Link to={"/media"}>Medien</Link>]
 };
 
+/**
+ * The TopNav
+ * username is required
+ * @param props[username]
+ * @returns {*}
+ * @constructor
+ */
 const TopNav = (props) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);

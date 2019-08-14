@@ -43,13 +43,20 @@ const Content = (props) => {
     );
 };
 
-
+/**
+ * WikiPage, shows the Content of a Wikipage
+ *
+ */
 class WikiPage extends Component {
     filename;
     content;
     dir = [];
     path;
 
+    /**
+     * readOnly is optional
+     * @param props [readOnly, pathname]
+     */
     constructor(props) {
         super(props);
         this.state = {

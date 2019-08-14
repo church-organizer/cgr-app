@@ -13,7 +13,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const initWidth = 200;
-const closedWidth = 60;
 
 const useStyles = makeStyles(theme => ({
     drawerPaper: {
@@ -69,6 +68,14 @@ const useStyles = makeStyles(theme => ({
         width: theme.spacing(7)
     },
 }));
+/**
+ * The Item component for the Sidebar
+ * all params are required
+ * needs an icon, a text and a click method
+ * @param props
+ * @returns {*}
+ * @constructor
+ */
 export const SideNavItem = (props) => {
     const classes = useStyles();
     return (
