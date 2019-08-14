@@ -9,13 +9,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import PageConfig from "./PageConfig";
+import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 
 const useStyles = makeStyles(theme => ({
     paper: {
         maxWidth: "1200px",
-        minWidth: "700px",
-        width: "60%",
+        minWidth: "500px",
+        width: "70%",
         border: "1px",
         padding: "20px",
         textAlign: "left",
@@ -29,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Content = (props) => {
+    const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     return (
         <Paper className={classes.paper}>
@@ -129,7 +131,8 @@ class WikiPage extends Component {
     ];
 
     render() {
-        const path = this.props.pathname.replace("/wiki", "");
+        // const path = this.props.pathname.replace("/wiki", "");
+
 
         return (
             <div id="page-content">

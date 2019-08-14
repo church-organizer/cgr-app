@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Divider,
     Drawer,
@@ -13,9 +13,11 @@ import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
+const initWidth = 200;
+
 const useStyles = makeStyles(theme => ({
     drawerPaper: {
-        width: "200px",
+        width: initWidth,
         paddingLeft: "10px",
         paddingRight: "10px",
     },
@@ -23,7 +25,7 @@ const useStyles = makeStyles(theme => ({
     item: {
         paddingLeft: 0,
         paddingRight: 0,
-        display: "inline-block",
+        display: "block",
         borderRadius: '2px'
     },
     button: {
@@ -31,12 +33,12 @@ const useStyles = makeStyles(theme => ({
         height: "100%"
     },
     drawer: {
-        width: "200px",
+        width: initWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
     },
     drawerOpen: {
-        width: "200px",
+        width: initWidth,
         top: "66px",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -86,8 +88,9 @@ const SideNav = (props) => {
     );
 
 
+    console.log(props.content);
+
     const classes = useStyles();
-    console.log(matches);
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {

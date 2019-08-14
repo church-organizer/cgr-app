@@ -12,7 +12,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
-
 const useStyles = makeStyles(theme => ({
     appBar: {
         position: "static",
@@ -72,12 +71,12 @@ const ITEM_HEIGHT = 100;
 const menuItems = () => {
     return (
         [
-                <Link to="/wiki"><Button color={"inherit"}
-                                         variant={"contained"}>Wiki</Button></Link>,
-                <Link to="/rating"><Button color={"inherit"}
-                                           variant={"contained"}>Bewerten</Button></Link>,
-                <Link to="/media"><Button color={"inherit"}
-                                          variant={"contained"}>Medien</Button></Link>
+            <Link to="/wiki"><Button color={"inherit"}
+                                     variant={"contained"}>Wiki</Button></Link>,
+            <Link to="/rating"><Button color={"inherit"}
+                                       variant={"contained"}>Bewerten</Button></Link>,
+            <Link to="/media"><Button color={"inherit"}
+                                      variant={"contained"}>Medien</Button></Link>
         ]
     );
 };
@@ -111,11 +110,10 @@ const TopNav = (props) => {
                             aria-label="more"
                             aria-controls="long-menu"
                             aria-haspopup="true"
-                            onClick={handleClick}
-                        >
+                            onClick={handleClick}>
                             <MoreVertIcon/>
                         </IconButton> : menuItems().map((item, index) => (
-                            <Typography className={classes.navButton} variant="h6">
+                            <Typography key={index} className={classes.navButton} variant="h6">
                                 {item}
                             </Typography>
                         ))}
@@ -130,7 +128,7 @@ const TopNav = (props) => {
                             {menuItems().map((item, index) => (
                                 <MenuItem key={index}>
                                     <Typography className={classes.navButton} variant="h6">
-                                    {item}
+                                        {item}
                                     </Typography>
                                 </MenuItem>
                             ))}
