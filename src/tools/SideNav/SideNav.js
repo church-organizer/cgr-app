@@ -16,7 +16,7 @@ import {Link} from "react-router-dom";
 const useStyles = makeStyles(theme => ({
     drawerPaper: {
         width: "200px",
-        top: "64px",
+        top: "66px",
         paddingLeft: "10px",
         paddingRight: "10px",
     },
