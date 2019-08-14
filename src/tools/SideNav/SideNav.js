@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
         width: initWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
+        overflowY: "scroll"
     },
     icon: {
         display: "inline",

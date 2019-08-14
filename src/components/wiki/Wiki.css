@@ -6,16 +6,16 @@ a {
 #page-content {
     position: relative;
     top: 10px;
-    left: 100px;
+    left: 60px;
+    margin-right: 210px;
     display: block;
+    overflow: auto;
 }
 
 @media only screen and (min-width: 1100px) {
     #page-content {
-        position: relative;
-        top: 10px;
-        left: 250px;
-        display: block;
+        left: 210px;
+        margin-right: 270px;
     }
 }
 

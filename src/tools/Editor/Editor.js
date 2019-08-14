@@ -8,8 +8,8 @@ const useStyles = makeStyles(theme => ({
     div: {
         // paddingLeft: "250px",
         // paddingRight: "250px",
-        minWidth: "500px",
-        maxWidth: "1500px",
+        // minWidth: "500px",
+        // maxWidth: "1500px",
         textAlign: "left",
         border: 'none'
     },
