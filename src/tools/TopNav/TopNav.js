@@ -16,7 +16,8 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 const useStyles = makeStyles(theme => ({
     appBar: {
         position: "static",
-        minHeight: "60px"
+        minHeight: "60px",
+        minWidth: "500px"
     },
     toolbar: theme.mixins.toolbar,
     typography: {
@@ -30,7 +31,6 @@ const useStyles = makeStyles(theme => ({
         color: 'inherit',
         width: "100%"
     },
-    homeButton: {},
     inputInput: {
         position: "relative",
         padding: theme.spacing(1, 1, 1, 1),

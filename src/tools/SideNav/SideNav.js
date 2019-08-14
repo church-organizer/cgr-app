@@ -4,19 +4,18 @@ import {
     Drawer,
     List,
     ListItem,
-    ListItemIcon,
+    ListItemIcon, ListItemText,
     makeStyles,
     Typography,
 } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
-import Start from "../../components/start/Start";
-import {Link} from "react-router-dom";
+import clsx from 'clsx';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const useStyles = makeStyles(theme => ({
     drawerPaper: {
         width: "200px",
-        top: "66px",
         paddingLeft: "10px",
         paddingRight: "10px",
     },
@@ -30,7 +29,29 @@ const useStyles = makeStyles(theme => ({
     button: {
         width: "100%",
         height: "100%"
-    }
+    },
+    drawer: {
+        width: "200px",
+        flexShrink: 0,
+        whiteSpace: 'nowrap',
+    },
+    drawerOpen: {
+        width: "200px",
+        top: "66px",
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+    },
+    drawerClose: {
+        top: "66px",
+        transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        overflowX: 'hidden',
+        width: theme.spacing(7) + 1
+    },
 }));
 export const SideNavItem = (props) => {
     const classes = useStyles();
@@ -38,14 +59,14 @@ export const SideNavItem = (props) => {
         <ListItem key={props.text.replace(" ", "")} button className={classes.item} onClick={props.click}>
             <div className={classes.button}>
                 <ListItemIcon className="side-nav-entry">{props.icon}</ListItemIcon>
-                <Typography className="side-nav-entry">{props.text}</Typography>
+                <ListItemText hidden className="side-nav-entry" primary={props.text}/>
             </div>
         </ListItem>
     );
 };
 
 const SideNav = (props) => {
-
+    const matches = useMediaQuery('(min-width:1100px)');
     /**
      * Todo Dirty Hack fixen. das geht sicherlich auch noch schöner
      */
@@ -66,8 +87,18 @@ const SideNav = (props) => {
 
 
     const classes = useStyles();
+    console.log(matches);
     return (
-        <Drawer variant={"permanent"} anchor={"left"} classes={{paper: classes.drawerPaper,}}>
+        <Drawer open={matches} className={
+            clsx(classes.drawer, {
+                [classes.drawerOpen]: matches,
+                [classes.drawerClose]: !matches,
+            })} variant={"permanent"} anchor={"left"} classes={{
+            paper: clsx({
+                [classes.drawerOpen]: matches,
+                [classes.drawerClose]: !matches,
+            })
+        }}>
             {forSideNav(props.content)}
         </Drawer>
     );
