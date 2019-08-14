@@ -40,9 +40,8 @@ const useStyles = makeStyles(theme => ({
         cursor: "text"
     },
     navButton: {
-        padding: "8px",
-        margin: "4px",
-        color: "#eee"
+        margin: "12px",
+        color: "#eee",
     },
     menuButton: {
         padding: "8px",
@@ -68,7 +67,7 @@ const useStyles = makeStyles(theme => ({
 
 const ITEM_HEIGHT = 100;
 
-const menuItems = () => {
+const menuItems = (matches) => {
     return (
         [
             <Link to="/wiki"><Button color={"inherit"}
@@ -79,6 +78,12 @@ const menuItems = () => {
                                       variant={"contained"}>Medien</Button></Link>
         ]
     );
+};
+
+const linkNames = () => {
+    return [<Link to={"/wiki"}>Wiki</Link>,
+        <Link to={"/rating"}>Rating</Link>,
+        <Link to={"/media"}>Medien</Link>]
 };
 
 const TopNav = (props) => {
@@ -114,25 +119,24 @@ const TopNav = (props) => {
                             aria-controls="long-menu"
                             aria-haspopup="true"
                             onClick={handleClick}>
-                            <MoreVertIcon/>
-                        </IconButton> : menuItems().map((item, index) => (
-                            <Typography key={index} className={classes.navButton} variant="h6">
+                            <MoreVertIcon style={{color: "#eee"}}/>
+                        </IconButton> : linkNames().map((item, index) => {
+                            return <Button key={index} className={classes.navButton} color={"inherit"} variant={"contained"}>
                                 {item}
-                            </Typography>
-                        ))}
+                            </Button>
+                            }
+                        )}
 
-                        <Menu id="nav-media-menu" anchorEl={anchorEl} keepMounted open={open} onClose={handleClose}
+                        <Menu anchorEl={anchorEl} variant={"selectedMenu"} keepMounted open={open} onClose={handleClose}
                               PaperProps={{
                                   style: {
                                       maxHeight: ITEM_HEIGHT * 4.5,
-                                      width: 200,
+                                      width: 200
                                   },
                               }}>
-                            {menuItems().map((item, index) => (
-                                <MenuItem key={index}>
-                                    <Typography className={classes.navButton} variant="h6">
-                                        {item}
-                                    </Typography>
+                            {linkNames().map((item, index) => (
+                                <MenuItem key={index} onClick={handleClose}>
+                                    {item}
                                 </MenuItem>
                             ))}
                         </Menu>
