@@ -102,8 +102,11 @@ const TopNav = (props) => {
                 <Grid item xs={6}>
                     <Grid container justify={"flex-start"}>
                         <Typography className={classes.navButton} variant="h5">
-                            <Link id={"homeButton"} to="/"><Button color={"primary"} variant={"contained"}
-                                                                   size={"large"}>Organizer</Button></Link>
+                            <Link id={"homeButton"} to="/">
+                                <Button color={"primary"} variant={"contained"} size={"large"}>
+                                    Organizer
+                                </Button>
+                            </Link>
                         </Typography>
                         {!matches ? <IconButton
                             className={classes.menuButton}

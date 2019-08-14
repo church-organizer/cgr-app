@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Divider,
     Drawer,
@@ -6,7 +6,6 @@ import {
     ListItem,
     ListItemIcon, ListItemText,
     makeStyles,
-    Typography,
 } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
@@ -88,7 +87,6 @@ const SideNav = (props) => {
     );
 
 
-    console.log(props.content);
 
     const classes = useStyles();
     return (
