@@ -29,6 +29,12 @@ const useStyles = makeStyles(theme => ({
     paperHeader: {},
 }));
 
+/**
+ * Shows the content of a Page
+ * @param props [content, readOnly]
+ * @returns {*}
+ * @constructor
+ */
 const Content = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();

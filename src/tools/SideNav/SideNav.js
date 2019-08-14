@@ -88,6 +88,13 @@ export const SideNavItem = (props) => {
     );
 };
 
+/**
+ * The Sidenav
+ * the content is required, it is a list with SideNavItems
+ * @param props [content]
+ * @returns {*}
+ * @constructor
+ */
 const SideNav = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     /**
