@@ -45,7 +45,8 @@ const useStyles = makeStyles(theme => ({
         height: "50px",
         borderRadius: "20px",
         minWidth: "110px",
-        padding: "10px"
+        padding: "10px",
+        margin: "4px"
     },
     avatar: {
         margin: "7px"
