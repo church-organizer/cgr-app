@@ -13,6 +13,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const initWidth = 200;
+const closedWidth = 60;
 
 const useStyles = makeStyles(theme => ({
     drawerPaper: {
@@ -28,13 +29,27 @@ const useStyles = makeStyles(theme => ({
         borderRadius: '2px'
     },
     button: {
-        width: "100%",
-        height: "100%"
+        width: "calc(100% - 12px)",
+        height: "100%",
+        paddingLeft: "12px",
+        paddingTop: "10px"
     },
     drawer: {
         width: initWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
+    },
+    icon: {
+        display: "inline",
+        padding: "4px",
+        margin: "5px"
+    },
+    itemText: {
+        display: "inline",
+        position: "relative",
+        left: "0px",
+        bottom: 5
+
     },
     drawerOpen: {
         width: initWidth,
@@ -51,7 +66,7 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(7) + 1
+        width: theme.spacing(7)
     },
 }));
 export const SideNavItem = (props) => {
@@ -59,8 +74,8 @@ export const SideNavItem = (props) => {
     return (
         <ListItem key={props.text.replace(" ", "")} button className={classes.item} onClick={props.click}>
             <div className={classes.button}>
-                <ListItemIcon className="side-nav-entry">{props.icon}</ListItemIcon>
-                <ListItemText hidden className="side-nav-entry" primary={props.text}/>
+                <ListItemIcon >{props.icon}</ListItemIcon>
+                <ListItemText className={classes.itemText} primary={props.text}/>
             </div>
         </ListItem>
     );

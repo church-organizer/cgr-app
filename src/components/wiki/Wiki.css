@@ -3,10 +3,6 @@ a {
     color: #484b48;
 }
 
-.side-nav-entry {
-    display: inline-block;
-    padding: 4px;
-}
 #page-content {
     position: relative;
     top: 10px;
