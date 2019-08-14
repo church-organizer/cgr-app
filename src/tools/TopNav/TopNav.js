@@ -62,23 +62,13 @@ const useStyles = makeStyles(theme => ({
     search: {
         padding: "8px",
         margin: "4px",
+    },
+    buttonRoot: {
+        padding: 0
     }
 }));
 
 const ITEM_HEIGHT = 100;
-
-const menuItems = (matches) => {
-    return (
-        [
-            <Link to="/wiki"><Button color={"inherit"}
-                                     variant={"contained"}>Wiki</Button></Link>,
-            <Link to="/rating"><Button color={"inherit"}
-                                       variant={"contained"}>Bewerten</Button></Link>,
-            <Link to="/media"><Button color={"inherit"}
-                                      variant={"contained"}>Medien</Button></Link>
-        ]
-    );
-};
 
 const linkNames = () => {
     return [<Link to={"/wiki"}>Wiki</Link>,
@@ -121,7 +111,9 @@ const TopNav = (props) => {
                             onClick={handleClick}>
                             <MoreVertIcon style={{color: "#eee"}}/>
                         </IconButton> : linkNames().map((item, index) => {
-                            return <Button key={index} className={classes.navButton} color={"inherit"} variant={"contained"}>
+                            return <Button key={index} classes={{root: classes.buttonRoot}}
+                                           className={classes.navButton}
+                                           color={"inherit"} variant={"contained"}>
                                 {item}
                             </Button>
                             }
