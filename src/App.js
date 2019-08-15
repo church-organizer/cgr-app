@@ -16,10 +16,6 @@ class App extends Component {
         login: {isLoggedIn: true, username: 'Dieter'}
     };
 
-    // onLogIn = (name) => {
-    //     this.setState({login: {isLoggedIn: true, username: name}})
-    // };
-
     render() {
         return (
             <Router>

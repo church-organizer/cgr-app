@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Button, Toolbar, Typography, makeStyles, InputBase, GridListTile} from "@material-ui/core";
+import {AppBar, Button, Typography, makeStyles, InputBase} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
@@ -7,8 +7,6 @@ import FaceIcon from '@material-ui/icons/Face';
 import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import IconButton from "@material-ui/core/IconButton";
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 

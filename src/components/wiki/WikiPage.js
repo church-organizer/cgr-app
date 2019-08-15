@@ -14,9 +14,6 @@ import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        // maxWidth: "1000px",
-        // minWidth: "500px",
-        // width: "60%",
 
         border: "1px",
         padding: "20px",
