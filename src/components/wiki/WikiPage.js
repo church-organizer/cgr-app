@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {makeStyles, Typography, Paper} from "@material-ui/core";
 import Path from "../../tools/Path/Path";
 import Editor from "../../tools/Editor/Editor";
-import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
+import SideNav, {SideNavItem} from "../../tools/Nav/SideNav";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';

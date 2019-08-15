@@ -5,9 +5,10 @@ import Wiki from "./components/wiki/Wiki";
 import Rating from "./components/rating/Rating";
 import Media from "./components/media/Media";
 import Start from "./components/start/Start"
-import TopNav from "./tools/TopNav/TopNav";
+import TopNav from "./tools/Nav/TopNav";
 import Login from "./tools/Login/Login";
 import Register from "./tools/Login/Register";
+import BottomNav from "./tools/Nav/BottomNav";
 
 
 class App extends Component {
@@ -32,6 +33,7 @@ class App extends Component {
                             <Route exact path="/rating" component={Rating}/>
                             <Route exact path="/media" component={Media}/>
                             <Route path="/wiki/:name" component={Wiki}/>
+                            <BottomNav/>
                         </div>)
                     }
 

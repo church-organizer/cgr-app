@@ -61,6 +61,8 @@ const useStyles = makeStyles(theme => ({
     },
     drawerClose: {
         top: "66px",
+        bottom: "56px",
+        height: "calc(100% - 122px)",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,

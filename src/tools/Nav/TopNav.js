@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
     appBar: {
         position: "static",
         minHeight: "60px",
-        minWidth: "500px"
+        minWidth: "300px"
     },
     toolbar: theme.mixins.toolbar,
     typography: {
@@ -77,7 +77,7 @@ const linkNames = () => {
 };
 
 /**
- * The TopNav
+ * The Nav
  * username is required
  * @param props[username]
  * @returns {*}
@@ -98,7 +98,7 @@ const TopNav = (props) => {
     };
 
     return (
-        <AppBar className={classes.appBar}>
+        <AppBar  className={classes.appBar}>
 
             <Grid container justify={"space-between"}>
                 <Grid item xs={6}>
@@ -110,21 +110,14 @@ const TopNav = (props) => {
                                 </Button>
                             </Link>
                         </Typography>
-                        {!matches ? <IconButton
-                            className={classes.menuButton}
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={handleClick}>
-                            <MoreVertIcon style={{color: "#eee"}}/>
-                        </IconButton> : linkNames().map((item, index) => {
+                        {matches ?  linkNames().map((item, index) => {
                             return <Button key={index} classes={{root: classes.buttonRoot}}
                                            className={classes.navButton}
                                            color={"inherit"} variant={"contained"}>
                                 {item}
                             </Button>
                             }
-                        )}
+                        ) : ""}
 
                         <Menu anchorEl={anchorEl} variant={"selectedMenu"} keepMounted open={open} onClose={handleClose}
                               PaperProps={{
@@ -153,7 +146,7 @@ const TopNav = (props) => {
                         />
                     </Grid>
                 </Grid>
-                <Grid item xs>
+                <Grid hidden={!matches} item xs>
                     <Grid container justify={"flex-end"}>
                         <Chip
                             avatar={
