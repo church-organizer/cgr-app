@@ -6,6 +6,10 @@ import PanoramaIcon from '@material-ui/icons/Panorama';
 import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 import {makeStyles,} from "@material-ui/core";
 import {Link} from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Grid from "@material-ui/core/Grid";
 
 
 const useStyles = makeStyles({
@@ -15,24 +19,13 @@ const useStyles = makeStyles({
         bottom: 0,
         borderTop: "1px solid #eee",
         zIndex: 1202,
+        backgroundColor: "#eee",
+        boxShadow: "0px 4px 20px 0px rgba(0,0,0,0.75)"
     },
     link: {
         width: "30%"
     }
 });
-const getButtons = (active) => {
-    const arr = [["Wiki", "/wiki"], ["Rating", "/rating"], ["Medien", "/media"]];
-    let buttons = "";
-    arr.map((item, index) => {
-        if (index !== active) {
-            buttons += <BottomNavigationAction value={index} label={item[0]}/>
-        } else {
-            buttons += <Link to={item[1]}><BottomNavigationAction showLabel value={index} label={item[0]}/></Link>
-        }
-
-    });
-    return buttons;
-};
 
 const BottomNav = (props) => {
     const classes = useStyles();
@@ -42,26 +35,37 @@ const BottomNav = (props) => {
         return '';
     }
     return (
-        <BottomNavigation value={value} className={classes.root}
-                          onChange={(event, newValue) => {
-                              setValue(newValue);
-                          }}>
-            {[["Wiki", "/wiki", <RestoreIcon/>], ["Rating", "/rating", <RestoreIcon/>], ["Medien", "/media", <PanoramaIcon/>]].map((item, index) => {
-                if (index === value) {
-                    return <BottomNavigationAction value={index} label={item[0]} icon={item[2]}/>
-                } else {
-                    return <Link className={classes.link} to={item[1]}>
-                        <BottomNavigationAction value={index} label={item[0]} icon={item[2]}/>
-                    </Link>
-                }
+        <AppBar className={classes.root} position={"static"}>
+            <Grid container>
+                <Tabs variant={"fullWidth"} scrollButtons={"off"} value={value} onChange={(event, newValue) => {
+                    setValue(newValue)}}>
+                    <Link to={"/wiki"}><Tab icon={<PanoramaIcon/>} aria-label="wiki"/></Link>
+                    <Link to={"/rating"}><Tab icon={<PanoramaIcon/>} aria-label="rating"/></Link>
+                    <Link to={"/media"}><Tab icon={<PanoramaIcon/>} aria-label="media"/></Link>
+                </Tabs>
+            </Grid>
+        </AppBar>);
+    {/*<BottomNavigation value={value} className={classes.root}*/
+    }
+    {/*                  onChange={(event, newValue) => {*/
+    }
+    {/*                      setValue(newValue);*/
+    }
+    {/*                  }}>*/
+    }
+    {/*    {[["Wiki", "/wiki", <RestoreIcon/>], ["Rating", "/rating", <RestoreIcon/>], ["Medien", "/media",*/
+    }
+    {/*        <PanoramaIcon/>]].map((item, index) => {*/
+    }
+    {/*        return <BottomNavigationAction key={index} showLabel value={index} label={item[0]} icon={item[2]}/>*/
+    }
 
-            })}
-            {/*<BottomNavigationAction value={0} label="Wiki" icon={<RestoreIcon/>}/>*/}
-            {/*<BottomNavigationAction value={1} label="Rating" icon={<RestoreIcon/>}/>*/}
-            {/*<BottomNavigationAction value={2} label="Medien" icon={<RestoreIcon/>}/>*/}
-        </BottomNavigation>
+    {/*    })}*/
+    }
+    {/*</BottomNavigation>*/
+    }
 
-    );
+
 };
 
 
