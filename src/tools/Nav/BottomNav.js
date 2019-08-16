@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
         boxShadow: "0px 4px 20px 0px rgba(0,0,0,0.75)"
     },
     onActive: {
-        color: "#3f51b5",
+        color: "#44499f",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -53,7 +53,7 @@ const BottomNav = (props) => {
     return (
         <Grid className={classes.root} container justify={"space-evenly"}>
             <Grid item xs={12}>
-                <Tabs indicatorColor="primary" textColor="secondary" value={value} aria-label="icon label tabs example">
+                <Tabs value={value} aria-label="icon label tabs example">
                     <Tab style={{display: "none"}}/>
                     <Grid item xs={4}>
                         <Link onClick={() => onClick(1)} to={"/wiki"}>

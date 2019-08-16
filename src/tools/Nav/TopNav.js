@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import SearchBar from "../Search";
 
 
 const useStyles = makeStyles(theme => ({
@@ -23,19 +24,6 @@ const useStyles = makeStyles(theme => ({
     loginButton: {
         right: "20px",
         position: "absolute"
-    },
-    inputRoot: {
-        color: 'inherit',
-        width: "100%"
-    },
-    inputInput: {
-        position: "relative",
-        padding: theme.spacing(1, 1, 1, 1),
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        border: "1px solid #eee",
-        borderRadius: "3px",
-        cursor: "text"
     },
     navButton: {
         margin: "12px",
@@ -134,14 +122,7 @@ const TopNav = (props) => {
                 </Grid>
                 <Grid item xs>
                     <Grid container justify={"center"}>
-                        <InputBase
-                            placeholder="Suche…" className={classes.search}
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput
-                            }}
-                            inputProps={{'aria-label': 'search'}}
-                        />
+                        <SearchBar/>
                     </Grid>
                 </Grid>
                 <Grid hidden={!matches} item xs>
