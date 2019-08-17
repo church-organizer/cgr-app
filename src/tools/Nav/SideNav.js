@@ -31,7 +31,8 @@ const useStyles = makeStyles(theme => ({
         width: "calc(100% - 12px)",
         height: "100%",
         paddingLeft: "12px",
-        paddingTop: "10px"
+        paddingTop: "10px",
+        whiteSpace: 'nowrap'
     },
     icon: {
         display: "inline",
@@ -78,7 +79,7 @@ export const SideNavItem = (props) => {
     return (
         <ListItem key={props.text.replace(" ", "")} button className={classes.item} onClick={props.click}>
             <div className={classes.button}>
-                <ListItemIcon >{props.icon}</ListItemIcon>
+                <ListItemIcon>{props.icon}</ListItemIcon>
                 <ListItemText className={classes.itemText} primary={props.text}/>
             </div>
         </ListItem>
@@ -111,7 +112,6 @@ const SideNav = (props) => {
             <Divider/>
         </div>
     );
-
 
 
     const classes = useStyles();
