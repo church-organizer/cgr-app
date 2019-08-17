@@ -1,9 +1,9 @@
 import React from 'react';
-import {AppBar, Button, Typography, makeStyles, InputBase} from "@material-ui/core";
+import {AppBar, Button, Typography, makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import Chip from "@material-ui/core/Chip";
 import Avatar from "@material-ui/core/Avatar";
 import FaceIcon from '@material-ui/icons/Face';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,15 +35,8 @@ const useStyles = makeStyles(theme => ({
         height: "50px",
         width: "50px"
     },
-    login: {
-        height: "50px",
-        borderRadius: "20px",
-        minWidth: "110px",
-        padding: "10px",
-        margin: "4px"
-    },
     avatar: {
-        margin: "7px"
+        margin: "10px"
     },
     search: {
         padding: "8px",
@@ -84,7 +77,7 @@ const TopNav = (props) => {
     };
 
     return (
-        <AppBar  className={classes.appBar}>
+        <AppBar className={classes.appBar}>
 
             <Grid container justify={"space-between"}>
                 <Grid item xs={6}>
@@ -96,12 +89,12 @@ const TopNav = (props) => {
                                 </Button>
                             </Link>
                         </Typography>
-                        {matches ?  linkNames().map((item, index) => {
-                            return <Button key={index} classes={{root: classes.buttonRoot}}
-                                           className={classes.navButton}
-                                           color={"inherit"} variant={"contained"}>
-                                {item}
-                            </Button>
+                        {matches ? linkNames().map((item, index) => {
+                                return <Button key={index} classes={{root: classes.buttonRoot}}
+                                               className={classes.navButton}
+                                               color={"inherit"} variant={"contained"}>
+                                    {item}
+                                </Button>
                             }
                         ) : ""}
 
@@ -127,15 +120,14 @@ const TopNav = (props) => {
                 </Grid>
                 <Grid hidden={!matches} item xs>
                     <Grid container justify={"flex-end"}>
-                        <Chip
-                            avatar={
-                                <Avatar className={classes.avatar}>
-                                    <FaceIcon/>
-                                </Avatar>
-                            }
-                            label={"Hi " + props.username}
-                            className={classes.login}
-                        />
+                        <Link to={"/settings"}>
+                            <Avatar className={classes.avatar}>
+                            <SettingsIcon fontSize={"medium"} color={"inherit"}/>
+                            </Avatar>
+                        </Link>
+                        <Avatar className={classes.avatar}>
+                            <FaceIcon/>
+                        </Avatar>
                     </Grid>
                 </Grid>
             </Grid>

@@ -1,6 +1,4 @@
 import React from 'react';
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import PanoramaIcon from '@material-ui/icons/Panorama';
 import BookIcon from '@material-ui/icons/Book';
 import StarRateIcon from '@material-ui/icons/StarRate';

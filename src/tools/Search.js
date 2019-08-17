@@ -9,7 +9,8 @@ const useStyles = makeStyles(theme => ({
     root: {
         color: 'inherit',
         width: "100%",
-        margin: "14px"
+        margin: "14px",
+        zIndex: "1202"
     },
     input: {
         position: "relative",
@@ -50,7 +51,7 @@ const SearchBar = () => {
             return;
         }
         let searchList = allresults;
-        if (results.length >0) {
+        if (results.length > 0) {
             searchList = results;
         }
         searchList.map((item, index) => {
@@ -71,17 +72,18 @@ const SearchBar = () => {
                 }}
                 inputProps={{'aria-label': 'search'}}
             />
-            <Fade className={classes.results} in={results.length > 0} >
+            <Fade className={classes.results} in={results.length > 0}>
                 <Container>
-                <Paper className={classes.paper}>
-                    <List component="nav">
-                        {results.map((item, index)=> {
-                            return <ListItem className={classes.item} button key={index}>
-                                <ListItemText primary={item} />
-                            </ListItem>
-                        })}
-                    </List>
-                </Paper>
+                    <Paper className={classes.paper}>
+                        <List component="nav">
+                            {results.map((item, index) => {
+                                return (
+                                <ListItem className={classes.item} button key={index}>
+                                    <ListItemText primary={item}/>
+                                </ListItem>);
+                            })}
+                        </List>
+                    </Paper>
                 </Container>
             </Fade>
         </Container>

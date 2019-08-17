@@ -9,6 +9,7 @@ import TopNav from "./tools/Nav/TopNav";
 import Login from "./tools/Login/Login";
 import Register from "./tools/Login/Register";
 import BottomNav from "./tools/Nav/BottomNav";
+import Settings from "./components/settings/Settings";
 
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
                             <Route exact path="/wiki" component={Wiki}/>
                             <Route exact path="/rating" component={Rating}/>
                             <Route exact path="/media" component={Media}/>
+                            <Route exact path="/settings" component={Settings}/>
                             <Route path="/wiki/:name" component={Wiki}/>
                             <BottomNav/>
                         </div>)

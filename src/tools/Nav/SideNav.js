@@ -33,12 +33,6 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: "12px",
         paddingTop: "10px"
     },
-    drawer: {
-        width: initWidth,
-        flexShrink: 0,
-        whiteSpace: 'nowrap',
-        overflowY: "scroll"
-    },
     icon: {
         display: "inline",
         padding: "4px",
