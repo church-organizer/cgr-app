@@ -35,7 +35,11 @@ const useStyles = makeStyles(theme => ({
         height: "50px",
         width: "50px"
     },
-    avatar: {
+    user: {
+        margin: "10px",
+        border: "1px solid #eee",
+    },
+    settings: {
         margin: "10px"
     },
     search: {
@@ -121,11 +125,11 @@ const TopNav = (props) => {
                 <Grid hidden={!matches} item xs>
                     <Grid container justify={"flex-end"}>
                         <Link to={"/settings"}>
-                            <Avatar className={classes.avatar}>
+                            <Avatar className={classes.settings}>
                             <SettingsIcon fontSize={"medium"} color={"inherit"}/>
                             </Avatar>
                         </Link>
-                        <Avatar className={classes.avatar}>
+                        <Avatar className={classes.user}>
                             <FaceIcon/>
                         </Avatar>
                     </Grid>
