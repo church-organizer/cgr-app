@@ -6,10 +6,6 @@ import {makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     div: {
-        // paddingLeft: "250px",
-        // paddingRight: "250px",
-        minWidth: "500px",
-        maxWidth: "1500px",
         textAlign: "left",
         border: 'none'
     },
@@ -17,7 +13,6 @@ const useStyles = makeStyles(theme => ({
 
 const Editor = (props) => {
     const classes = useStyles();
-    // man kann den editor bearbeiten ich weiß nur noch nicht wie
     let readOnly = false;
     if (props.readOnly === undefined || props.readOnly) {
         readOnly = true;

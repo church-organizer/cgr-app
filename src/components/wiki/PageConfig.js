@@ -14,7 +14,8 @@ import FormControl from "@material-ui/core/FormControl";
 /**
  * Shows the Config of a Page
  * Like Name, Path, Rights
- * @param props
+ * all params are optional
+ * @param props [name, path, readOnly]
  * @constructor
  */
 const PageConfig = (props) => {

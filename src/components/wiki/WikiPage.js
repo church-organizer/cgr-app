@@ -2,20 +2,19 @@ import React, {Component} from 'react';
 import {makeStyles, Typography, Paper} from "@material-ui/core";
 import Path from "../../tools/Path/Path";
 import Editor from "../../tools/Editor/Editor";
-import SideNav, {SideNavItem} from "../../tools/SideNav/SideNav";
+import SideNav, {SideNavItem} from "../../tools/Nav/SideNav";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import PageConfig from "./PageConfig";
+import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 
 const useStyles = makeStyles(theme => ({
     paper: {
-        maxWidth: "1200px",
-        minWidth: "700px",
-        width: "60%",
+
         border: "1px",
         padding: "20px",
         textAlign: "left",
@@ -28,7 +27,14 @@ const useStyles = makeStyles(theme => ({
     paperHeader: {},
 }));
 
+/**
+ * Shows the content of a Page
+ * @param props [content, readOnly]
+ * @returns {*}
+ * @constructor
+ */
 const Content = (props) => {
+    const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     return (
         <Paper className={classes.paper}>
@@ -41,13 +47,20 @@ const Content = (props) => {
     );
 };
 
-
+/**
+ * WikiPage, shows the Content of a Wikipage
+ *
+ */
 class WikiPage extends Component {
     filename;
     content;
     dir = [];
     path;
 
+    /**
+     * readOnly is optional
+     * @param props [readOnly, pathname]
+     */
     constructor(props) {
         super(props);
         this.state = {
@@ -129,7 +142,8 @@ class WikiPage extends Component {
     ];
 
     render() {
-        const path = this.props.pathname.replace("/wiki", "");
+        // const path = this.props.pathname.replace("/wiki", "");
+
 
         return (
             <div id="page-content">

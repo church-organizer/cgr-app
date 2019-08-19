@@ -3,17 +3,23 @@ a {
     color: #484b48;
 }
 
-.side-nav-entry {
-    display: inline-block;
-    padding: 4px;
-}
-
 #page-content {
     position: relative;
     top: 10px;
-    left: 250px;
+    left: 60px;
+    margin-right: 25%;
     display: block;
+    overflow: auto;
 }
+
+@media only screen and (min-width: 1100px) {
+    #page-content {
+        left: 210px;
+        margin-right: 270px;
+    }
+}
+
+
 
 #editor-content .ck-editor .ck-editor__main .ck-content {
     border-bottom: none;
