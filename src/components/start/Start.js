@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SideNav from "../../tools/SideNav/SideNav";
+import SideNav from "../../tools/Nav/SideNav";
 
 
 class Start extends Component {

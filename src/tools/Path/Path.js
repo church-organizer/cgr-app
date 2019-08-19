@@ -1,5 +1,7 @@
 import React from 'react';
-import {Paper, Breadcrumbs, Link, makeStyles} from "@material-ui/core";
+import {Paper, Breadcrumbs, makeStyles, Button} from "@material-ui/core";
+import {Link} from "react-router-dom";
+
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -14,17 +16,19 @@ const useStyles = makeStyles(theme => ({
 const Path = (props) => {
     const classes = useStyles();
 
-    const handleClick = () => {
-        console.log("click");
-    };
 
     const fillPath = () => {
-        let path = "";
+        let path = "/wiki";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
+                <Link className={classes.link} color="primary" to={path}>
+                    <Button  variant={"contained"} size={"small"}>Start</Button>
+                </Link>
                 {props.path.map((dir, index) => {
                     path += "/" + dir;
-                    return (<Link key={index} component={'a'} className={classes.link} color="primary" to={path} onClick={handleClick}>{dir}</Link>);
+                    return (<Link key={index} className={classes.link} color="primary" to={path}>
+                        <Button  variant={"contained"} size={"small"}>{dir}</Button>
+                    </Link>);
                 })}
             </Breadcrumbs>
         );
