@@ -20,13 +20,6 @@ const useStyles = makeStyles(theme => ({
         borderRadius: "3px",
         cursor: "text"
     },
-    results: {
-        position: "absolute",
-        width: "15%",
-    },
-    paper: {
-        opacity: 0.85,
-    },
     item: {
         opacity: 1,
         filter: "blur(0)"
@@ -72,15 +65,15 @@ const SearchBar = () => {
                 }}
                 inputProps={{'aria-label': 'search'}}
             />
-            <Fade className={classes.results} in={results.length > 0}>
+            <Fade style={{position: "absolute", width: "15%"}} in={results.length > 0}>
                 <Container>
                     <Paper className={classes.paper}>
                         <List component="nav">
                             {results.map((item, index) => {
                                 return (
-                                <ListItem className={classes.item} button key={index}>
-                                    <ListItemText primary={item}/>
-                                </ListItem>);
+                                    <ListItem style={{opacity: 1, filter: "blur(0)"}} button key={index}>
+                                        <ListItemText primary={item}/>
+                                    </ListItem>);
                             })}
                         </List>
                     </Paper>

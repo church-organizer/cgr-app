@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, Button, Typography, makeStyles} from "@material-ui/core";
+import {AppBar, Button, Typography} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import FaceIcon from '@material-ui/icons/Face';
@@ -8,48 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import SearchBar from "../Search";
+import SearchBar from "../Search/Search";
 
-
-const useStyles = makeStyles(theme => ({
-    appBar: {
-        position: "static",
-        minHeight: "60px",
-        minWidth: "300px"
-    },
-    toolbar: theme.mixins.toolbar,
-    typography: {
-        flexGrow: 1
-    },
-    loginButton: {
-        right: "20px",
-        position: "absolute"
-    },
-    navButton: {
-        margin: "12px",
-        color: "#eee",
-    },
-    menuButton: {
-        padding: "8px",
-        margin: "4px",
-        height: "50px",
-        width: "50px"
-    },
-    user: {
-        margin: "10px",
-        border: "1px solid #eee",
-    },
-    settings: {
-        margin: "10px"
-    },
-    search: {
-        padding: "8px",
-        margin: "4px",
-    },
-    buttonRoot: {
-        padding: 0
-    }
-}));
 
 const ITEM_HEIGHT = 100;
 
@@ -67,7 +27,6 @@ const linkNames = () => {
  * @constructor
  */
 const TopNav = (props) => {
-    const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const matches = useMediaQuery('(min-width:1100px)');
@@ -81,21 +40,21 @@ const TopNav = (props) => {
     };
 
     return (
-        <AppBar className={classes.appBar}>
+        <AppBar id="appBar">
 
             <Grid container justify={"space-between"}>
                 <Grid item xs={6}>
                     <Grid container justify={"flex-start"}>
-                        <Typography className={classes.navButton} variant="h5">
-                            <Link id={"homeButton"} to="/">
+                        <Typography style={{margin: "12px"}} variant="h5">
+                            <Link id="homeButton" to="/">
                                 <Button color={"primary"} variant={"contained"} size={"large"}>
                                     Organizer
                                 </Button>
                             </Link>
                         </Typography>
                         {matches ? linkNames().map((item, index) => {
-                                return <Button key={index} classes={{root: classes.buttonRoot}}
-                                               className={classes.navButton}
+                                return <Button key={index} classes={{root: {padding: 0}}}
+                                               style={{margin: "12px"}}
                                                color={"inherit"} variant={"contained"}>
                                     {item}
                                 </Button>
@@ -125,11 +84,11 @@ const TopNav = (props) => {
                 <Grid hidden={!matches} item xs>
                     <Grid container justify={"flex-end"}>
                         <Link to={"/settings"}>
-                            <Avatar className={classes.settings}>
-                            <SettingsIcon fontSize={"medium"} color={"inherit"}/>
+                            <Avatar style={{margin: "11px"}}>
+                                <SettingsIcon fontSize={"medium"} color={"inherit"}/>
                             </Avatar>
                         </Link>
-                        <Avatar className={classes.user}>
+                        <Avatar style={{margin: "10px", border: "1px solid #eee"}}>
                             <FaceIcon/>
                         </Avatar>
                     </Grid>

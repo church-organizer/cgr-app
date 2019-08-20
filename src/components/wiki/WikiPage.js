@@ -12,21 +12,6 @@ import PageConfig from "./PageConfig";
 import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-
-        border: "1px",
-        padding: "20px",
-        textAlign: "left",
-        margin: "10px"
-    },
-    meta: {
-        display: "inline-block",
-        marginRight: "10px"
-    },
-    paperHeader: {},
-}));
-
 /**
  * Shows the content of a Page
  * @param props [content, readOnly]
@@ -35,13 +20,17 @@ const useStyles = makeStyles(theme => ({
  */
 const Content = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
-    const classes = useStyles();
     return (
-        <Paper className={classes.paper}>
-            <Typography color={"inherit"} variant={"h5"}
-                        className={classes.paperHeader}>{props.title.replace('-', ' ')}</Typography>
-            <Typography color={"inherit"} variant={"subtitle1"} className={classes.meta}>Bearbeitet
-                von {"Max Mustermann"} am: {"12.12.12"}</Typography>
+        <Paper style={{border: "1px",
+            padding: "20px",
+            textAlign: "left",
+            margin: "10px"}}>
+            <Typography color={"inherit"} variant={"h5"}>
+                {props.title.replace('-', ' ')}
+            </Typography>
+            <Typography color={"inherit"} variant={"subtitle1"} style={{display: "inline-block",marginRight: "10px"}}>
+                Bearbeitetvon {"Max Mustermann"} am: {"12.12.12"}
+            </Typography>
             <Editor content={props.content} readOnly={props.readOnly}/>
         </Paper>
     );

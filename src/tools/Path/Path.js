@@ -3,30 +3,17 @@ import {Paper, Breadcrumbs, makeStyles, Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 
-const useStyles = makeStyles(theme => ({
-    paper: {
-        height: "30px",
-        padding: "10px",
-    },
-    link: {
-        cursor: "pointer",
-    }
-}));
-
 const Path = (props) => {
-    const classes = useStyles();
-
-
     const fillPath = () => {
         let path = "/wiki";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
-                <Link className={classes.link} color="primary" to={path}>
+                <Link style={{cursor: "pointer"}} color="primary" to={path}>
                     <Button  variant={"contained"} size={"small"}>Start</Button>
                 </Link>
                 {props.path.map((dir, index) => {
                     path += "/" + dir;
-                    return (<Link key={index} className={classes.link} color="primary" to={path}>
+                    return (<Link key={index} style={{cursor: "pointer"}} color="primary" to={path}>
                         <Button  variant={"contained"} size={"small"}>{dir}</Button>
                     </Link>);
                 })}
@@ -35,7 +22,7 @@ const Path = (props) => {
     };
 
     return (
-        <Paper elevation={0} className={classes.paper}>
+        <Paper elevation={0} style={{height: "30px",padding: "10px",}}>
             {fillPath()}
         </Paper>
     );
