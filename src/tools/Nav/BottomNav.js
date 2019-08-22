@@ -8,29 +8,16 @@ import {Link} from "react-router-dom";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Grid from "@material-ui/core/Grid";
+import './Nav.css'
 
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        width: "100%",
-        position: "fixed",
-        bottom: 0,
-        height: "70px",
-        borderTop: "1px solid #eee",
-        zIndex: 1202,
-        backgroundColor: "#eee",
-        boxShadow: "0px 4px 20px 0px rgba(0,0,0,0.75)"
-    },
     onActive: {
         color: "#44499f",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-    },
-    link: {
-        width: "30%"
     }
 }));
 
@@ -49,7 +36,7 @@ const BottomNav = (props) => {
         return '';
     }
     return (
-        <Grid className={classes.root} container justify={"space-evenly"}>
+        <Grid id="bottomNavRoot" container justify={"space-evenly"}>
             <Grid item xs={12}>
                 <Tabs value={value} aria-label="icon label tabs example">
                     <Tab style={{display: "none"}}/>

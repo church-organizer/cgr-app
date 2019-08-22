@@ -5,28 +5,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
+import './Login.css'
 
-
-const useStyles = makeStyles(theme => ({
-    loginWindow: {
-        position: 'absolute',
-        top: "20%",
-        left: "30%",
-        right: "30%",
-        bottom: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        minWidth: "40%",
-        height: "50%"
-    },
-    paper: {
-        width: "100%",
-        margin: "20px"
-    },
-    link: {
-        margin: "10px"
-    }
-}));
 
 const TabPanel = (props) => {
     const {children, value, index, ...other} = props;
@@ -54,7 +34,6 @@ const TabPanel = (props) => {
  * @constructor
  */
 const Login = (props) => {
-    const classes = useStyles();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = React.useState({userName: '', password: ''});
     const onChangeHandler = (event, newValue) => {
@@ -80,8 +59,8 @@ const Login = (props) => {
     const loginPossibilities = ['Churchtools', 'Google', 'Facebook'];
 
     return (
-        <Box className={classes.loginWindow}>
-            <Paper className={classes.paper}>
+        <Box className="loginWindow">
+            <Paper style={{width: "100%",margin: "20px"}}>
                 <AppBar position={"static"} style={{borderRadius: "3px"}}>
                     <Tabs onChange={onChangeHandler} variant={"fullWidth"} value={value} indicatorColor="secondary" textColor="inherit" centered>
                         {
@@ -108,8 +87,8 @@ const Login = (props) => {
                                     required={true} value={user.password}
                                     // helperText={"Dein Passwort"}
                                 />
-                                <Button variant={"contained"}onClick={login}>Login</Button>
-                                <Link className={classes.link} to={"/register"}>registrieren</Link>
+                                <Button variant={"contained"} onClick={login}>Login</Button>
+                                <Link style={{margin: "10px"}} to={"/register"}>registrieren</Link>
                             </FormControl>
                         </TabPanel>)
                     })}

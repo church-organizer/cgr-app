@@ -10,42 +10,13 @@ import {
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import "./Nav.css";
 
 
 const initWidth = 200;
 
 const useStyles = makeStyles(theme => ({
-    drawerPaper: {
-        width: initWidth,
-        paddingLeft: "10px",
-        paddingRight: "10px",
-    },
     toolbar: theme.mixins.toolbar,
-    item: {
-        paddingLeft: 0,
-        paddingRight: 0,
-        display: "block",
-        borderRadius: '2px'
-    },
-    button: {
-        width: "calc(100% - 12px)",
-        height: "100%",
-        paddingLeft: "12px",
-        paddingTop: "10px",
-        whiteSpace: 'nowrap'
-    },
-    icon: {
-        display: "inline",
-        padding: "4px",
-        margin: "5px"
-    },
-    itemText: {
-        display: "inline",
-        position: "relative",
-        left: "0px",
-        bottom: 5
-
-    },
     drawerOpen: {
         width: initWidth,
         top: "66px",
@@ -77,10 +48,11 @@ const useStyles = makeStyles(theme => ({
 export const SideNavItem = (props) => {
     const classes = useStyles();
     return (
-        <ListItem key={props.text.replace(" ", "")} button className={classes.item} onClick={props.click}>
-            <div className={classes.button}>
+        <ListItem key={props.text.replace(" ", "")} button style={{paddingLeft: 0,
+            paddingRight: 0,display: "block",borderRadius: '2px'}} onClick={props.click}>
+            <div className="sideNavButton">
                 <ListItemIcon>{props.icon}</ListItemIcon>
-                <ListItemText className={classes.itemText} primary={props.text}/>
+                <ListItemText className="sideNavItemText" primary={props.text}/>
             </div>
         </ListItem>
     );
