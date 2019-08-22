@@ -2,12 +2,6 @@ import React, {Component} from 'react';
 import {Typography, Paper} from "@material-ui/core";
 import Path from "../components/Path/Path";
 import Editor from "../components/Editor/Editor";
-import SideNav, {SideNavItem} from "../components/Nav/SideNav";
-import SaveIcon from '@material-ui/icons/Save';
-import CancelIcon from '@material-ui/icons/Cancel';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddIcon from '@material-ui/icons/Add';
-import EditIcon from '@material-ui/icons/Edit';
 import PageConfig from "./PageConfig";
 
 
@@ -75,34 +69,6 @@ class WikiPage extends Component {
     pageContentInMD = '<h1>Das ist die Startseite</h1><br><br><p>Diesen Text kann man bearbeiten</p>';
     pageContentInMD2 = `<h1> Unterseite</h1><br><br><p>Auch hier kann man den Text ändern</p>`;
 
-    onCreateHandler = () => {
-        this.setState({config: {show: true, type: 'create'}});
-    };
-
-    onEditHandler = () => {
-        this.setState({config: {show: true, type: 'edit'}});
-    };
-
-    onSaveHandler = () => {
-        //todo save file here
-        this.setState({
-            readOnly: {
-                isReadOnly: true
-            }
-        });
-    };
-
-    onEditAbort = () => {
-        this.setState({
-            readOnly: {
-                isReadOnly: true
-            }
-        });
-    };
-
-    onDeleteHandler = () => {
-
-    };
 
     onConfigAbort = () => {
         this.setState({
@@ -113,27 +79,9 @@ class WikiPage extends Component {
         });
     };
 
-
-    editLinks = [
-        [
-            <SideNavItem key={1} click={this.onSaveHandler} text={"Seite Speichern"} icon={<SaveIcon/>}/>,
-            <SideNavItem key={2} click={this.onEditAbort()} text={"Abbrechen"} icon={<CancelIcon/>}/>
-        ]
-    ];
-    showLinks = [
-        [
-            <SideNavItem key={1} click={this.onCreateHandler} text={"Neue Seite"} icon={<AddIcon/>}/>,
-            <SideNavItem key={2} click={this.onEditHandler} text={"Seite bearbeiten"} icon={<EditIcon/>}/>,
-            <SideNavItem key={3} click={this.onDeleteHandler} text={"Seite löschen"} icon={<DeleteIcon/>}/>
-        ]
-    ];
-
     render() {
         return (
             <div id="page-content">
-                <SideNav
-                    content={this.state.readOnly.isReadOnly ? this.showLinks : this.editLinks}
-                />
                 <Path path={this.dir}/>
                 <Content title={this.filename} content={this.content} readOnly={this.state.readOnly.isReadOnly}/>
                 {this.state.config.show ?

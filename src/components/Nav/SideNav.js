@@ -5,7 +5,7 @@ import {
     List,
     ListItem,
     ListItemIcon, ListItemText,
-    makeStyles,
+    makeStyles, Typography,
 } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
@@ -19,16 +19,12 @@ const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
     drawerOpen: {
         width: initWidth,
-        top: "66px",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
-        top: "66px",
-        bottom: "56px",
-        height: "calc(100% - 122px)",
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -46,12 +42,12 @@ const useStyles = makeStyles(theme => ({
  * @constructor
  */
 export const SideNavItem = (props) => {
-    const classes = useStyles();
     return (
-        <ListItem key={props.text.replace(" ", "")} button style={{paddingLeft: 0,
-            paddingRight: 0,display: "block",borderRadius: '2px'}} onClick={props.click}>
+        <ListItem key={props.text.replace(" ", "")} button style={{
+            paddingLeft: 0,
+            paddingRight: 0, display: "block", borderRadius: '2px'
+        }} onClick={props.click}>
             <div className="sideNavButton">
-                <ListItemIcon>{props.icon}</ListItemIcon>
                 <ListItemText className="sideNavItemText" primary={props.text}/>
             </div>
         </ListItem>
@@ -67,26 +63,16 @@ export const SideNavItem = (props) => {
  */
 const SideNav = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
-    /**
-     * Todo Dirty Hack fixen. das geht sicherlich auch noch schöner
-     */
-    const onHomeButton = () => {
-        document.getElementById("homeButton").click();
-    };
-
-    const forSideNav = (links) => (
-        <div>
-            <SideNavItem click={onHomeButton} text={"Startseite"} icon={<HomeIcon/>}/>
-            <Divider/>
-            <List>
-                {links.map(item => item)}
-            </List>
-            <Divider/>
-        </div>
-    );
-
-
     const classes = useStyles();
+
+
+    const teens = [
+        <SideNavItem key={1} to={"/teens/bla"} text={"bla"}/>,
+        <SideNavItem key={1} to={"/teens/bla2"} text={"bla2"}/>,];
+    const youth = [
+        <SideNavItem key={1} to={"/jugend/bla"} text={"bla"}/>,
+        <SideNavItem key={1} to={"/jugend/bla2"} text={"bla2"}/>,
+    ];
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {
@@ -98,7 +84,10 @@ const SideNav = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
-            {forSideNav(props.content)}
+            <List>
+            <Typography variant={"inherit"}>Teens</Typography>
+            {teens.map((item, index)=> (item))}
+            </List>
         </Drawer>
     );
 };
