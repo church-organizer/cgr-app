@@ -1,15 +1,14 @@
 import React, {Component} from 'react';
-import {makeStyles, Typography, Paper} from "@material-ui/core";
-import Path from "../../tools/Path/Path";
-import Editor from "../../tools/Editor/Editor";
-import SideNav, {SideNavItem} from "../../tools/Nav/SideNav";
+import {Typography, Paper} from "@material-ui/core";
+import Path from "../components/Path/Path";
+import Editor from "../components/Editor/Editor";
+import SideNav, {SideNavItem} from "../components/Nav/SideNav";
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Edit';
 import PageConfig from "./PageConfig";
-import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 
 /**
@@ -19,7 +18,6 @@ import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
  * @constructor
  */
 const Content = (props) => {
-    const matches = useMediaQuery('(min-width:1100px)');
     return (
         <Paper style={{border: "1px",
             padding: "20px",
@@ -29,7 +27,7 @@ const Content = (props) => {
                 {props.title.replace('-', ' ')}
             </Typography>
             <Typography color={"inherit"} variant={"subtitle1"} style={{display: "inline-block",marginRight: "10px"}}>
-                Bearbeitetvon {"Max Mustermann"} am: {"12.12.12"}
+                Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}
             </Typography>
             <Editor content={props.content} readOnly={props.readOnly}/>
         </Paper>
@@ -131,9 +129,6 @@ class WikiPage extends Component {
     ];
 
     render() {
-        // const path = this.props.pathname.replace("/wiki", "");
-
-
         return (
             <div id="page-content">
                 <SideNav
