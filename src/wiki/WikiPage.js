@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {Typography, Paper} from "@material-ui/core";
 import Path from "../components/Path/Path";
-import Editor from "../components/Editor/Editor";
 import PageConfig from "./PageConfig";
+import FileLoader from "../services/FileLoader";
+import ReactMarkdown from "react-markdown";
+import Divider from "@material-ui/core/Divider";
 
 
 /**
@@ -23,7 +25,8 @@ const Content = (props) => {
             <Typography color={"inherit"} variant={"subtitle1"} style={{display: "inline-block",marginRight: "10px"}}>
                 Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}
             </Typography>
-            <Editor content={props.content} readOnly={props.readOnly}/>
+            <Divider/>
+            <ReactMarkdown source={props.content}/>
         </Paper>
     );
 };
@@ -37,56 +40,27 @@ class WikiPage extends Component {
     content;
     dir = [];
     path;
-
-    /**
-     * readOnly is optional
-     * @param props [readOnly, pathname]
-     */
-    constructor(props) {
-        super(props);
-        this.state = {
-            config: {
-                show: false,
-                type: ''
-            },
-            readOnly: {
-                isReadOnly: !(this.props.readOnly === false)
-            }
-        };
-
-        this.path = this.props.pathname.replace("/wiki", "");
-        if (this.path === "" || this.path === "/") {
-            this.filename = "Startseite";
-            this.content = this.pageContentInMD;
-        } else {
-            this.dir = this.path.split("/");
-            this.dir.shift();
-            this.filename = this.dir[this.dir.length - 1];
-            this.content = this.pageContentInMD2;
-        }
-    }
-
-    pageContentInMD = '<h1>Das ist die Startseite</h1><br><br><p>Diesen Text kann man bearbeiten</p>';
-    pageContentInMD2 = `<h1> Unterseite</h1><br><br><p>Auch hier kann man den Text ändern</p>`;
-
-
-    onConfigAbort = () => {
-        this.setState({
-            config: {
-                show: false,
-                type: ''
-            }
-        });
+    state = {
+        content: ''
     };
 
+    constructor(props) {
+        super(props);
+        const loadDir = () => {
+            console.log(window.location.pathname);
+            FileLoader.getFilesFromDir(window.location.pathname).then(text => this.setState({content: text}));
+        };
+        loadDir();
+    }
+
+
     render() {
+
+        console.log(this.state.content);
         return (
             <div id="page-content">
                 <Path path={this.dir}/>
-                <Content title={this.filename} content={this.content} readOnly={this.state.readOnly.isReadOnly}/>
-                {this.state.config.show ?
-                    <PageConfig new={this.state.config.type === 'create'} onAbort={this.onConfigAbort} name={this.filename}
-                                path={this.path}/> : ""}
+                <Content title={"hallo"} content={this.state.content}/>
             </div>
         );
 

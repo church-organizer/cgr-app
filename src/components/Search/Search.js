@@ -12,9 +12,13 @@ const useStyles = makeStyles(theme => ({
         margin: "14px",
         zIndex: "1202"
     },
+    search: {
+        paddingBottom: "20px",
+        paddingTop: "20px"
+    },
     input: {
         position: "relative",
-        padding: theme.spacing(1, 1, 1, 1),
+        // padding: theme.spacing(1, 1, 1, 1),
         width: '100%',
         border: "1px solid #eee",
         borderRadius: "3px",
@@ -36,23 +40,23 @@ const SearchBar = () => {
 
 
     const onChange = (event) => {
-        let list = [];
-        const value = event.target.value;
-        setSearch(value);
-        if (value === "") {
-            setResults([]);
-            return;
-        }
-        let searchList = allresults;
-        if (results.length > 0) {
-            searchList = results;
-        }
-        searchList.map((item, index) => {
-            if (item.match(value)) {
-                list.push(item);
-            }
-        });
-        setResults(list);
+        // let list = [];
+        // const value = event.target.value;
+        // setSearch(value);
+        // if (value === "") {
+        //     setResults([]);
+        //     return;
+        // }
+        // let searchList = allresults;
+        // if (results.length > 0) {
+        //     searchList = results;
+        // }
+        // searchList.map((item, index) => {
+        //     if (item.match(value)) {
+        //         list.push(item);
+        //     }
+        // });
+        // setResults(list);
     };
 
     return (<Container>
@@ -60,7 +64,7 @@ const SearchBar = () => {
                 placeholder="Suche…" className={classes.search}
                 value={search} onChange={onChange}
                 classes={{
-                    root: classes.root,
+                    // root: classes.root,
                     input: classes.input
                 }}
                 inputProps={{'aria-label': 'search'}}

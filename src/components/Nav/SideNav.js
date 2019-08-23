@@ -3,20 +3,23 @@ import {
     Divider,
     Drawer,
     List,
-    ListItem,
-    ListItemIcon, ListItemText,
     makeStyles, Typography,
 } from "@material-ui/core";
-import HomeIcon from '@material-ui/icons/Home';
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./Nav.css";
+import {Link} from "react-router-dom";
+import SearchBar from "../Search/Search";
+import FileLoader from "../../services/FileLoader";
 
 
-const initWidth = 200;
+const initWidth = 250;
 
 const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
+    header: {
+        marginTop: "15px"
+    },
     drawerOpen: {
         width: initWidth,
         transition: theme.transitions.create('width', {
@@ -43,14 +46,7 @@ const useStyles = makeStyles(theme => ({
  */
 export const SideNavItem = (props) => {
     return (
-        <ListItem key={props.text.replace(" ", "")} button style={{
-            paddingLeft: 0,
-            paddingRight: 0, display: "block", borderRadius: '2px'
-        }} onClick={props.click}>
-            <div className="sideNavButton">
-                <ListItemText className="sideNavItemText" primary={props.text}/>
-            </div>
-        </ListItem>
+        <div>asd</div>
     );
 };
 
@@ -66,13 +62,8 @@ const SideNav = (props) => {
     const classes = useStyles();
 
 
-    const teens = [
-        <SideNavItem key={1} to={"/teens/bla"} text={"bla"}/>,
-        <SideNavItem key={1} to={"/teens/bla2"} text={"bla2"}/>,];
-    const youth = [
-        <SideNavItem key={1} to={"/jugend/bla"} text={"bla"}/>,
-        <SideNavItem key={1} to={"/jugend/bla2"} text={"bla2"}/>,
-    ];
+
+
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {
@@ -84,9 +75,14 @@ const SideNav = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
+            <Link className={classes.header} to={"/"}><Typography component={"h3"} variant={"inherit"}> CGR Wiki</Typography></Link>
+            <SearchBar/>
+            <Divider/>
             <List>
-            <Typography variant={"inherit"}>Teens</Typography>
-            {teens.map((item, index)=> (item))}
+                <Typography variant={"inherit"}>Teens</Typography>
+                {/*{teens.map((item, index) => (item))}*/}
+                <Typography variant={"inherit"}>Jugend</Typography>
+                {/*{youth.map((item, index) => (item))}*/}
             </List>
         </Drawer>
     );
