@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Typography, Paper} from "@material-ui/core";
 import Path from "../components/Path/Path";
-import PageConfig from "./PageConfig";
 import FileLoader from "../services/FileLoader";
 import ReactMarkdown from "react-markdown";
 import Divider from "@material-ui/core/Divider";
@@ -36,7 +35,6 @@ const Content = (props) => {
  *
  */
 class WikiPage extends Component {
-    filename;
     content;
     dir = [];
     path;
@@ -47,7 +45,6 @@ class WikiPage extends Component {
     constructor(props) {
         super(props);
         const loadDir = () => {
-            console.log(window.location.pathname);
             FileLoader.getFilesFromDir(window.location.pathname).then(text => this.setState({content: text}));
         };
         loadDir();
@@ -55,8 +52,6 @@ class WikiPage extends Component {
 
 
     render() {
-
-        console.log(this.state.content);
         return (
             <div id="page-content">
                 <Path path={this.dir}/>

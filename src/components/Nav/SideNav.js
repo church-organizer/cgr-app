@@ -64,6 +64,8 @@ const SideNav = (props) => {
 
 
 
+    const structure = new FileLoader().getStructure();
+    console.log(structure);
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {
