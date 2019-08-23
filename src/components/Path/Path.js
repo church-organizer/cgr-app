@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const Path = (props) => {
     const fillPath = () => {
-        let path = "/wiki";
+        let path = "/";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
                 <Link style={{cursor: "pointer"}} color="primary" to={path}>
