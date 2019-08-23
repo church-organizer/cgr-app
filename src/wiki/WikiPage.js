@@ -47,16 +47,21 @@ class WikiPage extends Component {
     constructor(props) {
         super(props);
         const loadDir = () => {
-            console.log(window.location.pathname);
-            FileLoader.getFilesFromDir(window.location.pathname).then(text => this.setState({content: text}));
+            this.path = window.location.pathname;
+            FileLoader.getFilesFromDir(this.path).then(text => this.setState({content: text}));
         };
         loadDir();
+
+        const path = this.path.replace("/", "");
+        if (path !== "" && path !== "/") {
+            this.dir = this.path.split("/");
+            this.dir.shift();
+        }
+
     }
 
 
     render() {
-
-        console.log(this.state.content);
         return (
             <div id="page-content">
                 <Path path={this.dir}/>

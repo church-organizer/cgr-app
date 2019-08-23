@@ -8,13 +8,10 @@ const Path = (props) => {
         let path = "/";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
-                <Link style={{cursor: "pointer"}} color="primary" to={path}>
-                    <Button  variant={"contained"} size={"small"}>Start</Button>
-                </Link>
+                <Link style={{cursor: "pointer"}} color="primary" to={path}>Start</Link>
                 {props.path.map((dir, index) => {
-                    path += "/" + dir;
-                    return (<Link key={index} style={{cursor: "pointer"}} color="primary" to={path}>
-                        <Button  variant={"contained"} size={"small"}>{dir}</Button>
+                    path += "" + dir;
+                    return (<Link key={index} style={{cursor: "pointer"}} color="primary" to={path}>{dir}
                     </Link>);
                 })}
             </Breadcrumbs>
