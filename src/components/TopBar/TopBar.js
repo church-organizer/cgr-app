@@ -3,7 +3,7 @@ import {Paper, Breadcrumbs, Button} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
 
-const Path = (props) => {
+const TopBar = (props) => {
     const fillPath = () => {
         let path = "/";
         return (
@@ -25,4 +25,4 @@ const Path = (props) => {
     );
 };
 
-export default Path;
+export default TopBar;

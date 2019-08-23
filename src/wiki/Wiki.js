@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import WikiPage from "./WikiPage";
-import './Wiki.css'
+import Page from "../components/Page/Page";
+import SideBar from "../components/SideBar/SideBar";
+import './Wiki.css';
 
 /**
  * Shows all of the Wiki Entries
@@ -10,7 +11,8 @@ class Wiki extends Component {
     render() {
         return (
             <div className="base">
-                <WikiPage file={"/"} {...this.props.location}/>
+                <SideBar/>
+                <Page file={"/"} {...this.props.location}/>
             </div>
         );
     }
