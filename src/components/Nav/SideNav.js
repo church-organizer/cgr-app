@@ -2,7 +2,7 @@ import React from 'react';
 import {
     Divider,
     Drawer,
-    List,
+    List, ListItemText,
     makeStyles, Typography,
 } from "@material-ui/core";
 import clsx from 'clsx';
@@ -11,6 +11,7 @@ import "./Nav.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
 import FileLoader from "../../services/FileLoader";
+import ListItem from "@material-ui/core/ListItem";
 
 
 const initWidth = 250;
@@ -46,7 +47,9 @@ const useStyles = makeStyles(theme => ({
  */
 export const SideNavItem = (props) => {
     return (
-        <div>asd</div>
+        <ListItem key={props.to} button >
+            <ListItemText><Link to={props.to}>{props.label} </Link></ListItemText>
+        </ListItem>
     );
 };
 
@@ -62,10 +65,7 @@ const SideNav = (props) => {
     const classes = useStyles();
 
 
-
-
     const structure = new FileLoader().getStructure();
-    console.log(structure);
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {
@@ -77,14 +77,23 @@ const SideNav = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
-            <Link className={classes.header} to={"/"}><Typography component={"h3"} variant={"inherit"}> CGR Wiki</Typography></Link>
+            <Link className={classes.header} to={"/"}><Typography component={"h3"} variant={"inherit"}> CGR
+                Wiki</Typography></Link>
             <SearchBar/>
             <Divider/>
             <List>
-                <Typography variant={"inherit"}>Teens</Typography>
-                {/*{teens.map((item, index) => (item))}*/}
-                <Typography variant={"inherit"}>Jugend</Typography>
-                {/*{youth.map((item, index) => (item))}*/}
+                {structure.map((item, index) => {
+                    console.log(item);
+                    return (
+                        <div>
+                            <Typography key={index} variant={"inherit"}>{item}</Typography>
+                            {new FileLoader().getStructure(item).map((link, subindex) => {
+                                return <SideNavItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                            })}
+                            <Divider/>
+                        </div>
+                    );
+                })}
             </List>
         </Drawer>
     );
