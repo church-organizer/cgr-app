@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {
     Divider,
-    Drawer,
+    Drawer, Chip, Avatar,
     List, ListItemText,
     makeStyles, Typography,
 } from "@material-ui/core";
@@ -12,6 +12,7 @@ import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
 import FileLoader from "../../services/FileLoader";
 import ListItem from "@material-ui/core/ListItem";
+import logo from "../../files/logo.png"
 
 
 const initWidth = 250;
@@ -19,7 +20,8 @@ const initWidth = 250;
 const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
     header: {
-        marginTop: "15px"
+        marginTop: "15px",
+        color: "white"
     },
     drawerOpen: {
         width: initWidth,
@@ -27,6 +29,7 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
+        background: "linear-gradient(to bottom, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
     },
     drawerClose: {
         transition: theme.transitions.create('width', {
@@ -36,6 +39,20 @@ const useStyles = makeStyles(theme => ({
         overflowX: 'hidden',
         width: theme.spacing(7)
     },
+    whiteColor: {
+        color: "white"
+    },
+    listHeader: {
+        padding: "5px",
+        cursor: "pointer"
+    },
+    avatar: {
+        marginTop: "20px",
+        cursor: "pointer",
+        marginLeft: "30px",
+        marginRight: "30px",
+        border: "none"
+    }
 }));
 /**
  * The Item component for the SideBar
@@ -46,9 +63,14 @@ const useStyles = makeStyles(theme => ({
  * @constructor
  */
 export const SideBarItem = (props) => {
+    const classes = useStyles();
     return (
         <ListItem key={props.to} button>
-            <ListItemText><Link to={props.to}>{props.label} </Link></ListItemText>
+            <ListItemText>
+                <Typography>
+                    <Link className={classes.whiteColor} to={props.to}>{props.label} </Link>
+                </Typography>
+            </ListItemText>
         </ListItem>
     );
 };
@@ -77,26 +99,22 @@ const SideBar = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
-            <Link className={classes.header} to={"/"}>
-                <Typography component={"h3"} variant={"inherit"}> CGR Wiki</Typography>
-            </Link>
+            <Chip avatar={<Avatar alt="Homepage" src={logo}/>} className={classes.avatar}
+                  variant="outlined" color={"primary"}
+                  label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}
+            ><Link className={classes.header} to={"/"}/></Chip>
+
             <SearchBar/>
             <Divider/>
-            <List>
+            <List className={classes.whiteColor}>
                 {structure.map((item, index) => {
                     return (
-                        <div>
-<<<<<<< HEAD
-                            <Typography key={index} variant={"inherit"}>{item}</Typography>
-                            {new FileLoader().getStructure(item).map((link, subindex) => {
-                                return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                            })}
-=======
-                            <Typography onClick={() => setOpen(index)} key={index} variant={"inherit"}>{item}</Typography>
+                        <div key={index}>
+                            <Typography className={classes.listHeader} onClick={() => setOpen(index)}
+                                        variant={"inherit"}>{item}</Typography>
                             {open === index ? new FileLoader().getStructure(item).map((link, subindex) => {
                                 return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                            }): ""}
->>>>>>> d4b9729352d36b3916b42648febbb42c430f024e
+                            }) : ""}
                             <Divider/>
                         </div>
                     );
