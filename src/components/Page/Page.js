@@ -11,8 +11,10 @@ class Page extends Component {
     content;
     dir = [];
     path;
+    filename = "Startseite";
     state = {
-        content: ''
+        content: '',
+        filename: ''
     };
 
     constructor(props) {
@@ -27,6 +29,7 @@ class Page extends Component {
         if (path !== "" && path !== "/") {
             this.dir = this.path.split("/");
             this.dir.shift();
+            this.filename = this.dir[this.dir.length-1];
         }
     }
 
@@ -34,7 +37,7 @@ class Page extends Component {
         return (
             <div id="page-content">
                 <TopBar path={this.dir}/>
-                <Content title={"hallo"} content={this.state.content}/>
+                <Content title={this.filename} content={this.state.content}/>
             </div>
         );
     }
