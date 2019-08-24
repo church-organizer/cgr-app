@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Divider,
     Drawer,
@@ -63,6 +63,7 @@ export const SideBarItem = (props) => {
 const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
+    const [open, setOpen] = useState(0);
 
     const structure = new FileLoader().getStructure();
     return (
@@ -85,10 +86,17 @@ const SideBar = (props) => {
                 {structure.map((item, index) => {
                     return (
                         <div>
+<<<<<<< HEAD
                             <Typography key={index} variant={"inherit"}>{item}</Typography>
                             {new FileLoader().getStructure(item).map((link, subindex) => {
                                 return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
                             })}
+=======
+                            <Typography onClick={() => setOpen(index)} key={index} variant={"inherit"}>{item}</Typography>
+                            {open === index ? new FileLoader().getStructure(item).map((link, subindex) => {
+                                return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                            }): ""}
+>>>>>>> d4b9729352d36b3916b42648febbb42c430f024e
                             <Divider/>
                         </div>
                     );
