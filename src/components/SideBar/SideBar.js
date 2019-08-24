@@ -43,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     },
     listHeader: {
         cursor: "pointer",
-        width: "100%"
+        width: "100%",
     },
     avatar: {
         marginTop: "20px",
@@ -51,6 +51,11 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "30px",
         marginRight: "30px",
         border: "none"
+    },
+    listItem : {
+        margin: "10px",
+        paddingTop: 0,
+        paddingBottom: 0
     }
 }));
 /**
