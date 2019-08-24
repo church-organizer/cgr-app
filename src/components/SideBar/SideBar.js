@@ -20,7 +20,6 @@ const initWidth = 250;
 const useStyles = makeStyles(theme => ({
     toolbar: theme.mixins.toolbar,
     header: {
-        marginTop: "15px",
         color: "white"
     },
     drawerOpen: {
@@ -37,7 +36,7 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: theme.spacing(7)
+        width: 0
     },
     whiteColor: {
         color: "white"
@@ -99,22 +98,23 @@ const SideBar = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
-            
-            <Chip avatar={<Avatar alt="Homepage" src={logo} />} className={classes.avatar}
-                variant="outlined" color={"primary"}
-                label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}
-            ><Link className={classes.header} to={"/"}/></Chip>
-            
+            <Link className={classes.header} to={"/"}>
+                <Chip size={"medium"} avatar={<Avatar alt="Homepage" src={logo}/>} className={classes.avatar}
+                      variant="outlined" color={"primary"}
+                      label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}/>
+            </Link>
+
             <SearchBar/>
             <Divider/>
             <List className={classes.whiteColor}>
                 {structure.map((item, index) => {
                     return (
                         <div key={index}>
-                            <Typography className={classes.listHeader} onClick={() => setOpen(index)} variant={"inherit"}>{item}</Typography>
+                            <Typography className={classes.listHeader} onClick={() => setOpen(index)}
+                                        variant={"inherit"}>{item}</Typography>
                             {open === index ? new FileLoader().getStructure(item).map((link, subindex) => {
                                 return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                            }): ""}
+                            }) : ""}
                             <Divider/>
                         </div>
                     );
