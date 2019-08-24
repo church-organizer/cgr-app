@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: "30px",
         border: "none"
     },
-    listItem : {
+    listItem: {
         margin: "10px",
         paddingTop: 0,
         paddingBottom: 0
@@ -90,6 +90,12 @@ const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     const [open, setOpen] = useState(0);
+    const [seachWord, setSearchWord] = useState("");
+
+    const onSearch = (searchContent) => {
+        setSearchWord(searchContent);
+    };
+
 
     const structure = new FileLoader().getStructure();
     return (
@@ -108,8 +114,7 @@ const SideBar = (props) => {
                       variant="outlined" color={"primary"}
                       label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}/>
             </Link>
-
-            <SearchBar/>
+            <SearchBar onSearch={onSearch}/>
             <Divider/>
             <List className={classes.whiteColor}>
                 {structure.map((item, index) => {
@@ -121,9 +126,19 @@ const SideBar = (props) => {
                                             variant={"inherit"}>{item}
                                 </Typography>
                             </ListItem>
-                            {open === index ? new FileLoader().getStructure(item).map((link, subindex) => {
-                                return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                            }) : ""}
+                            {new FileLoader().getStructure(item).map((link, subindex) => {
+                                if (open === index && seachWord === "") {
+                                    if (seachWord !== "" && link.match(seachWord) !== null) {
+                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                                    } else if (seachWord === "") {
+                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                                    }
+                                } else {
+                                    if (seachWord !== "" && link.match(seachWord) !== null) {
+                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                                    }
+                                }
+                            })}
                             <Divider/>
                         </div>
                     );
