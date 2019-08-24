@@ -42,8 +42,8 @@ const useStyles = makeStyles(theme => ({
         color: "white"
     },
     listHeader: {
-        padding: "5px",
-        cursor: "pointer"
+        cursor: "pointer",
+        width: "100%"
     },
     avatar: {
         marginTop: "20px",
@@ -110,8 +110,12 @@ const SideBar = (props) => {
                 {structure.map((item, index) => {
                     return (
                         <div key={index}>
-                            <Typography className={classes.listHeader} onClick={() => setOpen(index)}
-                                        variant={"inherit"}>{item}</Typography>
+                            <ListItem component={"h3"} classes={{root: classes.listItem}}>
+                                <Typography className={classes.listHeader}
+                                            onClick={() => setOpen(index)}
+                                            variant={"inherit"}>{item}
+                                </Typography>
+                            </ListItem>
                             {open === index ? new FileLoader().getStructure(item).map((link, subindex) => {
                                 return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
                             }) : ""}
