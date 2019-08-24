@@ -14,7 +14,8 @@ const useStyles = makeStyles(theme => ({
     },
     search: {
         paddingBottom: "20px",
-        paddingTop: "20px"
+        paddingTop: "20px",
+        color: "white"
     },
     input: {
         position: "relative",
@@ -22,7 +23,8 @@ const useStyles = makeStyles(theme => ({
         width: '100%',
         border: "1px solid #eee",
         borderRadius: "3px",
-        cursor: "text"
+        cursor: "text",
+        padding: "10px"
     },
     item: {
         opacity: 1,
@@ -40,23 +42,7 @@ const SearchBar = () => {
 
 
     const onChange = (event) => {
-        // let list = [];
-        // const value = event.target.value;
-        // setSearch(value);
-        // if (value === "") {
-        //     setResults([]);
-        //     return;
-        // }
-        // let searchList = allresults;
-        // if (results.length > 0) {
-        //     searchList = results;
-        // }
-        // searchList.map((item, index) => {
-        //     if (item.match(value)) {
-        //         list.push(item);
-        //     }
-        // });
-        // setResults(list);
+        setSearch(event.target.value);
     };
 
     return (<Container>
