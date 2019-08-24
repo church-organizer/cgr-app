@@ -33,16 +33,15 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-const allresults = ["Test", "TEST2", "BLA", "Bla", "BlaB"];
 
-const SearchBar = () => {
+const SearchBar = (props) => {
     const classes = useStyles();
     const [search, setSearch] = useState('');
-    const [results, setResults] = useState([]);
 
 
     const onChange = (event) => {
         setSearch(event.target.value);
+        props.onSearch(event.target.value);
     };
 
     return (<Container>
@@ -55,20 +54,6 @@ const SearchBar = () => {
                 }}
                 inputProps={{'aria-label': 'search'}}
             />
-            <Fade style={{position: "absolute", width: "15%"}} in={results.length > 0}>
-                <Container>
-                    <Paper className={classes.paper}>
-                        <List component="nav">
-                            {results.map((item, index) => {
-                                return (
-                                    <ListItem style={{opacity: 1, filter: "blur(0)"}} button key={index}>
-                                        <ListItemText primary={item}/>
-                                    </ListItem>);
-                            })}
-                        </List>
-                    </Paper>
-                </Container>
-            </Fade>
         </Container>
     );
 };
