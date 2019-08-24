@@ -10,7 +10,7 @@
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.75);
 }
 
-.sideNavButton {
+.sideBarButton {
     width: calc(100% - 12px);
     height: 100%;
     padding-left: 12px;
@@ -18,7 +18,7 @@
     white-space: nowrap;
 }
 
-.sideNavItemText {
+.sideBarItemText {
     display: inline;
     position: relative;
     left: 0;

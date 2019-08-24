@@ -7,7 +7,7 @@ import {
 } from "@material-ui/core";
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import "./Nav.css";
+import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
 import FileLoader from "../../services/FileLoader";
@@ -38,14 +38,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 /**
- * The Item component for the Sidebar
+ * The Item component for the SideBar
  * all params are required
  * needs an icon, a text and a click method
  * @param props
  * @returns {*}
  * @constructor
  */
-export const SideNavItem = (props) => {
+export const SideBarItem = (props) => {
     return (
         <ListItem key={props.to} button>
             <ListItemText><Link to={props.to}>{props.label} </Link></ListItemText>
@@ -54,16 +54,15 @@ export const SideNavItem = (props) => {
 };
 
 /**
- * The Sidenav
- * the content is required, it is a list with SideNavItems
+ * The SideBar
+ * the content is required, it is a list with SideBarItems
  * @param props [content]
  * @returns {*}
  * @constructor
  */
-const SideNav = (props) => {
+const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
-
 
     const structure = new FileLoader().getStructure();
     return (
@@ -99,4 +98,4 @@ const SideNav = (props) => {
     );
 };
 
-export default SideNav;
+export default SideBar;
