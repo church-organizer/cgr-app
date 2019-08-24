@@ -87,7 +87,7 @@ const SideBar = (props) => {
                         <div>
                             <Typography key={index} variant={"inherit"}>{item}</Typography>
                             {new FileLoader().getStructure(item).map((link, subindex) => {
-                                return <SideNavItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                                return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
                             })}
                             <Divider/>
                         </div>
