@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme => ({
  */
 export const SideNavItem = (props) => {
     return (
-        <ListItem key={props.to} button >
+        <ListItem key={props.to} button>
             <ListItemText><Link to={props.to}>{props.label} </Link></ListItemText>
         </ListItem>
     );
@@ -77,13 +77,13 @@ const SideNav = (props) => {
                 [classes.drawerClose]: !matches,
             })
         }}>
-            <Link className={classes.header} to={"/"}><Typography component={"h3"} variant={"inherit"}> CGR
-                Wiki</Typography></Link>
+            <Link className={classes.header} to={"/"}>
+                <Typography component={"h3"} variant={"inherit"}> CGR Wiki</Typography>
+            </Link>
             <SearchBar/>
             <Divider/>
             <List>
                 {structure.map((item, index) => {
-                    console.log(item);
                     return (
                         <div>
                             <Typography key={index} variant={"inherit"}>{item}</Typography>
