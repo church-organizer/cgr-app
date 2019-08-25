@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
-import {Container, InputBase, ListItemText, makeStyles} from "@material-ui/core";
-import Fade from "@material-ui/core/Fade";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import Paper from "@material-ui/core/Paper";
+import {Container, InputBase, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -13,7 +9,6 @@ const useStyles = makeStyles(theme => ({
         zIndex: "1202"
     },
     search: {
-        paddingBottom: "20px",
         paddingTop: "20px",
         color: "white"
     },
