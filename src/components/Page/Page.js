@@ -21,7 +21,7 @@ class Page extends Component {
         super(props);
         const loadDir = () => {
             this.path = window.location.pathname;
-            FileLoader.getFilesFromDir(this.path).then(text => this.setState({content: text}));
+            FileLoader.getContentFromFile(this.path).then(text => this.setState({content: text}));
         };
         loadDir();
 

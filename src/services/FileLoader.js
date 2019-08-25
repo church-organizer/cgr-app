@@ -17,7 +17,7 @@ class FileLoader {
      * @param path current path in the browser
      * @returns {Promise<string>} the string is the content of the file
      */
-    static getFilesFromDir(path) {
+    static getContentFromFile(path) {
         path = path.toLowerCase();
         switch (path) {
             case "/":

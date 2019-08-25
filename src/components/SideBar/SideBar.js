@@ -123,7 +123,7 @@ const SideBar = (props) => {
             <Link className={classes.header} to={"/"}>
                 <Chip size={"medium"} avatar={<Avatar alt="Homepage" src={logo}/>} className={classes.avatar}
                       variant="outlined" color={"primary"}
-                      label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}/>
+                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
             </Link>
             <div>
                 <SearchBar onSearch={onSearch}/>
