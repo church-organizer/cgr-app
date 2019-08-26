@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Typography, Paper} from "@material-ui/core";
-import ReactMarkdown from "react-markdown";
 import Divider from "@material-ui/core/Divider";
+import Markdown from "./Markdown";
 
 /**
  * Shows the content of a Page
@@ -22,7 +22,7 @@ export function Content(props) {
                 Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}
             </Typography>
             <Divider/>
-            <ReactMarkdown source={props.content}/>
+            <Markdown source={props.content}/>
         </Paper>
     );
 };
