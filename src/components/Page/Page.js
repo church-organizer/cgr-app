@@ -19,7 +19,6 @@ class Page extends Component {
 
     constructor(props) {
         super(props);
-        this.path = window.location.pathname;
         FileLoader.loadFile(this.path).then(text => this.setState({content: text}));
 
         const path = this.path.replace("/", "");
