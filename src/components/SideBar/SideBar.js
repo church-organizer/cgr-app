@@ -65,7 +65,7 @@ const useStyles = makeStyles(theme => ({
         marginRight: "30px",
         border: "none"
     },
-    advancedSearchIcon: {
+    noBackground: {
         background: "none"
     }
 }));
@@ -121,14 +121,14 @@ const SideBar = (props) => {
             })
         }}>
             <Link className={classes.header} to={"/"}>
-                <Chip size={"medium"} avatar={<Avatar alt="Homepage" src={logo}/>} className={classes.avatar}
+                <Chip size={"medium"} avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}} src={logo}/>} className={classes.avatar}
                       variant="outlined" color={"primary"}
                       label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
             </Link>
             <div>
                 <SearchBar onSearch={onSearch}/>
                 <Link to={"/search"}>
-                    <Chip size={"medium"} avatar={<Avatar classes={{root: classes.advancedSearchIcon}}><SettingsIcon /></Avatar>} className={classes.advancedSearch}
+                    <Chip size={"medium"} avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon /></Avatar>} className={classes.advancedSearch}
                       variant="outlined" color={"primary"}
                       label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
                 </Link>
