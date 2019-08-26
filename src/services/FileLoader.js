@@ -8,6 +8,9 @@ class FileLoader {
     };
 
     static async loadFile(path, type="md") {
+        if(path === "/" || path === "") {
+            path = "/Start"
+        }
         try{
             const module = require("../files"+ path + "." + type);
             return await fetch(module).then(res => res.text());
