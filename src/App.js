@@ -9,7 +9,7 @@ import {Container} from "@material-ui/core";
 
 class App extends Component {
     state = {
-        login: {isLoggedIn: false, username: ''}
+        login: {isLoggedIn: true, username: 'asd'}
     };
 
     render() {
@@ -17,22 +17,17 @@ class App extends Component {
             <Router>
                 <div className="App" style={{position: "fixed", width: "100%"}}>
                     {this.state.login.isLoggedIn ?
-                        <Container>
-                            <SideBar/>
+
                             <div className="content">
+                                <SideBar/>
                                 <Switch>
-
-                                    <Container>
-                                        <Route exact path="/search" component={AdvancedSearch}/>
-                                        <Route path="/" component={Wiki}/>
-                                    </Container>
-
+                                    <Route exact path="/search" component={AdvancedSearch}/>
+                                    <Route path="/" component={Wiki}/>
                                 </Switch>
                             </div>
-                        </Container>
-                         :
-                        <Route path="/" render={(props)=> <Login onLogin={(username) =>
-                                   this.setState({isLoggedIn: true, username: username})}/>}/>}
+                        :
+                        <Route path="/" render={(props) => <Login onLogin={(username) =>
+                            this.setState({isLoggedIn: true, username: username})}/>}/>}
 
                 </div>
             </Router>
