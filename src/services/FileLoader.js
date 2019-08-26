@@ -7,12 +7,26 @@ class FileLoader {
         "Jugend": ["Allgemein", "Allgemein2"],
     };
 
-    static async loadFile(path, type="md") {
-        if(path === "/" || path === "") {
+    static async loadFile(path, type = "md") {
+        if (path === "/" || path === "") {
             path = "/Start"
+        } else if (path.replace("/", "") in new FileLoader().structure) {
+            const name = path.replace("/", "");
+            const structure = new FileLoader().structure;
+            let links = "";
+            for (let item in structure[name]) {
+                links += `[]()`
+            }
+            const content = `# ${name}
+            Hier sind die Unterverzeichnisse
+            
+            `;
+            return new Promise(function (resolve, reject) {
+                resolve();
+            })
         }
-        try{
-            const module = require("../files"+ path + "." + type);
+        try {
+            const module = require("../files" + path + "." + type);
             return await fetch(module).then(res => res.text());
         } catch (e) {
             return "";
