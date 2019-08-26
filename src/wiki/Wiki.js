@@ -11,7 +11,6 @@ class Wiki extends Component {
     render() {
         return (
             <div className="base">
-                <SideBar/>
                 <Page file={"/"} {...this.props.location}/>
             </div>
         );

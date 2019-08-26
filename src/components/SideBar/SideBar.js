@@ -13,6 +13,7 @@ import SearchBar from "../Search/Search";
 import FileLoader from "../../services/FileLoader";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
+import SettingsIcon from "@material-ui/icons/Settings"
 
 
 const initWidth = 250;
@@ -56,6 +57,16 @@ const useStyles = makeStyles(theme => ({
         margin: "10px",
         paddingTop: 0,
         paddingBottom: 0
+    },
+    advancedSearch: {
+        marginTop: 0,
+        cursor: "pointer",
+        marginLeft: "30px",
+        marginRight: "30px",
+        border: "none"
+    },
+    advancedSearchIcon: {
+        background: "none"
     }
 }));
 /**
@@ -112,9 +123,16 @@ const SideBar = (props) => {
             <Link className={classes.header} to={"/"}>
                 <Chip size={"medium"} avatar={<Avatar alt="Homepage" src={logo}/>} className={classes.avatar}
                       variant="outlined" color={"primary"}
-                      label="CGR Wiki" classes={{colorPrimary: classes.whiteColor}}/>
+                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
             </Link>
-            <SearchBar onSearch={onSearch}/>
+            <div>
+                <SearchBar onSearch={onSearch}/>
+                <Link to={"/search"}>
+                    <Chip size={"medium"} avatar={<Avatar classes={{root: classes.advancedSearchIcon}}><SettingsIcon /></Avatar>} className={classes.advancedSearch}
+                      variant="outlined" color={"primary"}
+                      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                </Link>
+            </div>
             <Divider/>
             <List className={classes.whiteColor}>
                 {structure.map((item, index) => {
