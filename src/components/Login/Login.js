@@ -1,11 +1,17 @@
 import React from "react";
-import {Box, Container, DialogContentText, Paper, Tab, Tabs, TextField} from "@material-ui/core";
+import {Box, Container, DialogContentText, makeStyles, Paper, Tab, Tabs, TextField} from "@material-ui/core";
 import AppBar from "@material-ui/core/AppBar";
 import FormControl from "@material-ui/core/FormControl";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import './Login.css'
+
+const useStyle = makeStyles(theme => ({
+    topBar: {
+        background: "linear-gradient(to bottom, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
+    }
+}));
 
 
 const TabPanel = (props) => {
@@ -34,8 +40,11 @@ const TabPanel = (props) => {
  * @constructor
  */
 const Login = (props) => {
+    const classes = useStyle();
     const [value, setValue] = React.useState(0);
     const [user, setUser] = React.useState({userName: '', password: ''});
+    const loginUrl = "https://churchtools.cg-rahden.de/index.php?q=login/ajax";
+
     const onChangeHandler = (event, newValue) => {
         setValue(newValue);
     };
@@ -49,22 +58,48 @@ const Login = (props) => {
         }
     };
 
+    (() => {
+        // if token exists and is valid exit hier
+        // set user.username
+        // props.onLogin(user.username)
+    })();
+
     /**
      * todo login logic
      */
     const login = () => {
-        props.onLogin.setState({login: {isLoggedIn: true, username: user.username}});
+        fetch(loginUrl, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: [JSON.stringify({
+                func: 'login',
+                email: user.userName,
+                password: user.password
+            })]
+        }).then(res => {
+            console.log(res);
+        }).catch(error => {
+            console.error(error);
+        });
+        window.location.pathname = "/";
+        props.onLogin(user.userName);
     };
 
-    const loginPossibilities = ['Churchtools', 'Google', 'Facebook'];
-
+    const loginPossibilities = ['Churchtools'];
+    console.log(props);
     return (
         <Box className="loginWindow">
-            <Paper style={{width: "100%",margin: "20px"}}>
-                <AppBar position={"static"} style={{borderRadius: "3px"}}>
-                    <Tabs onChange={onChangeHandler} variant={"fullWidth"} value={value} indicatorColor="secondary" textColor="inherit" centered>
+            <Paper style={{width: "100%", margin: "20px"}}>
+                <AppBar position={"static"} style={{borderRadius: "3px"}} classes={{colorPrimary: classes.topBar}}>
+                    <Tabs onChange={onChangeHandler} variant={"fullWidth"} value={value} indicatorColor="secondary"
+                          textColor="inherit" centered>
                         {
-                            loginPossibilities.map((item, index)=> {return <Tab key={index} label={item}/> })
+                            loginPossibilities.map((item, index) => {
+                                return <Tab key={index} label={item}/>
+                            })
                         }
                     </Tabs>
                 </AppBar>
@@ -87,8 +122,8 @@ const Login = (props) => {
                                     required={true} value={user.password}
                                     // helperText={"Dein Passwort"}
                                 />
-                                <Button variant={"contained"} onClick={login}>Login</Button>
-                                <Link style={{margin: "10px"}} to={"/register"}>registrieren</Link>
+                                <Link onClick={login}><Button type={"submit"}
+                                                              variant={"contained"}>Login</Button></Link>
                             </FormControl>
                         </TabPanel>)
                     })}
