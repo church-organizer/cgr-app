@@ -1,19 +1,17 @@
 # Todos
 
-- [x] Login Maske
-- [ ] Alle Link zeigen auf Componenten
-- [ ] bessere Möglichkeit Sidebar Links zu erstellen
-- [ ] Startseite
-- [ ] Rechte System
-- [ ] Einstellungen
-- [ ] Profil
-- [ ] Responsive
-- [ ] Suche
-- [ ] Bewertung
-  - Oberfläche
-- [ ] Medien
-  - Oberfläche
-- [ ] Popups(Snackbars)
+- [ ] Login Maske überarbeiten, password mit hochladen (gehashed) als datei
+- [ ] Startseite inhalt
+- [ ] Responsive sidebar per button aus und ein fahren
+- [x] Suche
+- [ ] zeit bei advanced suche wird nicht immer angezeigt !???? warum auch immer
+- [ ] footer erstellen
+- [ ] ordner struktur nicht mehr hard codiert im Fileloader
+- [ ] error handling wenn es eine url nicht gibt
+- [ ] für die oberordner wie Teens oder Jugend automatische eine seite darstellen die nur die links zu den pages enthält (wenn man auf die Oberordner klickt)
+- [ ] sidebar darf keine horizontale scrollbar haben
+
+
 
 # Installation
 alle Dependencies installieren
