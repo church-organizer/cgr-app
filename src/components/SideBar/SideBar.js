@@ -67,6 +67,13 @@ const useStyles = makeStyles(theme => ({
     },
     noBackground: {
         background: "none"
+    },
+    fullWidth: {
+        width: "100%",
+    },
+    link: {
+        width: "max-content",
+        color: "white"
     }
 }));
 /**
@@ -80,13 +87,15 @@ const useStyles = makeStyles(theme => ({
 export const SideBarItem = (props) => {
     const classes = useStyles();
     return (
-        <ListItem key={props.to} button>
-            <ListItemText>
-                <Typography>
-                    <Link className={classes.whiteColor} to={props.to}>{props.label} </Link>
-                </Typography>
-            </ListItemText>
-        </ListItem>
+        <Link className={classes.link} to={props.to}>
+            <ListItem key={props.to} button>
+                <ListItemText classes={{root: classes.fullWidth}}>
+                    <Typography>
+                        {props.label}
+                    </Typography>
+                </ListItemText>
+            </ListItem>
+        </Link>
     );
 };
 
@@ -121,16 +130,20 @@ const SideBar = (props) => {
             })
         }}>
             <Link className={classes.header} to={"/"}>
-                <Chip size={"medium"} avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}} src={logo}/>} className={classes.avatar}
+                <Chip size={"medium"}
+                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}} src={logo}/>}
+                      className={classes.avatar}
                       variant="outlined" color={"primary"}
                       label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
             </Link>
             <div>
                 <SearchBar onSearch={onSearch}/>
                 <Link to={"/search"}>
-                    <Chip size={"medium"} avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon /></Avatar>} className={classes.advancedSearch}
-                      variant="outlined" color={"primary"}
-                      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                    <Chip size={"medium"}
+                          avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                          className={classes.advancedSearch}
+                          variant="outlined" color={"primary"}
+                          label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
                 </Link>
             </div>
             <Divider/>
@@ -138,9 +151,8 @@ const SideBar = (props) => {
                 {structure.map((item, index) => {
                     return (
                         <div key={index}>
-                            <ListItem component={"h3"} classes={{root: classes.listItem}}>
+                            <ListItem onClick={() => setOpen(index)} component={"h3"} classes={{root: classes.listItem}}>
                                 <Typography className={classes.listHeader}
-                                            onClick={() => setOpen(index)}
                                             variant={"inherit"}>{item}
                                 </Typography>
                             </ListItem>
