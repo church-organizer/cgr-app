@@ -6,6 +6,7 @@ import Paper from "@material-ui/core/Paper";
 import {Link} from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import Divider from "@material-ui/core/Divider";
+import Markdown from "../Content/Markdown";
 
 
 const useStyle = makeStyles(theme => ({
@@ -80,7 +81,7 @@ const AdvancedSearch = () => {
                                 <Typography style={{color: "#4e4eaf"}} variant={"subtitle1"}>{item[1]}</Typography>
                             </Link>
                             <Divider/>
-                            <ReactMarkdown source={item[2]}/>
+                            <Markdown source={item[2]}/>
                         </Paper>);
                 })}
             </Container>
