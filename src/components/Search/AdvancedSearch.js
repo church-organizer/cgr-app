@@ -12,12 +12,20 @@ const useStyle = makeStyles(theme => ({
     root: {
         position: "relative",
         left: "20%",
-        width: "60%"
+        top: "100px",
+        width: "60%",
+        overflowY: "scrollable"
     },
     result: {
         margin: "20px",
         textAlign: "left",
         padding: "20px"
+    },
+    time: {
+        color: "#666",
+        fontSize: "14px",
+        textAlign: "left",
+        paddingLeft: "32px"
     }
 }));
 
@@ -62,7 +70,7 @@ const AdvancedSearch = () => {
         <div className={classes.root}>
             <Typography variant={"h3"}>Advanced Search</Typography>
             <SearchBar onSearch={onSearch} color={"#444444"}/>
-            {time > 0 ? <Typography>Suche beendet in {time} Sekunden</Typography> : ""}
+            {time > 0 ? <Typography className={classes.time}>Suche beendet in {time} Sekunden</Typography> : ""}
             <Container>
                 {results.map((item, index) => {
                     return (
@@ -72,7 +80,7 @@ const AdvancedSearch = () => {
                                 <Typography style={{color: "#4e4eaf"}} variant={"subtitle1"}>{item[1]}</Typography>
                             </Link>
                             <Divider/>
-                            <Typography component={"p"}><ReactMarkdown source={item[2]}/></Typography>
+                            <ReactMarkdown source={item[2]}/>
                         </Paper>);
                 })}
             </Container>
