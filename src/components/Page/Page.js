@@ -19,11 +19,8 @@ class Page extends Component {
 
     constructor(props) {
         super(props);
-        const loadDir = () => {
-            this.path = window.location.pathname;
-            FileLoader.getContentFromFile(this.path).then(text => this.setState({content: text}));
-        };
-        loadDir();
+        this.path = window.location.pathname;
+        FileLoader.loadFile(this.path).then(text => this.setState({content: text}));
 
         const path = this.path.replace("/", "");
         if (path !== "" && path !== "/") {
@@ -34,6 +31,8 @@ class Page extends Component {
     }
 
     render() {
+        console.log(this.path);
+        FileLoader.loadFile(this.path).then(text => console.log(text));
         return (
             <div id="page-content">
                 <TopBar path={this.dir}/>

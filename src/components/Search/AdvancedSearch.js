@@ -37,7 +37,7 @@ async function doSearch(searchWord, setResults) {
     for (let item of structure) {
         let pages = fileLoader.getStructure(item);
         for (let page of pages) {
-            await FileLoader.getContentFromFile("/" + item + "/" + page).then(text => {
+            await FileLoader.loadFile("/" + item + "/" + page).then(text => {
                 let match = text.toLowerCase().match(searchWord.toLowerCase());
                 if (match && searchWord !== "") {
                     let index = match.index;
