@@ -4,6 +4,9 @@ import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import {Link} from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import Divider from "@material-ui/core/Divider";
+
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -18,7 +21,7 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
-async function doSearch (searchWord, setResults){
+async function doSearch(searchWord, setResults) {
     const fileLoader = new FileLoader();
     const structure = fileLoader.getStructure();
     const results = [];
@@ -28,10 +31,9 @@ async function doSearch (searchWord, setResults){
             await FileLoader.getContentFromFile("/" + item + "/" + page).then(text => {
                 let match = text.toLowerCase().match(searchWord.toLowerCase());
                 if (match && searchWord !== "") {
-                    console.log(text.toLowerCase().match(searchWord.toLowerCase()));
                     let index = match.index;
                     let path = "/" + item + "/" + page;
-                    results.push([page, path, "..." + text.slice(index - 30, index + searchWord.length+30) + "..."]);
+                    results.push([page, path, "..." + text.slice(index - 20, index + searchWord.length + 20) + "..."]);
                 }
             });
         }
@@ -42,21 +44,25 @@ async function doSearch (searchWord, setResults){
 
 const AdvancedSearch = () => {
     const classes = useStyle();
-    const [searchWord, setSearchWord] = useState("");
+    const [time, setTime] = useState(0);
     const [results, setResults] = useState([]);
 
     const onSearch = (search) => {
-        setSearchWord(search);
+        let startDate = new Date();
         doSearch(search, (result) => {
             setResults(result)
         });
+        setTime((new Date().getTime() - startDate.getTime()) / 1000);
+        if (search === ""){
+            setTime(0);
+        }
     };
 
     return (
         <div className={classes.root}>
-            <Typography variant={"h4"}>
-                <SearchBar onSearch={onSearch} color={"#444444"}/>
-            </Typography>
+            <Typography variant={"h3"}>Advanced Search</Typography>
+            <SearchBar onSearch={onSearch} color={"#444444"}/>
+            {time > 0 ? <Typography>Suche beendet in {time} Sekunden</Typography> : ""}
             <Container>
                 {results.map((item, index) => {
                     return (
@@ -65,7 +71,8 @@ const AdvancedSearch = () => {
                                 <Typography variant={"h5"}> {item[0]}</Typography>
                                 <Typography style={{color: "#4e4eaf"}} variant={"subtitle1"}>{item[1]}</Typography>
                             </Link>
-                            <Typography component={"p"}>{item[2]}</Typography>
+                            <Divider/>
+                            <Typography component={"p"}><ReactMarkdown source={item[2]}/></Typography>
                         </Paper>);
                 })}
             </Container>

@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
     },
     input: {
         position: "relative",
-        width: '100%',
+        // width: '100%',
         border: "1px solid #eee",
         borderRadius: "3px",
         cursor: "text",
@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     item: {
         opacity: 1,
         filter: "blur(0)"
+    },
+    root: {
+        width: "100%"
     }
 
 }));
@@ -36,7 +39,8 @@ const SearchBar = (props) => {
                 placeholder="Suche…" className={classes.search} style={{color: props.color || "white"}}
                 value={search} onChange={onChange}
                 classes={{
-                    input: classes.input
+                    input: classes.input,
+                    root: classes.root
                 }}
                 inputProps={{'aria-label': 'search'}}
             />
