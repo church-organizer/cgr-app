@@ -30,7 +30,7 @@ dies ist ein kleiner test für die jugend
 
 [Link](google.com)
 
-![Bild](../logo.png)
+![Bild](logo.png)
 
 
 

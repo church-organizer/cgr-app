@@ -5,7 +5,9 @@ import "./Markdown.css"
 const Markdown = (props) => {
     const content = props.source;
 
-    return <ReactMarkdown className="markdown-content" source={content}/>
+    return <ReactMarkdown transformImageUri={(test) => require("../../files/" + test)}
+                          className="markdown-content"
+                          source={content}/>
 };
 
 export default Markdown;
