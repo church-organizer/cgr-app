@@ -1,4 +1,5 @@
 class FileLoader {
+    static url = "http://localhost:3001/wiki/";
     structure = {
         "Teens": ["Allgemein", "Allgemein2"],
         "Jugend": ["Allgemein", "Allgemein2"],
@@ -9,10 +10,14 @@ class FileLoader {
         if (path !== "") {
             path = "?page=" + path;
         }
-        return fetch("http://localhost:3001/wiki/file/" + path).then(res => {
-            return res.json().then(res => res.content);
-        }).catch(err => {
-            console.log("Error");
+        return fetch(this.url + "file/" + path).then(res => {
+            return res.json().then(result => result.content);
+        });
+    }
+
+    static structorFromApi() {
+        return fetch(this.url + "structure/").then(res => {
+            return res.json().then(result => result.structure);
         });
     }
 
@@ -28,5 +33,7 @@ class FileLoader {
         }
     }
 }
+
+console.log(FileLoader.structorFromApi());
 
 export default FileLoader;

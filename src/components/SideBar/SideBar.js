@@ -111,10 +111,12 @@ const SideBar = (props) => {
     const classes = useStyles();
     const [open, setOpen] = useState(0);
     const [seachWord, setSearchWord] = useState("");
+    const [structure2, setStructure] = useState("");
 
     const onSearch = (searchContent) => {
         setSearchWord(searchContent);
     };
+
 
 
     const structure = new FileLoader().getStructure();
@@ -159,6 +161,7 @@ const SideBar = (props) => {
                                     </Typography>
                                 </ListItem>
                             </Link>
+
                             {new FileLoader().getStructure(item).map((link, subindex) => {
                                 if (open === index && seachWord === "") {
                                     if (seachWord !== "" && link.match(seachWord) !== null) {
