@@ -28,11 +28,10 @@ class Page extends Component {
             this.dir.shift();
             this.filename = this.dir[this.dir.length-1];
         }
+        FileLoader.api(this.path);
     }
 
     render() {
-        console.log(this.path);
-        FileLoader.loadFile(this.path).then(text => console.log(text));
         return (
             <div id="page-content">
                 <TopBar path={this.dir}/>

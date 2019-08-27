@@ -32,6 +32,17 @@ class FileLoader {
 
     }
 
+    static api(path = "") {
+        if (path !== "") {
+            path = "?page=" +path;
+        }
+        fetch("http://localhost:3001/wiki/file/" + path).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     getStructure(dir = null) {
         if (dir && dir in this.structure) {
             return this.structure[dir]
