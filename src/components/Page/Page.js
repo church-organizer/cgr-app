@@ -20,7 +20,7 @@ class Page extends Component {
     constructor(props) {
         super(props);
         this.path = window.location.pathname;
-        FileLoader.loadFile(this.path).then(text => this.setState({content: text}));
+        FileLoader.api(this.path).then(text => this.setState({content: text}));
 
         const path = this.path.replace("/", "");
         if (path !== "" && path !== "/") {
@@ -28,7 +28,6 @@ class Page extends Component {
             this.dir.shift();
             this.filename = this.dir[this.dir.length-1];
         }
-        FileLoader.api(this.path);
     }
 
     render() {
