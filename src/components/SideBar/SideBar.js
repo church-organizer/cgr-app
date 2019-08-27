@@ -151,12 +151,13 @@ const SideBar = (props) => {
                 {structure.map((item, index) => {
                     return (
                         <div key={index}>
-                            <Link to={"/" + item} className={classes.link}> <ListItem onClick={() => setOpen(index)} component={"h3"}
-                                                             classes={{root: classes.listItem}}>
-                                <Typography className={classes.listHeader}
-                                            variant={"inherit"}>{item}
-                                </Typography>
-                            </ListItem>
+                            <Link to={"/" + item} className={classes.link}>
+                                <ListItem onClick={() => setOpen(index)} component={"h3"}
+                                          classes={{root: classes.listItem}}>
+                                    <Typography className={classes.listHeader}
+                                                variant={"inherit"}>{item}
+                                    </Typography>
+                                </ListItem>
                             </Link>
                             {new FileLoader().getStructure(item).map((link, subindex) => {
                                 if (open === index && seachWord === "") {
