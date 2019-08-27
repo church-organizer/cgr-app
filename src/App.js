@@ -5,7 +5,6 @@ import Wiki from "./wiki/Wiki";
 import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
-import {Container} from "@material-ui/core";
 
 class App extends Component {
     state = {

@@ -171,6 +171,7 @@ const SideBar = (props) => {
                                         return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
                                     }
                                 }
+                                return "";
                             })}
                             <Divider/>
                         </div>

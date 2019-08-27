@@ -4,7 +4,6 @@ import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import {Link} from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "../Content/Markdown";
 
