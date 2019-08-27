@@ -34,6 +34,5 @@ class FileLoader {
     }
 }
 
-console.log(FileLoader.structorFromApi());
 
 export default FileLoader;
