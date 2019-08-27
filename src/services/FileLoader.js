@@ -14,15 +14,13 @@ class FileLoader {
             const name = path.replace("/", "");
             const structure = new FileLoader().structure;
             let links = "";
-            for (let item in structure[name]) {
-                links += `[]()`
+            for (let item of structure[name]) {
+                links += `- [${item}](${path + "/" + item})\n\n`
             }
-            const content = `# ${name}
-            Hier sind die Unterverzeichnisse
-            
-            `;
+            const content = `# ${name}\nHier sind die Unterverzeichnisse\n\n\n${links}`;
+            console.log(content);
             return new Promise(function (resolve, reject) {
-                resolve();
+                resolve(content);
             })
         }
         try {
