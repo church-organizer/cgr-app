@@ -99,6 +99,46 @@ export const SideBarItem = (props) => {
     );
 };
 
+const SideBarLinks = (props) => {
+    const classes = useStyles();
+    const [open, setOpen] = useState(0);
+    const structure = props.structure;
+    const searchWord = props.searchWord;
+    let folder = [];
+    for (let item in props.structure) {
+        folder.push(item);
+    }
+    return (folder.map((item, index) => {
+        return (
+            <div key={index}>
+                <Link to={"/" + item} className={classes.link}>
+                    <ListItem onClick={() => setOpen(index)} component={"h3"}
+                              classes={{root: classes.listItem}}>
+                        <Typography className={classes.listHeader}
+                                    variant={"inherit"}>{item}
+                        </Typography>
+                    </ListItem>
+                </Link>
+                {structure[item].map((link, subindex) => {
+                    if (open === index && searchWord === "") {
+                        if (searchWord !== "" && link.match(searchWord) !== null) {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        } else if (searchWord === "") {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        }
+                    } else {
+                        if (searchWord !== "" && link.match(searchWord) !== null) {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        }
+                    }
+                    return "";
+                })}
+                <Divider/>
+            </div>
+        );
+    }));
+};
+
 /**
  * The SideBar
  * the content is required, it is a list with SideBarItems
@@ -109,17 +149,14 @@ export const SideBarItem = (props) => {
 const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
-    const [open, setOpen] = useState(0);
     const [seachWord, setSearchWord] = useState("");
-    const [structure2, setStructure] = useState("");
 
     const onSearch = (searchContent) => {
         setSearchWord(searchContent);
     };
 
 
-
-    const structure = new FileLoader().getStructure();
+    const structure = props.structure;
     return (
         <Drawer open={matches} className={
             clsx(classes.drawer, {
@@ -150,36 +187,7 @@ const SideBar = (props) => {
             </div>
             <Divider/>
             <List className={classes.whiteColor}>
-                {structure.map((item, index) => {
-                    return (
-                        <div key={index}>
-                            <Link to={"/" + item} className={classes.link}>
-                                <ListItem onClick={() => setOpen(index)} component={"h3"}
-                                          classes={{root: classes.listItem}}>
-                                    <Typography className={classes.listHeader}
-                                                variant={"inherit"}>{item}
-                                    </Typography>
-                                </ListItem>
-                            </Link>
-
-                            {new FileLoader().getStructure(item).map((link, subindex) => {
-                                if (open === index && seachWord === "") {
-                                    if (seachWord !== "" && link.match(seachWord) !== null) {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    } else if (seachWord === "") {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    }
-                                } else {
-                                    if (seachWord !== "" && link.match(seachWord) !== null) {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    }
-                                }
-                                return "";
-                            })}
-                            <Divider/>
-                        </div>
-                    );
-                })}
+                <SideBarLinks structure={structure} searchWord={seachWord}/>
             </List>
         </Drawer>
     );

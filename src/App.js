@@ -5,11 +5,19 @@ import Wiki from "./wiki/Wiki";
 import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
+import FileLoader from "./services/FileLoader";
 
 class App extends Component {
     state = {
-        login: {isLoggedIn: true, username: 'asd'}
+        login: {isLoggedIn: true, username: 'asd'},
+        structure: {}
     };
+
+    constructor(props) {
+        super(props);
+        FileLoader.structorFromApi(window.location.pathname).then(structure => this.setState({structure: structure}));
+    }
+
 
     render() {
         return (
@@ -18,7 +26,7 @@ class App extends Component {
                     {this.state.login.isLoggedIn ?
 
                             <div className="content">
-                                <SideBar/>
+                                <SideBar structure={this.state.structure}/>
                                 <Switch>
                                     <Route exact path="/search" component={AdvancedSearch}/>
                                     <Route path="/" component={Wiki}/>
