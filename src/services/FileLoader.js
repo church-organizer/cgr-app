@@ -1,5 +1,5 @@
 class FileLoader {
-    static url = "http://localhost:3001/wiki/";
+    static url = "http://wiki.loetkemann.com/wiki/";
     structure = {
         "Teens": ["Allgemein", "Allgemein2"],
         "Jugend": ["Allgemein", "Allgemein2"],
