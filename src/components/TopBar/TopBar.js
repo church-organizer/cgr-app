@@ -1,17 +1,24 @@
 import React from 'react';
-import {Paper, Breadcrumbs} from "@material-ui/core";
+import {Paper, Breadcrumbs, makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 
+const useStyle = makeStyles(theme=>({
+    root: {
+        height: "30px",
+        padding: "10px"
+    }
+}));
 
 const TopBar = (props) => {
+    const classes = useStyle();
     const fillPath = () => {
         let path = "/";
         return (
             <Breadcrumbs separator={">"} aria-label="breadcrumb">
-                <Link style={{cursor: "pointer"}} color="primary" to={path}>Start</Link>
+                <Link color="primary" to={path}>Start</Link>
                 {props.path.map((dir, index) => {
                     path += "" + dir;
-                    return (<Link key={index} style={{cursor: "pointer"}} color="primary" to={path}>{dir}
+                    return (<Link key={index} color="primary" to={path}>{dir}
                     </Link>);
                 })}
             </Breadcrumbs>
@@ -19,7 +26,7 @@ const TopBar = (props) => {
     };
 
     return (
-        <Paper elevation={0} style={{height: "30px",padding: "10px",}}>
+        <Paper className={classes.root} elevation={0}>
             {fillPath()}
         </Paper>
     );

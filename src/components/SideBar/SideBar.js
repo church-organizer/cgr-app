@@ -10,7 +10,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import FileLoader from "../../services/FileLoader";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
