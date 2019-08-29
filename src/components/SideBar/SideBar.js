@@ -3,7 +3,7 @@ import {
     Divider,
     Drawer, Chip, Avatar,
     List, ListItemText,
-    makeStyles, Typography,
+    makeStyles, Typography, Slide,
 } from "@material-ui/core";
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -13,6 +13,10 @@ import SearchBar from "../Search/Search";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
+import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline"
+import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import Zoom from "@material-ui/core/Zoom";
 
 
 const initWidth = 250;
@@ -36,7 +40,8 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: 0
+        width: 0,
+        opacity: 0
     },
     whiteColor: {
         color: "white"
@@ -73,6 +78,11 @@ const useStyles = makeStyles(theme => ({
     link: {
         width: "max-content",
         color: "white"
+    },
+    openButton: {
+        position: "fixed",
+        top: "15px",
+        left: "15px"
     }
 }));
 /**
@@ -149,46 +159,78 @@ const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     const [seachWord, setSearchWord] = useState("");
+    const [open, setOpen] = useState(!matches);
+
+    if(open !== props.open) {
+        props.onClose(open);
+    }
 
     const onSearch = (searchContent) => {
         setSearchWord(searchContent);
     };
 
+    const onChange = (state) => {
+        props.onClose(state);
+        setOpen(state);
+    };
+
 
     const structure = props.structure;
     return (
-        <Drawer open={matches} className={
-            clsx(classes.drawer, {
-                [classes.drawerOpen]: matches,
-                [classes.drawerClose]: !matches,
-            })} variant={"permanent"} anchor={"left"} classes={{
-            paper: clsx({
-                [classes.drawerOpen]: matches,
-                [classes.drawerClose]: !matches,
-            })
-        }}>
-            <Link className={classes.header} to={"/"}>
-                <Chip size={"medium"}
-                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}} src={logo}/>}
-                      className={classes.avatar}
-                      variant="outlined" color={"primary"}
-                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
-            </Link>
-            <div>
-                <SearchBar onSearch={onSearch}/>
-                <Link to={"/search"}>
-                    <Chip size={"medium"}
-                          avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
-                          className={classes.advancedSearch}
-                          variant="outlined" color={"primary"}
-                          label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
-                </Link>
-            </div>
-            <Divider/>
-            <List className={classes.whiteColor}>
-                <SideBarLinks structure={structure} searchWord={seachWord}/>
-            </List>
-        </Drawer>
+        <div>
+            <Zoom in={!open}>
+                <Button className={classes.openButton} onClick={() => onChange(!open)}>
+                    <ViewHeadlineIcon color={"primary"} fontSize={"large"}/>
+                </Button>
+            </Zoom>
+            <Drawer open={open}
+                    className={
+                        clsx(classes.drawer, {
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        })} variant={"permanent"} anchor={"left"} classes={{
+                paper: clsx({
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })
+            }}
+            >
+                <Slide direction={"right"} in={open}>
+                    <div>
+                        {!open ? <Button onClick={() => onChange(!open)}>
+                            <ViewHeadlineIcon color={"inherit"} className={classes.whiteColor} fontSize={"large"}/>
+                        </Button> : ""}
+                        <div>
+                            <Link className={classes.header} to={"/"}>
+                                <Chip size={"medium"}
+                                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
+                                                      src={logo}/>}
+                                      className={classes.avatar}
+                                      variant="outlined" color={"primary"}
+                                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
+                            </Link>
+                            <Button onClick={() => setOpen(!open)} color={"primary"}><ViewHeadlineIcon color={"action"}
+                                                                                                       fontSize={"large"}/></Button>
+                        </div>
+                        <div>
+                            <SearchBar onSearch={onSearch}/>
+                            <Link to={"/search"}>
+                                <Chip size={"medium"}
+                                      avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                                      className={classes.advancedSearch}
+                                      variant="outlined" color={"primary"}
+                                      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                            </Link>
+                        </div>
+                        <Divider/>
+                        <List className={classes.whiteColor}>
+                            <SideBarLinks structure={structure} searchWord={seachWord}/>
+                        </List>
+                    </div>
+                </Slide>
+
+            </Drawer>
+        </div>
     );
 };
 
