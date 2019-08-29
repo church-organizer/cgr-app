@@ -15,7 +15,7 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        FileLoader.structorFromApi(window.location.pathname).then(structure => this.setState({structure: structure}));
+        FileLoader.getStructure(window.location.pathname).then(structure => this.setState({structure: structure}));
     }
 
 

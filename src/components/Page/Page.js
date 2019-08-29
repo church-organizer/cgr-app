@@ -20,7 +20,7 @@ class Page extends Component {
     constructor(props) {
         super(props);
         this.path = window.location.pathname;
-        FileLoader.api(this.path).then(text => this.setState({content: text}));
+        FileLoader.getPage(this.path).then(text => this.setState({content: text}));
 
         const path = this.path.replace("/", "");
         if (path !== "" && path !== "/") {
