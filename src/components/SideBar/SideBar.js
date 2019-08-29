@@ -13,9 +13,10 @@ import SearchBar from "../Search/Search";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
 import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline"
 import Button from "@material-ui/core/Button";
-import Fade from "@material-ui/core/Fade";
 import Zoom from "@material-ui/core/Zoom";
 
 
@@ -81,8 +82,13 @@ const useStyles = makeStyles(theme => ({
     },
     openButton: {
         position: "fixed",
-        top: "15px",
-        left: "15px"
+        bottom: "10px",
+        left: "10px"
+    },
+    closeButton: {
+        position: "absolute",
+        bottom: "10px",
+        right: "10px"
     }
 }));
 /**
@@ -180,7 +186,7 @@ const SideBar = (props) => {
         <div>
             <Zoom in={!open}>
                 <Button className={classes.openButton} onClick={() => onChange(!open)}>
-                    <ViewHeadlineIcon color={"primary"} fontSize={"large"}/>
+                    <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
                 </Button>
             </Zoom>
             <Drawer open={open}
@@ -197,9 +203,7 @@ const SideBar = (props) => {
             >
                 <Slide direction={"right"} in={open}>
                     <div>
-                        {!open ? <Button onClick={() => onChange(!open)}>
-                            <ViewHeadlineIcon color={"inherit"} className={classes.whiteColor} fontSize={"large"}/>
-                        </Button> : ""}
+
                         <div>
                             <Link className={classes.header} to={"/"}>
                                 <Chip size={"medium"}
@@ -209,8 +213,6 @@ const SideBar = (props) => {
                                       variant="outlined" color={"primary"}
                                       label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
                             </Link>
-                            <Button onClick={() => setOpen(!open)} color={"primary"}><ViewHeadlineIcon color={"action"}
-                                                                                                       fontSize={"large"}/></Button>
                         </div>
                         <div>
                             <SearchBar onSearch={onSearch}/>
@@ -226,6 +228,10 @@ const SideBar = (props) => {
                         <List className={classes.whiteColor}>
                             <SideBarLinks structure={structure} searchWord={seachWord}/>
                         </List>
+                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                            <KeyboardArrowLeftIcon color={"action"}
+                                                   fontSize={"large"}/>
+                        </Button>
                     </div>
                 </Slide>
 

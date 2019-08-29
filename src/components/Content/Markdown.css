@@ -11,6 +11,11 @@ a {
     color: #3139a3;
 }
 
+img {
+    width: 50%;
+    height: 50%;
+}
+
 blockquote {
     background-color: rgba(30, 134, 12, 0.27);
     border-left: 2px solid rgba(23, 87, 10, 0.87);

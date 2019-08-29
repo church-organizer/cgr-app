@@ -6,7 +6,6 @@ import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
 import FileLoader from "./services/FileLoader";
-import useMediaQuery from "@material-ui/core/useMediaQuery/useMediaQuery";
 
 class App extends Component {
     state = {
@@ -26,7 +25,7 @@ class App extends Component {
             <Router>
                 <div className="App" style={{position: "fixed", width: "100%"}}>
                     {this.state.login.isLoggedIn ?
-                            <div className="content" style={!this.state.showSideBar.show ? {left: "90px"} : {left: "260px"}}>
+                            <div className="content" style={!this.state.showSideBar.show ? {left: "20px"} : {left: "260px"}}>
                                 <SideBar open={this.state.showSideBar.show}  structure={this.state.structure} onClose={(state)=> this.setState({showSideBar: {show: state}})}/>
                                 <Switch>
                                     <Route exact path="/search" component={AdvancedSearch}/>
