@@ -1,6 +1,7 @@
 FROM node:12.2.0-alpine
 
-# set working directory
+ARG API_URL=http://localhost:3001
+ENV API_URL=${API_URL}
 WORKDIR /usr/src/app
 COPY . .
 # add `/app/node_modules/.bin` to $PATH
