@@ -3,6 +3,7 @@ class FileLoader {
 
 
     static getPage(path = "") {
+        console.log(this.url);
         if (path !== "") {
             path = "?page=" + path;
         }
