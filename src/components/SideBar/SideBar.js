@@ -104,7 +104,7 @@ const useStyles = makeStyles(theme => ({
 export const SideBarItem = (props) => {
     const classes = useStyles();
     return (
-        <Link className={classes.link} to={props.to}>
+        <Link onClick={() => props.setOpen(false)} className={classes.link} to={props.to}>
             <ListItem key={props.to} button>
                 <ListItemText classes={{root: classes.fullWidth}}>
                     <Typography>
@@ -139,13 +139,13 @@ const SideBarLinks = (props) => {
                 {structure[item].map((link, subindex) => {
                     if (open === index && searchWord === "") {
                         if (searchWord !== "" && link.match(searchWord) !== null) {
-                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
                         } else if (searchWord === "") {
-                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
                         }
                     } else {
                         if (searchWord !== "" && link.match(searchWord) !== null) {
-                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
                         }
                     }
                     return "";
@@ -228,7 +228,7 @@ const SideBar = (props) => {
                         </div>
                         <Divider/>
                         <List className={classes.whiteColor}>
-                            <SideBarLinks structure={structure} searchWord={seachWord}/>
+                            <SideBarLinks setOpen={(value)=> {!matches ? setOpen(value) : ""}} structure={structure} searchWord={seachWord}/>
                         </List>
                         <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
                             <KeyboardArrowLeftIcon color={"action"}
