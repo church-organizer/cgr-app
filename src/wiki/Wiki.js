@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Page from "../components/Page/Page";
-import SideBar from "../components/SideBar/SideBar";
 import './Wiki.css';
 
 /**

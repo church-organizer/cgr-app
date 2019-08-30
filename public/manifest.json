@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "CGR Wiki",
+  "name": "A Wiki-App for CGR",
   "icons": [
     {
       "src": "favicon.ico",

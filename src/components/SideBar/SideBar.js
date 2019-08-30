@@ -3,17 +3,21 @@ import {
     Divider,
     Drawer, Chip, Avatar,
     List, ListItemText,
-    makeStyles, Typography,
+    makeStyles, Typography, Slide,
 } from "@material-ui/core";
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import FileLoader from "../../services/FileLoader";
 import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
+import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline"
+import Button from "@material-ui/core/Button";
+import Zoom from "@material-ui/core/Zoom";
 
 
 const initWidth = 250;
@@ -37,7 +41,8 @@ const useStyles = makeStyles(theme => ({
             duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
-        width: 0
+        width: 0,
+        opacity: 0.5
     },
     whiteColor: {
         color: "white"
@@ -74,6 +79,18 @@ const useStyles = makeStyles(theme => ({
     link: {
         width: "max-content",
         color: "white"
+    },
+    openButton: {
+        position: "fixed",
+        bottom: "10px",
+        left: "10px",
+        backgroundColor: "rgba(122,125,141,0.6)"
+    },
+    closeButton: {
+        position: "absolute",
+        bottom: "10px",
+        right: "10px",
+
     }
 }));
 /**
@@ -99,6 +116,46 @@ export const SideBarItem = (props) => {
     );
 };
 
+const SideBarLinks = (props) => {
+    const classes = useStyles();
+    const [open, setOpen] = useState(0);
+    const structure = props.structure;
+    const searchWord = props.searchWord;
+    let folder = [];
+    for (let item in props.structure) {
+        folder.push(item);
+    }
+    return (folder.map((item, index) => {
+        return (
+            <div key={index}>
+                <Link to={"/" + item} className={classes.link}>
+                    <ListItem onClick={() => setOpen(index)} component={"h3"}
+                              classes={{root: classes.listItem}}>
+                        <Typography className={classes.listHeader}
+                                    variant={"inherit"}>{item}
+                        </Typography>
+                    </ListItem>
+                </Link>
+                {structure[item].map((link, subindex) => {
+                    if (open === index && searchWord === "") {
+                        if (searchWord !== "" && link.match(searchWord) !== null) {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        } else if (searchWord === "") {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        }
+                    } else {
+                        if (searchWord !== "" && link.match(searchWord) !== null) {
+                            return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
+                        }
+                    }
+                    return "";
+                })}
+                <Divider/>
+            </div>
+        );
+    }));
+};
+
 /**
  * The SideBar
  * the content is required, it is a list with SideBarItems
@@ -109,75 +166,79 @@ export const SideBarItem = (props) => {
 const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
-    const [open, setOpen] = useState(0);
     const [seachWord, setSearchWord] = useState("");
+    const [open, setOpen] = useState(!matches);
+
+    if(open !== props.open) {
+        props.onClose(open);
+    }
 
     const onSearch = (searchContent) => {
         setSearchWord(searchContent);
     };
 
+    const onChange = (state) => {
+        props.onClose(state);
+        setOpen(state);
+    };
 
-    const structure = new FileLoader().getStructure();
+
+    const structure = props.structure;
     return (
-        <Drawer open={matches} className={
-            clsx(classes.drawer, {
-                [classes.drawerOpen]: matches,
-                [classes.drawerClose]: !matches,
-            })} variant={"permanent"} anchor={"left"} classes={{
-            paper: clsx({
-                [classes.drawerOpen]: matches,
-                [classes.drawerClose]: !matches,
-            })
-        }}>
-            <Link className={classes.header} to={"/"}>
-                <Chip size={"medium"}
-                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}} src={logo}/>}
-                      className={classes.avatar}
-                      variant="outlined" color={"primary"}
-                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
-            </Link>
-            <div>
-                <SearchBar onSearch={onSearch}/>
-                <Link to={"/search"}>
-                    <Chip size={"medium"}
-                          avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
-                          className={classes.advancedSearch}
-                          variant="outlined" color={"primary"}
-                          label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
-                </Link>
-            </div>
-            <Divider/>
-            <List className={classes.whiteColor}>
-                {structure.map((item, index) => {
-                    return (
-                        <div key={index}>
-                            <Link to={"/" + item} className={classes.link}>
-                                <ListItem onClick={() => setOpen(index)} component={"h3"}
-                                          classes={{root: classes.listItem}}>
-                                    <Typography className={classes.listHeader}
-                                                variant={"inherit"}>{item}
-                                    </Typography>
-                                </ListItem>
+        <div>
+            <Zoom in={!open}>
+                <Button className={classes.openButton} onClick={() => onChange(!open)}>
+                    <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
+                </Button>
+            </Zoom>
+            <Drawer open={open}
+                    className={
+                        clsx(classes.drawer, {
+                            [classes.drawerOpen]: open,
+                            [classes.drawerClose]: !open,
+                        })} variant={"permanent"} anchor={"left"} classes={{
+                paper: clsx({
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })
+            }}
+            >
+                <Slide direction={"right"} in={open}>
+                    <div>
+
+                        <div>
+                            <Link className={classes.header} to={"/"}>
+                                <Chip size={"medium"}
+                                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
+                                                      src={logo}/>}
+                                      className={classes.avatar}
+                                      variant="outlined" color={"primary"}
+                                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
                             </Link>
-                            {new FileLoader().getStructure(item).map((link, subindex) => {
-                                if (open === index && seachWord === "") {
-                                    if (seachWord !== "" && link.match(seachWord) !== null) {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    } else if (seachWord === "") {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    }
-                                } else {
-                                    if (seachWord !== "" && link.match(seachWord) !== null) {
-                                        return <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}/>
-                                    }
-                                }
-                            })}
-                            <Divider/>
                         </div>
-                    );
-                })}
-            </List>
-        </Drawer>
+                        <div>
+                            <SearchBar onSearch={onSearch}/>
+                            <Link to={"/search"}>
+                                <Chip size={"medium"}
+                                      avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                                      className={classes.advancedSearch}
+                                      variant="outlined" color={"primary"}
+                                      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                            </Link>
+                        </div>
+                        <Divider/>
+                        <List className={classes.whiteColor}>
+                            <SideBarLinks structure={structure} searchWord={seachWord}/>
+                        </List>
+                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                            <KeyboardArrowLeftIcon color={"action"}
+                                                   fontSize={"large"}/>
+                        </Button>
+                    </div>
+                </Slide>
+
+            </Drawer>
+        </div>
     );
 };
 

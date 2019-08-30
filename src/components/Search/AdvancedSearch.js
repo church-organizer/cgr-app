@@ -4,7 +4,6 @@ import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import {Link} from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "../Content/Markdown";
 
@@ -30,25 +29,6 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
-async function doSearch(searchWord, setResults) {
-    const fileLoader = new FileLoader();
-    const structure = fileLoader.getStructure();
-    const results = [];
-    for (let item of structure) {
-        let pages = fileLoader.getStructure(item);
-        for (let page of pages) {
-            await FileLoader.loadFile("/" + item + "/" + page).then(text => {
-                let match = text.toLowerCase().match(searchWord.toLowerCase());
-                if (match && searchWord !== "") {
-                    let index = match.index;
-                    let path = "/" + item + "/" + page;
-                    results.push([page, path, "..." + text.slice(index - 20, index + searchWord.length + 20) + "..."]);
-                }
-            });
-        }
-    }
-    setResults(results);
-}
 
 
 const AdvancedSearch = () => {
@@ -57,14 +37,15 @@ const AdvancedSearch = () => {
     const [results, setResults] = useState([]);
 
     const onSearch = (search) => {
-        let startDate = new Date();
-        doSearch(search, (result) => {
-            setResults(result)
+        FileLoader.search(search).then((res)=> {
+            const result = res.result;
+            let arr = [];
+            for (let item in result) {
+                arr.push([item, result[item][0], result[item][1]])
+            }
+            setResults(arr);
+            setTime(res.time);
         });
-        setTime((new Date().getTime() - startDate.getTime()) / 1000);
-        if (search === ""){
-            setTime(0);
-        }
     };
 
     return (

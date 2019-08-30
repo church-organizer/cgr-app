@@ -5,21 +5,28 @@ import Wiki from "./wiki/Wiki";
 import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
-import {Container} from "@material-ui/core";
+import FileLoader from "./services/FileLoader";
 
 class App extends Component {
     state = {
-        login: {isLoggedIn: true, username: 'asd'}
+        login: {isLoggedIn: true, username: 'asd'},
+        structure: {},
+        showSideBar: {show: true}
     };
+
+    constructor(props) {
+        super(props);
+        FileLoader.getStructure(window.location.pathname).then(structure => this.setState({structure: structure}));
+    }
+
 
     render() {
         return (
             <Router>
                 <div className="App" style={{position: "fixed", width: "100%"}}>
                     {this.state.login.isLoggedIn ?
-
-                            <div className="content">
-                                <SideBar/>
+                            <div className="content" style={!this.state.showSideBar.show ? {left: "20px", width: "calc(100% - 30px)"} : {left: "260px"}}>
+                                <SideBar open={this.state.showSideBar.show}  structure={this.state.structure} onClose={(state)=> this.setState({showSideBar: {show: state}})}/>
                                 <Switch>
                                     <Route exact path="/search" component={AdvancedSearch}/>
                                     <Route path="/" component={Wiki}/>

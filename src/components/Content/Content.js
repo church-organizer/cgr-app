@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Typography, Paper} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "./Markdown";
