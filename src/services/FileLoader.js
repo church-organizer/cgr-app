@@ -1,5 +1,5 @@
 class FileLoader {
-    static url = (process.env.API_URL || 'http://localhost:3001') + '/wiki/';
+    static url = 'https://wiki.loetkemann.com/wiki/';
 
 
     static getPage(path = "") {
