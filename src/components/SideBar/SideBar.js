@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
         }),
         overflowX: 'hidden',
         width: 0,
-        opacity: 0
+        opacity: 0.5
     },
     whiteColor: {
         color: "white"
@@ -83,12 +83,14 @@ const useStyles = makeStyles(theme => ({
     openButton: {
         position: "fixed",
         bottom: "10px",
-        left: "10px"
+        left: "10px",
+        backgroundColor: "rgba(122,125,141,0.6)"
     },
     closeButton: {
         position: "absolute",
         bottom: "10px",
-        right: "10px"
+        right: "10px",
+
     }
 }));
 /**
