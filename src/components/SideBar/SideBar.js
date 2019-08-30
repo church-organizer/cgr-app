@@ -227,12 +227,12 @@ const SideBar = (props) => {
                         </div>
                         <Divider/>
                         <List className={classes.whiteColor}>
-                            <SideBarLinks setOpen={(value)=> {!matches ? setOpen(value) : ""}} structure={structure} searchWord={seachWord}/>
+                            <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
                         </List>
-                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                        {!matches ? <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
                             <KeyboardArrowLeftIcon color={"action"}
                                                    fontSize={"large"}/>
-                        </Button>
+                        </Button> : ""}
                     </div>
                 </Slide>
 
