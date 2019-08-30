@@ -27,6 +27,8 @@ const useStyles = makeStyles(theme => ({
         color: "white"
     },
     drawerOpen: {
+        overflowX: 'hidden',
+        overflowY: 'auto',
         width: initWidth,
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
@@ -39,7 +41,6 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        overflowX: 'hidden',
         width: 0,
         opacity: 0.5
     },
