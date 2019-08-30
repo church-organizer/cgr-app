@@ -13,6 +13,7 @@
 - [ ] edit page man soll ja die dateien auch bearbeiten können
 - [ ] advanced search zeigt nicht immer den gematcheten text an
 - [ ] try and catch, überall, fehler abfangen
+- [ ] footer soll an der unteren kante stehen bleiben, wenn es wenig inhalt gibt
 
 
 # Installation

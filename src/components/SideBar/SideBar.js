@@ -15,7 +15,6 @@ import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
-import ViewHeadlineIcon from "@material-ui/icons/ViewHeadline"
 import Button from "@material-ui/core/Button";
 import Zoom from "@material-ui/core/Zoom";
 
@@ -228,12 +227,12 @@ const SideBar = (props) => {
                         </div>
                         <Divider/>
                         <List className={classes.whiteColor}>
-                            <SideBarLinks setOpen={(value)=> {!matches ? setOpen(value) : ""}} structure={structure} searchWord={seachWord}/>
+                            <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
                         </List>
-                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                        {!matches ? <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
                             <KeyboardArrowLeftIcon color={"action"}
                                                    fontSize={"large"}/>
-                        </Button>
+                        </Button> : ""}
                     </div>
                 </Slide>
 

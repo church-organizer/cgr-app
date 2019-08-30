@@ -6,6 +6,7 @@ import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
 import FileLoader from "./services/FileLoader";
+import Footer from "./components/Footer/Footer";
 
 class App extends Component {
     state = {
@@ -31,6 +32,7 @@ class App extends Component {
                                     <Route exact path="/search" component={AdvancedSearch}/>
                                     <Route path="/" component={Wiki}/>
                                 </Switch>
+                                <Footer fullWidth={this.state.showSideBar.show}/>
                             </div>
                         :
                         <Route path="/" render={(props) => <Login onLogin={(username) =>
