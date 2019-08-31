@@ -14,6 +14,9 @@ const useStyles = makeStyles(theme => ({
         textAlign: "left",
         border: 'none',
     },
+    button: {
+        marginRight: "20px"
+    }
 }));
 
 const Editor = (props) => {
@@ -43,16 +46,21 @@ const Editor = (props) => {
                            autofocus: true,
                            spellChecker: false,
                            onToggleFullScreen(is) {
-                                console.log(is);
+                               console.log(is);
                            },
                            previewRender(text) {
                                return ReactDOMServer.renderToString(<Markdown source={text}/>);
                            }
                        }}/>
-                       <Link to={window.location.pathname}>
-                           <Button onClick={()=> {FileLoader.saveFile(props.fileName, content)}}
-                                   variant={"contained"} color={"primary"} >Speichern</Button>
-                       </Link>
+            <Link to={window.location.pathname}>
+                <Button className={classes.button} onClick={() => {
+                    FileLoader.saveFile(props.fileName, content)
+                }}
+                        variant={"contained"} color={"primary"}>Speichern</Button>
+            </Link>
+            <Link to={window.location.pathname}>
+                <Button className={classes.button} variant={"contained"} color={"inherit"}>Abbrechen</Button>
+            </Link>
         </div>
     );
 };
