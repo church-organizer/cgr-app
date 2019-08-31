@@ -234,10 +234,8 @@ const SideBar = (props) => {
                             <KeyboardArrowLeftIcon color={"action"}
                                                    fontSize={"large"}/>
                         </Button> : ""}
-                        <Button variant={"contained"} className="shake-lr" >Test</Button>
                     </div>
                 </Slide>
-
             </Drawer>
         </div>
     );
