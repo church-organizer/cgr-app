@@ -50,6 +50,8 @@ const useStyles = makeStyles(theme => ({
     listHeader: {
         cursor: "pointer",
         width: "100%",
+        // marginBottom: "10px",
+        // marginTop: "10px"
     },
     avatar: {
         marginTop: "20px",
@@ -59,9 +61,9 @@ const useStyles = makeStyles(theme => ({
         border: "none"
     },
     listItem: {
-        margin: "10px",
-        paddingTop: 0,
-        paddingBottom: 0
+        margin: "0",
+        paddingTop: "10px",
+        paddingBottom: "10px"
     },
     advancedSearch: {
         marginTop: 0,
@@ -78,7 +80,10 @@ const useStyles = makeStyles(theme => ({
     },
     link: {
         width: "max-content",
-        color: "white"
+        color: "white",
+        '&:hover': {
+            opacity: "0.7",
+        }
     },
     openButton: {
         position: "fixed",
@@ -150,7 +155,6 @@ const SideBarLinks = (props) => {
                     }
                     return "";
                 })}
-                <Divider/>
             </div>
         );
     }));
@@ -226,7 +230,6 @@ const SideBar = (props) => {
                                       label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
                             </Link>
                         </div>
-                        <Divider/>
                         <List className={classes.whiteColor}>
                             <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
                         </List>
