@@ -22,6 +22,10 @@ class FileLoader {
             return res.json().then(result => result);
         });
     }
+
+    static saveFile(filename, content) {
+        console.log(filename, content);
+    }
 }
 
 

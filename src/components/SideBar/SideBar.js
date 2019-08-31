@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        background: "linear-gradient(to bottom, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
+        background: "linear-gradient(to right, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
     },
     drawerClose: {
         transition: theme.transitions.create('width', {
@@ -127,7 +127,7 @@ const SideBarLinks = (props) => {
     }
     return (folder.map((item, index) => {
         return (
-            <div key={index}>
+            <div key={index} className={index===open ? "shadow-inset-center active" : "" }>
                 <Link to={"/" + item} className={classes.link}>
                     <ListItem onClick={() => setOpen(index)} component={"h3"}
                               classes={{root: classes.listItem}}>
@@ -236,7 +236,6 @@ const SideBar = (props) => {
                         </Button> : ""}
                     </div>
                 </Slide>
-
             </Drawer>
         </div>
     );

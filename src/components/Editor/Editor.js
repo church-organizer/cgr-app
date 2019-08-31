@@ -1,56 +1,58 @@
-import React from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+import Markdown from "../Content/Markdown";
+import ReactDOMServer from "react-dom/server";
+import Button from "@material-ui/core/Button";
+import {Link} from "react-router-dom";
+import FileLoader from "../../services/FileLoader";
 
 
 const useStyles = makeStyles(theme => ({
     div: {
         textAlign: "left",
-        border: 'none'
+        border: 'none',
     },
 }));
 
 const Editor = (props) => {
     const classes = useStyles();
-    let readOnly = false;
-    if (props.readOnly === undefined || props.readOnly) {
-        readOnly = true;
+    const [content, setContent] = useState("");
+
+    if (content === '' && props.content !== '') {
+        setContent(props.content);
     }
-    const toolbar = [
-        "Heading", '|', 'bold', 'italic', '|',
-        'bulletedList', 'numberedList',
-        "BlockQuote", "insertTable", '|',
-        "Link", "CKFinder", 'imageUpload', '|',
-        'undo', 'redo',
-    ];
+
+    // passing functions into editor for extra functionality
+    const extraKeys = {
+        Esc: function (cm) { // todo save file here
+            cm.replaceSelection(" surprise again! ");
+        },
+    };
+
+    const handleChange = (value) => {
+        setContent(value);
+    };
 
     return (
-        <div className={classes.div} id={readOnly ? "editor-content" : "editor-content-readOnly"}>
-            <CKEditor editor={ClassicEditor} data={props.content}
-                      config={{
-                          toolbar: readOnly ? [] : toolbar,
-                          table: {
-                              contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-                          },
-                          image: {
-                              toolbar: ['imageTextAlternative', 'imageStyle:full']
-                          },
-
-                      }}
-                      onInit={editor => {
-                          editor.isReadOnly = readOnly;
-                      }}
-                      onChange={(event, editor) => {
-                          const data = editor.getData();
-                          console.log({event, editor, data});
-                      }}
-                      onBlur={editor => {
-                          console.log('Blur.', editor);
-                      }}
-                      onFocus={editor => {
-                          console.log('Focus.', editor);
-                      }}/>
+        <div className={classes.root}>
+            <SimpleMDE onChange={handleChange} value={content} extraKeys={extraKeys}
+                       options={{
+                           placeholder: "Hier kommt der Text hin.",
+                           autofocus: true,
+                           spellChecker: false,
+                           onToggleFullScreen(is) {
+                                console.log(is);
+                           },
+                           previewRender(text) {
+                               return ReactDOMServer.renderToString(<Markdown source={text}/>);
+                           }
+                       }}/>
+                       <Link to={window.location.pathname}>
+                           <Button onClick={()=> {FileLoader.saveFile(props.fileName, content)}}
+                                   variant={"contained"} color={"primary"} >Speichern</Button>
+                       </Link>
         </div>
     );
 };
