@@ -7,6 +7,7 @@ import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
 import FileLoader from "./services/FileLoader";
 import Footer from "./components/Footer/Footer";
+import "./animations.css"
 
 class App extends Component {
     state = {
