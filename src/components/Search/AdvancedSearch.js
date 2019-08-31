@@ -42,7 +42,8 @@ const AdvancedSearch = () => {
             const result = res.result;
             let arr = [];
             for (let item in result) {
-                arr.push([item, result[item][0], result[item][1]])
+                console.log(result);
+                arr.push([result[item][0], item, result[item][1]])
             }
             setResults(arr);
             setTime(res.time);
