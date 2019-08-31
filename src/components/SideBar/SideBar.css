@@ -10,6 +10,10 @@
     box-shadow: 0 4px 20px 0 rgba(0,0,0,0.75);
 }
 
+.active {
+    padding: 10px;
+}
+
 .sideBarButton {
     width: calc(100% - 12px);
     height: 100%;
