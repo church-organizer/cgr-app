@@ -218,7 +218,7 @@ const SideBar = (props) => {
                         </div>
                         <div>
                             <SearchBar onSearch={onSearch}/>
-                            <Link to={"/search"}>
+                            <Link onClick={() => !matches ? setOpen(false): null} to={"/search"}>
                                 <Chip size={"medium"}
                                       avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
                                       className={classes.advancedSearch}
