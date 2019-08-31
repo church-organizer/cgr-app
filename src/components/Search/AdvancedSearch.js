@@ -6,20 +6,21 @@ import Paper from "@material-ui/core/Paper";
 import {Link} from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "../Content/Markdown";
+import "./Search.css"
 
 
 const useStyle = makeStyles(theme => ({
     root: {
         position: "relative",
-        left: "20%",
+        left: "10%",
         top: "100px",
-        width: "60%",
+        width: "80%",
         overflowY: "scrollable"
     },
     result: {
-        margin: "20px",
+        margin: "10px",
         textAlign: "left",
-        padding: "20px"
+        padding: "10px",
     },
     time: {
         color: "#666",
@@ -49,7 +50,7 @@ const AdvancedSearch = () => {
     };
 
     return (
-        <div className={classes.root}>
+        <div className="advancedSearch">
             <Typography variant={"h3"}>Advanced Search</Typography>
             <SearchBar onSearch={onSearch} color={"#444444"}/>
             {time > 0 ? <Typography className={classes.time}>Suche beendet in {time} Sekunden</Typography> : ""}
