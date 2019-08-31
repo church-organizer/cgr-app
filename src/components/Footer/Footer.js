@@ -13,6 +13,7 @@ const useStyle = makeStyles(theme => ({
         backgroundColor: "white",
         marginTop: "100px",
         padding: "20px",
+        zIndex: -10
     }
 }));
 

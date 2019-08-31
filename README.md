@@ -2,14 +2,14 @@
 
 - [ ] Login Maske überarbeiten, password mit hochladen (gehashed) als datei
 - [ ] Startseite inhalt
-- [ ] Responsive sidebar per button aus und ein fahren
+- [x] Responsive sidebar per button aus und ein fahren
 - [x] Suche
 - [ ] zeit bei advanced suche wird nicht immer angezeigt !???? warum auch immer
-- [ ] footer erstellen
-- [ ] ordner struktur nicht mehr hard codiert im Fileloader
+- [x] footer erstellen
+- [x] ordner struktur nicht mehr hard codiert im Fileloader
 - [ ] error handling wenn es eine url nicht gibt
 - [x] für die oberordner wie Teens oder Jugend automatische eine seite darstellen die nur die links zu den pages enthält (wenn man auf die Oberordner klickt)
-- [ ] sidebar darf keine horizontale scrollbar haben
+- [x] sidebar darf keine horizontale scrollbar haben
 - [ ] edit page man soll ja die dateien auch bearbeiten können
 - [ ] advanced search zeigt nicht immer den gematcheten text an
 - [ ] try and catch, überall, fehler abfangen
