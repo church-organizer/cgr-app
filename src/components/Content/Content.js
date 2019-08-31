@@ -11,20 +11,20 @@ import Editor from "../Editor/Editor";
  * @constructor
  */
 export function Content(props) {
+    const fileName = props.title.replace("-", " ");
     return (
         <Paper style={{border: "1px",
             padding: "20px",
             textAlign: "left",
             margin: "10px"}}>
             <Typography color={"inherit"} variant={"h5"}>
-                {props.title.replace('-', ' ')}
+                {fileName}
             </Typography>
             <Typography color={"inherit"} variant={"subtitle1"} style={{display: "inline-block",marginRight: "10px"}}>
                 Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}
             </Typography>
             <Divider/>
-            {/*<Markdown source={props.content}/>*/}
-            <Editor content={props.content}/>
+            {props.readOnly ? <Markdown source={props.content}/> : <Editor fileName={fileName} content={props.content}/>}
         </Paper>
     );
 };

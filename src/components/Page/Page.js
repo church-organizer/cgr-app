@@ -14,7 +14,8 @@ class Page extends Component {
     filename = "Startseite";
     state = {
         content: '',
-        filename: ''
+        filename: '',
+        readOnly: true
     };
 
     constructor(props) {
@@ -33,8 +34,8 @@ class Page extends Component {
     render() {
         return (
             <div id="page-content">
-                <TopBar path={this.dir}/>
-                <Content title={this.filename} content={this.state.content}/>
+                <TopBar onEdit={(readOnly) => this.setState({readOnly: readOnly})} path={this.dir}/>
+                <Content readOnly={this.state.readOnly} title={this.filename} content={this.state.content}/>
             </div>
         );
     }
