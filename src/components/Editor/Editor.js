@@ -54,7 +54,7 @@ const Editor = (props) => {
                        }}/>
             <Link to={window.location.pathname}>
                 <Button className={classes.button} onClick={() => {
-                    FileLoader.saveFile(props.fileName, content)
+                    FileLoader.saveFile(window.location.pathname, content)
                 }}
                         variant={"contained"} color={"primary"}>Speichern</Button>
             </Link>
