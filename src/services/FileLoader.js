@@ -1,5 +1,5 @@
 class FileLoader {
-    static url = 'https://wiki.loetkemann.com/wiki/';
+    static url = 'http://localhost:3001/wiki/';
 
 
     static getPage(path = "") {
@@ -25,6 +25,11 @@ class FileLoader {
 
     static saveFile(filename, content) {
         console.log(filename, content);
+        return fetch(this.url + "save", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({filename: filename, content: content})
+        }).then(res => res.json().then(res => res));
     }
 }
 
