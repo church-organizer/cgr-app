@@ -224,7 +224,7 @@ const SideBar = (props) => {
                             <SearchBar onSearch={onSearch}/>
                             <Link onClick={() => !matches ? setOpen(false): null} to={"/search"}>
                                 <Chip size={"medium"}
-                                      avatar={<Avatar classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                                      avatar={<Avatar className="rotate-center" classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
                                       className={classes.advancedSearch}
                                       variant="outlined" color={"primary"}
                                       label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>

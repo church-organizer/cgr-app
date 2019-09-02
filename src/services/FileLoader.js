@@ -17,8 +17,12 @@ class FileLoader {
         });
     }
 
-    static search(content) {
-        return fetch(this.url + "search?input=" + content).then(res => {
+    static search(searchWord, type="") {
+        return fetch(this.url + "search", {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({searchWord: searchWord, type: type})
+        }).then(res => {
             return res.json().then(result => result);
         });
     }

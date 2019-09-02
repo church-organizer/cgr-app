@@ -34,6 +34,14 @@
   }
 }
 
+@keyframes rotate-center {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 .shake-lr {
     animation: shake-lr 0.7s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
@@ -41,4 +49,8 @@
 
 .shadow-inset-center {
 	animation: shadow-inset-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+.rotate-center:hover {
+	animation: rotate-center 0.6s ease-in-out both;
 }

@@ -3,6 +3,7 @@ import {Paper, Breadcrumbs, makeStyles} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
+import Path from "./Path";
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -14,19 +15,11 @@ const useStyle = makeStyles(theme => ({
 const TopBar = (props) => {
     const classes = useStyle();
     const fillPath = () => {
-        let path = "/";
         return (
             <div>
                 <Grid alignItems={"stretch"} justify={"space-between"} container>
                     <Grid item xs>
-                        <Breadcrumbs separator={">"} aria-label="breadcrumb">
-                            <Link color="primary" to={path}>Start</Link>
-                            {props.path.map((dir, index) => {
-                                path += "" + dir;
-                                return (<Link key={index} color="primary" to={path}>{dir}
-                                </Link>);
-                            })}
-                        </Breadcrumbs>
+                        <Path folder={props.path}/>
                     </Grid>
                     <Grid item xs>
                         <Button onClick={() => props.onEdit(false)} variant={"contained"} color={"inherit"} style={{float: "right"}}>Bearbeiten</Button>
