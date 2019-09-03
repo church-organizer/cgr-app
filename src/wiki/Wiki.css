@@ -1,0 +1,11 @@
+a {
+    text-decoration: none;
+    color: #484b48;
+}
+
+
+#editor-content .ck-editor .ck-editor__main .ck-content {
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+}

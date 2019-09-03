@@ -1,5 +1,6 @@
 .App {
     text-align: center;
+    height: 100%;
 }
 
 .nav-button {
@@ -16,4 +17,18 @@
     display: inline-block;
     text-decoration: none;
     color: white;
+}
+.content {
+    position: relative;
+    top: 10px;
+    margin-right: 25%;
+    display: block;
+    overflow: auto;
+    height: 100%;
+}
+
+@media only screen and (min-width: 1100px) {
+    .content {
+        margin-right: 270px;
+    }
 }

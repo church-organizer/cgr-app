@@ -1,0 +1,55 @@
+pre, p code {
+    background: rgba(17, 0, 175, 0.11);
+    border-left: 4px solid rgba(43, 38, 186, 0.69);
+    padding: 10px;
+    min-width: 20%;
+    width: fit-content;
+}
+code {
+    padding: 8px;
+}
+
+a {
+    color: #3139a3;
+}
+
+img {
+    width: 50%;
+    height: 50%;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+blockquote {
+    background-color: rgba(47, 225, 17, 0.15);
+    border-left: 4px solid rgba(46, 168, 18, 0.75);
+    color: rgba(33, 120, 11, 0.87);
+    padding: 2px 10px 2px 10px;
+    margin: 0;
+    min-width: 20%;
+    width: fit-content;
+}
+blockquote p {
+    margin: 8px;
+}
+
+table {
+    background-color: rgba(72, 75, 72, 0.18);
+    border-radius: 2px;
+    border-collapse: collapse;
+    border-bottom: 2px solid #666666;
+}
+
+table th, table td {
+    border-bottom: 2px solid #666666;
+    padding: 10px 20px 10px 20px;
+}
+
+tr:hover {
+    background-color: rgba(70, 73, 70, 0.22);
+}
+
+
+table tr:last-child {
+    border-bottom: none;
+}

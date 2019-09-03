@@ -1,0 +1,43 @@
+#bottomNavRoot {
+    flex-grow: 1;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    height: 70px;
+    border-top: 1px solid #eee;
+    z-index: 1202;
+    background-color: #eee;
+    box-shadow: 0 4px 20px 0 rgba(0,0,0,0.75);
+;
+}
+
+.active {
+    padding: 10px;
+}
+
+.sideBarButton {
+    width: calc(100% - 12px);
+    height: 100%;
+    padding-left: 12px;
+    padding-top: 10px;
+    white-space: nowrap;
+}
+
+.sideBarItemText {
+    display: inline;
+    position: relative;
+    left: 0;
+    bottom: 5px;
+}
+
+#appBar {
+    position: static;
+    min-height: 60px;
+    min-width: 300px;
+}
+
+.topNavButton {
+    margin: 12px;
+    color: #eee;
+}
+
