@@ -20,6 +20,18 @@
 - [ ] mit directus vielleicht die api ablösen
 - [ ] gültigkeitsdauer für die seiten einführen (über directus einfacher?)
 
+A. Vollständiges Wiki mit Edit und View
+	1. Gutes Design
+	2. Editor
+	3. Dateien Lesen blabla
+	...
+	x. Undo
+
+B. Login
+	1. Editor/Admin - save as hash in file
+
+C. Dashboard auf homepage
+	1. 
 
 # Installation
 alle Dependencies installieren
