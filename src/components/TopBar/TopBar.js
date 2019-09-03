@@ -1,32 +1,45 @@
-import React from 'react';
-import {Paper, Breadcrumbs, makeStyles} from "@material-ui/core";
-import {Link} from "react-router-dom";
+import React, {useState} from 'react';
+import {Paper, makeStyles} from "@material-ui/core";
+import EditIcon from '@material-ui/icons/Edit';
+import ClearIcon from '@material-ui/icons/Clear';
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Path from "./Path";
+import IconButton from "@material-ui/core/IconButton";
 
 const useStyle = makeStyles(theme => ({
     root: {
         height: "30px",
         padding: "10px"
+    },
+    rotate: {
+        '&:focus':{
+            animation: "rotate-center 0.6s ease-in-out both"
+        }
+    },
+    rotateLeft: {
+        '&:focus':{
+            animation: "rotate-in-center 0.6s cubic-bezier(0.940, 0.450, 0.460, 0.250) both"
+        }
     }
 }));
 
 const TopBar = (props) => {
     const classes = useStyle();
+    const [edit, setEdit] = useState(false);
     const fillPath = () => {
         return (
             <div>
-                <Grid alignItems={"stretch"} justify={"space-between"} container>
+                <Grid alignItems={"center"} justify={"space-between"} container>
                     <Grid item xs>
                         <Path folder={props.path}/>
                     </Grid>
                     <Grid item xs>
-                        <Button onClick={() => props.onEdit(false)} variant={"contained"} color={"inherit"} style={{float: "right"}}>Bearbeiten</Button>
+                        <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
+                            {!edit ? <EditIcon fontSize={"medium"}/> :
+                                <ClearIcon fontSize={"medium"}/>}
+                        </IconButton>
                     </Grid>
                 </Grid>
-
-
             </div>
         );
     };

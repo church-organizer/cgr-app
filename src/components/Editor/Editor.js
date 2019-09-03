@@ -7,6 +7,8 @@ import ReactDOMServer from "react-dom/server";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";
 import FileLoader from "../../services/FileLoader";
+import ClearIcon from '@material-ui/icons/Clear';
+import SaveIcon from '@material-ui/icons/Save';
 
 
 const useStyles = makeStyles(theme => ({
@@ -16,6 +18,9 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         marginRight: "20px"
+    },
+    icon: {
+        marginRight: theme.spacing(1),
     }
 }));
 
@@ -55,11 +60,12 @@ const Editor = (props) => {
             <Link to={window.location.pathname}>
                 <Button className={classes.button} onClick={() => {
                     FileLoader.saveFile(window.location.pathname, content)
-                }}
-                        variant={"contained"} color={"primary"}>Speichern</Button>
+                }} variant={"contained"} color={"primary"}><SaveIcon className={classes.icon}/>Speichern</Button>
             </Link>
             <Link to={window.location.pathname}>
-                <Button className={classes.button} variant={"contained"} color={"inherit"}>Abbrechen</Button>
+                <Button className={classes.button} variant={"contained"} color={"inherit"}>
+                    <ClearIcon className={classes.icon}/>Abbrechen
+                </Button>
             </Link>
         </div>
     );
