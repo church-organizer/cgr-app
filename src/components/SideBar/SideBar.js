@@ -14,6 +14,7 @@ import SideBarLinks from "./SideBarLinks";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Zoom from "@material-ui/core/Zoom";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 
 
 const initWidth = 250;
@@ -136,6 +137,11 @@ const SideBar = (props) => {
                     <SideBarLinks setOpen={(value) => {
                         if (!matches) setOpen(value)
                     }} structure={structure} searchWord={seachWord}/>
+                    {!matches ?
+                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                            <KeyboardArrowLeftIcon color={"action"}
+                                                   fontSize={"large"}/>
+                        </Button> : ""}
                 </div>
             </Drawer>
         </div>
