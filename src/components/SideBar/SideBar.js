@@ -11,6 +11,9 @@ import SearchBar from "../Search/Search";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
 import SideBarLinks from "./SideBarLinks";
+import Button from "@material-ui/core/Button";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
+import Zoom from "@material-ui/core/Zoom";
 
 
 const initWidth = 250;
@@ -95,41 +98,46 @@ const SideBar = (props) => {
     const structure = props.structure;
     return (
         <div>
-            <div>
-                <Drawer onClose={() => {
-                    if (!matches) setOpen(false)
-                }} variant={matches ? "persistent" : "temporary"} open={open} anchor={"left"} classes={{
-                    paper: clsx({
-                        [classes.drawerOpen]: open,
-                        [classes.drawerClose]: !open,
-                    })
-                }}>
+            <Zoom in={!open}>
+                <Button className={classes.openButton} onClick={() => onChange(!open)}>
+                    <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
+                </Button>
+            </Zoom>
+            <Drawer onClose={() => {
+                if (!matches) setOpen(false)
+            }} variant={matches ? "persistent" : "temporary"} open={open} anchor={"left"} classes={{
+                paper: clsx({
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open,
+                })
+            }}>
+                <div>
                     <div>
-                        <div>
-                            <Link className={classes.header} to={"/"}>
-                                <Chip size={"medium"}
-                                      avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
-                                                      src={logo}/>}
-                                      className={classes.avatar}
-                                      variant="outlined" color={"primary"}
-                                      label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
-                            </Link>
-                        </div>
-                        <div>
-                            <SearchBar onSearch={onSearch}/>
-                            <Link onClick={() => !matches ? setOpen(false) : null} to={"/search"}>
-                                <Chip size={"medium"}
-                                      avatar={<Avatar className="rotate-center"
-                                                      classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
-                                      className={classes.advancedSearch}
-                                      variant="outlined" color={"primary"}
-                                      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
-                            </Link>
-                        </div>
-                        <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
+                        <Link className={classes.header} to={"/"}>
+                            <Chip size={"medium"}
+                                  avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
+                                                  src={logo}/>}
+                                  className={classes.avatar}
+                                  variant="outlined" color={"primary"}
+                                  label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>
+                        </Link>
                     </div>
-                </Drawer>
-            </div>
+                    <div>
+                        <SearchBar onSearch={onSearch}/>
+                        <Link onClick={() => !matches ? setOpen(false) : null} to={"/search"}>
+                            <Chip size={"medium"}
+                                  avatar={<Avatar className="rotate-center"
+                                                  classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                                  className={classes.advancedSearch}
+                                  variant="outlined" color={"primary"}
+                                  label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                        </Link>
+                    </div>
+                    <SideBarLinks setOpen={(value) => {
+                        if (!matches) setOpen(value)
+                    }} structure={structure} searchWord={seachWord}/>
+                </div>
+            </Drawer>
         </div>
     );
 };
