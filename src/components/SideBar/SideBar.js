@@ -1,22 +1,16 @@
 import React, {useState} from 'react';
 import {
-    Divider,
     Drawer, Chip, Avatar,
-    List, ListItemText,
-    makeStyles, Typography, Slide,
+    makeStyles
 } from "@material-ui/core";
 import clsx from 'clsx';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import ListItem from "@material-ui/core/ListItem";
 import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
-import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight"
-import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft"
-import Button from "@material-ui/core/Button";
-import Zoom from "@material-ui/core/Zoom";
+import SideBarLinks from "./SideBarLinks";
 
 
 const initWidth = 250;
@@ -30,28 +24,14 @@ const useStyles = makeStyles(theme => ({
         overflowX: 'hidden',
         overflowY: 'auto',
         width: initWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
         background: "linear-gradient(to right, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
     },
     drawerClose: {
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
         width: 0,
         opacity: 0.5
     },
     whiteColor: {
         color: "white"
-    },
-    listHeader: {
-        cursor: "pointer",
-        width: "100%",
-        // marginBottom: "10px",
-        // marginTop: "10px"
     },
     avatar: {
         marginTop: "20px",
@@ -59,11 +39,6 @@ const useStyles = makeStyles(theme => ({
         marginLeft: "30px",
         marginRight: "30px",
         border: "none"
-    },
-    listItem: {
-        margin: "0",
-        paddingTop: "10px",
-        paddingBottom: "10px"
     },
     advancedSearch: {
         marginTop: 0,
@@ -74,16 +49,6 @@ const useStyles = makeStyles(theme => ({
     },
     noBackground: {
         background: "none"
-    },
-    fullWidth: {
-        width: "100%",
-    },
-    link: {
-        width: "max-content",
-        color: "white",
-        '&:hover': {
-            opacity: "0.7",
-        }
     },
     openButton: {
         position: "fixed",
@@ -98,67 +63,7 @@ const useStyles = makeStyles(theme => ({
 
     }
 }));
-/**
- * The Item component for the SideBar
- * all params are required
- * needs an icon, a text and a click method
- * @param props
- * @returns {*}
- * @constructor
- */
-export const SideBarItem = (props) => {
-    const classes = useStyles();
-    return (
-        <Link onClick={() => props.setOpen(false)} className={classes.link} to={props.to}>
-            <ListItem key={props.to} button>
-                <ListItemText classes={{root: classes.fullWidth}}>
-                    <Typography>
-                        {props.label}
-                    </Typography>
-                </ListItemText>
-            </ListItem>
-        </Link>
-    );
-};
 
-const SideBarLinks = (props) => {
-    const classes = useStyles();
-    const [open, setOpen] = useState(0);
-    const structure = props.structure;
-    const searchWord = props.searchWord;
-    let folder = [];
-    for (let item in props.structure) {
-        folder.push(item);
-    }
-    return (folder.map((item, index) => {
-        return (
-            <div key={index} className={index===open ? "shadow-inset-center active" : "" }>
-                <Link to={"/" + item} className={classes.link}>
-                    <ListItem onClick={() => setOpen(index)} component={"h3"}
-                              classes={{root: classes.listItem}}>
-                        <Typography className={classes.listHeader}
-                                    variant={"inherit"}>{item}
-                        </Typography>
-                    </ListItem>
-                </Link>
-                {structure[item].map((link, subindex) => {
-                    if (open === index && searchWord === "") {
-                        if (searchWord !== "" && link.match(searchWord) !== null) {
-                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
-                        } else if (searchWord === "") {
-                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
-                        }
-                    } else {
-                        if (searchWord !== "" && link.match(searchWord) !== null) {
-                            return <SideBarItem setOpen={props.setOpen} key={subindex} to={"/" + item + "/" + link} label={link}/>
-                        }
-                    }
-                    return "";
-                })}
-            </div>
-        );
-    }));
-};
 
 /**
  * The SideBar
@@ -173,7 +78,7 @@ const SideBar = (props) => {
     const [seachWord, setSearchWord] = useState("");
     const [open, setOpen] = useState(!matches);
 
-    if(open !== props.open) {
+    if (open !== props.open) {
         props.onClose(open);
     }
 
@@ -190,26 +95,16 @@ const SideBar = (props) => {
     const structure = props.structure;
     return (
         <div>
-            <Zoom in={!open}>
-                <Button className={classes.openButton} onClick={() => onChange(!open)}>
-                    <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
-                </Button>
-            </Zoom>
-            <Drawer open={open}
-                    className={
-                        clsx(classes.drawer, {
-                            [classes.drawerOpen]: open,
-                            [classes.drawerClose]: !open,
-                        })} variant={"permanent"} anchor={"left"} classes={{
-                paper: clsx({
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
-                })
-            }}
-            >
-                <Slide direction={"right"} in={open}>
+            <div>
+                <Drawer onClose={() => {
+                    if (!matches) setOpen(false)
+                }} variant={matches ? "persistent" : "temporary"} open={open} anchor={"left"} classes={{
+                    paper: clsx({
+                        [classes.drawerOpen]: open,
+                        [classes.drawerClose]: !open,
+                    })
+                }}>
                     <div>
-
                         <div>
                             <Link className={classes.header} to={"/"}>
                                 <Chip size={"medium"}
@@ -222,24 +117,19 @@ const SideBar = (props) => {
                         </div>
                         <div>
                             <SearchBar onSearch={onSearch}/>
-                            <Link onClick={() => !matches ? setOpen(false): null} to={"/search"}>
+                            <Link onClick={() => !matches ? setOpen(false) : null} to={"/search"}>
                                 <Chip size={"medium"}
-                                      avatar={<Avatar className="rotate-center" classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
+                                      avatar={<Avatar className="rotate-center"
+                                                      classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
                                       className={classes.advancedSearch}
                                       variant="outlined" color={"primary"}
                                       label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
                             </Link>
                         </div>
-                        <List className={classes.whiteColor}>
-                            <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
-                        </List>
-                        {!matches ? <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
-                            <KeyboardArrowLeftIcon color={"action"}
-                                                   fontSize={"large"}/>
-                        </Button> : ""}
+                        <SideBarLinks setOpen={(value)=> {if (!matches) setOpen(value)}} structure={structure} searchWord={seachWord}/>
                     </div>
-                </Slide>
-            </Drawer>
+                </Drawer>
+            </div>
         </div>
     );
 };
