@@ -1,31 +1,11 @@
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
-import ListItem from "@material-ui/core/ListItem";
-import {Collapse, makeStyles, Typography} from "@material-ui/core";
+import {Collapse} from "@material-ui/core";
 import {SideBarItem} from "./SideBarItem";
 
 
-const useStyles = makeStyles(theme => ({
-    listHeader: {
-        cursor: "pointer",
-        width: "100%",
-    },
-    listItem: {
-        margin: "0",
-        paddingTop: "10px",
-        paddingBottom: "10px"
-    },
-    link: {
-        width: "max-content",
-        color: "white",
-        '&:hover': {
-            opacity: "0.7",
-        }
-    },
-}));
+
 
 const SideBarLinks = (props) => {
-    const classes = useStyles();
     const [open, setOpen] = useState(0);
     const structure = props.structure;
     const searchWord = props.searchWord;

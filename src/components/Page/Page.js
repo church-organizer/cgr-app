@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import TopBar from "../TopBar/TopBar";
 import FileLoader from "../../services/FileLoader";
 import {Content} from '../Content/Content';
+import Fade from "@material-ui/core/Fade";
 
 /**
  * WikiPage, shows the Content of a Wikipage
@@ -33,10 +34,12 @@ class Page extends Component {
 
     render() {
         return (
-            <div id="page-content">
-                <TopBar onEdit={(readOnly) => this.setState({readOnly: readOnly})} path={this.dir}/>
-                <Content readOnly={this.state.readOnly} title={this.filename} content={this.state.content}/>
-            </div>
+            <Fade in={true} timeout={0.6}>
+                <div id="page-content">
+                    <TopBar onEdit={(readOnly) => this.setState({readOnly: readOnly})} path={this.dir}/>
+                    <Content readOnly={this.state.readOnly} title={this.filename} content={this.state.content}/>
+                </div>
+            </Fade>
         );
     }
 }

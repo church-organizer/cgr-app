@@ -3,7 +3,6 @@ import {Container, makeStyles, Typography} from "@material-ui/core";
 import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
-import {Link} from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "../Content/Markdown";
 import "./Search.css"
