@@ -6,39 +6,62 @@ import Login from "./components/Login/Login";
 import AdvancedSearch from "./components/Search/AdvancedSearch";
 import SideBar from "./components/SideBar/SideBar";
 import FileLoader from "./services/FileLoader";
-import Footer from "./components/Footer/Footer";
 import "./animations.css"
 
 class App extends Component {
     state = {
         login: {isLoggedIn: true, username: 'asd'},
         structure: {},
-        showSideBar: {show: true}
+        showSideBar: true
     };
 
     constructor(props) {
         super(props);
-        FileLoader.getStructure(window.location.pathname).then(structure => this.setState({structure: structure}));
+        FileLoader.getStructure(window.location.pathname)
+            .then(structure => this.setState({structure: structure}));
     }
 
+    // die werden noch ausgelagert 
+    hideSideBarCss = {
+        left: "20px", 
+        width: "calc(100% - 30px)"
+    }
+
+    showSideBarCss = {
+        left: "260px",
+    }
+    //später würde ich über Css-Classes/Ids machen 
+    setSideBarCss = () => {
+        return this.state.showSideBar ? this.showSideBarCss : this.hideSideBarCss;
+    }
+
+    content = () => {
+        if (this.state.login.isLoggedIn) {
+            return (
+                <div className="content" style={this.setSideBarCss()}>
+                    <SideBar 
+                        open={this.state.showSideBar} 
+                        structure={this.state.structure} 
+                        onClose={(sideBarState) => this.setState({showSideBar: sideBarState})}/>
+                    <Switch>
+                        <Route exact path="/search" component={AdvancedSearch}/>
+                        <Route path="/" component={Wiki}/>
+                    </Switch>
+                </div>
+            )
+        } else {
+            return (
+                <Route path="/" render={(props) => <Login onLogin={(username) =>
+                    this.setState({isLoggedIn: true, username: username})}/>}/>
+            )
+        }
+    }
 
     render() {
         return (
             <Router>
                 <div className="App" style={{position: "fixed", width: "100%"}}>
-                    {this.state.login.isLoggedIn ?
-                            <div className="content" style={!this.state.showSideBar.show ? {left: "20px", width: "calc(100% - 30px)"} : {left: "260px"}}>
-                                <SideBar open={this.state.showSideBar.show}  structure={this.state.structure} onClose={(state)=> this.setState({showSideBar: {show: state}})}/>
-                                <Switch>
-                                    <Route exact path="/search" component={AdvancedSearch}/>
-                                    <Route path="/" component={Wiki}/>
-                                </Switch>
-                                <Footer fullWidth={this.state.showSideBar.show}/>
-                            </div>
-                        :
-                        <Route path="/" render={(props) => <Login onLogin={(username) =>
-                            this.setState({isLoggedIn: true, username: username})}/>}/>}
-
+                    {this.content()}
                 </div>
             </Router>
         );

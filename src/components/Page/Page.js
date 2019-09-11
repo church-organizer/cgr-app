@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import TopBar from "../TopBar/TopBar";
+import Footer from "../Footer/Footer";
 import FileLoader from "../../services/FileLoader";
 import {Content} from '../Content/Content';
 import Fade from "@material-ui/core/Fade";
@@ -36,8 +37,11 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <TopBar onEdit={(readOnly) => this.setState({readOnly: readOnly})} path={this.dir}/>
-                    <Content readOnly={this.state.readOnly} title={this.filename} content={this.state.content}/>
+                    <div style={{minHeight : "calc(100vh - 60px)"}}>
+                        <TopBar onEdit={(readOnly) => this.setState({readOnly: readOnly})} path={this.dir}/>
+                        <Content readOnly={this.state.readOnly} title={this.filename} content={this.state.content}/>
+                    </div>
+                    <Footer></Footer>
                 </div>
             </Fade>
         );
