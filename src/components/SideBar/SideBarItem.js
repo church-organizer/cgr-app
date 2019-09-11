@@ -32,7 +32,7 @@ export const SideBarItem = (props) => {
     return (
         <Link onClick={() => props.setOpen(false)} className={classes.link} to={props.to}>
             <ListItem key={props.to} button>
-                <ListItemText classes={{root: classes.fullWidth}}>
+                <ListItemText classes={{root: classes.fullWidth}} style={!props.header? {marginLeft: 15}: {}}>
                     <Typography variant={props.header ? "h6" : "body1"}>
                         {props.label}
                     </Typography>
