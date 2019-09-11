@@ -30,10 +30,10 @@ const TopBar = (props) => {
         return (
             <div>
                 <Grid alignItems={"center"} justify={"space-between"} container>
-                    <Grid item xs>
+                    <Grid item xs={9}>
                         <Path folder={props.path}/>
                     </Grid>
-                    <Grid item xs>
+                    <Grid item xs={3}>
                         <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
                             {!edit ? <EditIcon fontSize={"medium"}/> :
                                 <ClearIcon fontSize={"medium"}/>}
