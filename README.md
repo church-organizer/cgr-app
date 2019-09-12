@@ -19,6 +19,7 @@
 - [x] breadcrumbs bei der suche anstatt einenm Link
 - [ ] mit directus vielleicht die api ablösen
 - [ ] gültigkeitsdauer für die seiten einführen (über directus einfacher?)
+- [ ] für die Api ein kleines Frontend bauen(Dashboard, Visuelle Darstellung der zukünftigen Einträge aus der Datenbank) mit Login
 
 A. Vollständiges Wiki mit Edit und View
 	1. Gutes Design
