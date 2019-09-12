@@ -13,7 +13,7 @@
 - [x] edit page man soll ja die dateien auch bearbeiten können
 - [x] advanced search zeigt nicht immer den gematcheten text an
 - [ ] try and catch, überall, fehler abfangen
-- [ ] footer soll an der unteren kante stehen bleiben, wenn es wenig inhalt gibt
+- [x] footer soll an der unteren kante stehen bleiben, wenn es wenig inhalt gibt
 - [x] hastags als link einführen
 - [ ] datum automatisch api (über directus einfacher?)
 - [x] breadcrumbs bei der suche anstatt einenm Link
