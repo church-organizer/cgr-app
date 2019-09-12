@@ -25,15 +25,15 @@ class App extends Component {
     hideSideBarCss = {
         left: "20px", 
         width: "calc(100% - 30px)"
-    }
+    };
 
     showSideBarCss = {
         left: "260px",
-    }
+    };
     //später würde ich über Css-Classes/Ids machen 
     setSideBarCss = () => {
         return this.state.showSideBar ? this.showSideBarCss : this.hideSideBarCss;
-    }
+    };
 
     content = () => {
         if (this.state.login.isLoggedIn) {
@@ -55,7 +55,7 @@ class App extends Component {
                     this.setState({isLoggedIn: true, username: username})}/>}/>
             )
         }
-    }
+    };
 
     render() {
         return (

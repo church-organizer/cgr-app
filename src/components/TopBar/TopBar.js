@@ -35,8 +35,8 @@ const TopBar = (props) => {
                     </Grid>
                     <Grid item xs={3}>
                         <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
-                            {!edit ? <EditIcon fontSize={"medium"}/> :
-                                <ClearIcon fontSize={"medium"}/>}
+                            {!edit ? <EditIcon fontSize={"large"}/> :
+                                <ClearIcon fontSize={"large"}/>}
                         </IconButton>
                     </Grid>
                 </Grid>
