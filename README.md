@@ -33,6 +33,40 @@ B. Login
 
 C. Dashboard auf homepage
 	1. 
+## Api
+### Schnittstellen für die Api
+- Wiki
+  - struktur zurückgeben (GET /structure)
+  - einzelner eintrag (GET /:name)
+  - suche in inhalt und titel (POST /search json)
+  
+    Beispiel json
+    ```json
+    {
+    "searchWord": "hier der such string", 
+    "filter": []
+    }
+    ```
+  - speichern (inhalte updaten) (POST /:name json)
+  
+    Beispiel json
+    ```json
+    {
+        "titel": "titel", 
+        "content": "neuer inhal",
+        "author": ""
+    }
+    ```
+- authentifizieren
+  - login (liefert token zurück)
+  - logout
+  - verify (kriegt ein token rein und verifiziert das)
+- 
+### Datenbank
+- benutzer + rechte
+- wikipages (createdAt, updatedAt, titel, author, group, content)
+- active user/token ((user 1:1 token) token werden nach login gespeichert und bei Login gelöscht, so immer nur ein user online pro account)
+- 
 
 # Installation
 alle Dependencies installieren
