@@ -30,7 +30,6 @@ const TopBar = (props) => {
     const [dir, setDir] = useState({dir: [], path: ""});
 
     function reload() {
-        console.log(window.location.pathname, dir.path);
         if (dir.path !== window.location.pathname) {
             const path = window.location.pathname.slice(1);
             if (path !== "" && path !== "/") {
