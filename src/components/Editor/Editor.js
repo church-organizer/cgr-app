@@ -39,6 +39,10 @@ const Editor = (props) => {
         },
     };
 
+    /**
+     * Called on content changed
+     * @param value
+     */
     const handleChange = (value) => {
         setContent(value);
     };

@@ -86,10 +86,18 @@ const SideBar = (props) => {
         props.onClose(open);
     }
 
+    /**
+     * Gets the searchContent and sets it
+     * @param searchContent content to search
+     */
     const onSearch = (searchContent) => {
         setSearchWord(searchContent);
     };
 
+    /**
+     * changes on click the open state of the Sidebar
+     * @param state
+     */
     const onChange = (state) => {
         props.onClose(state);
         setOpen(state);

@@ -45,6 +45,11 @@ const AdvancedSearch = (props) => {
         params = [];
     }
 
+    /**
+     * Search request to the Api
+     * the result and the time are rendered
+     * @param search content
+     */
     const onSearch = (search) => {
         FileLoader.search(search).then((res)=> {
             const result = res.result;
@@ -56,6 +61,7 @@ const AdvancedSearch = (props) => {
             setTime(res.time);
         });
     };
+
     if (key === null && params.length > 0 && results.length === 0) {
         let bla = "";
         for (let param of params) {

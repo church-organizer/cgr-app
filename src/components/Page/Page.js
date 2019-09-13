@@ -19,6 +19,9 @@ class Page extends Component {
         super(props);
     }
 
+    /**
+     * Reloads the Content of the Page if the Path changed
+     */
     reload() {
         if (window.location.pathname !== this.state.path){
             let path = window.location.pathname;
