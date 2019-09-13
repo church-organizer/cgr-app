@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import FileLoader from "../../services/FileLoader";
 import {Content} from '../Content/Content';
 import Fade from "@material-ui/core/Fade";
+import "./Page.css"
 
 /**
  * WikiPage, shows the Content of a Wikipage
