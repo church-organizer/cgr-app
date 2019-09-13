@@ -12,8 +12,6 @@ import FileLoader from "../services/FileLoader";
  */
 class Wiki extends Component {
     dir = [];
-    path;
-    filename = "Startseite";
     state = {
         structure: {},
         showSideBar: true,
@@ -28,19 +26,9 @@ class Wiki extends Component {
 
     constructor(props) {
         super(props);
-        this.path = window.location.pathname;
-        const path = this.path.replace("/", "");
-        if (path !== "" && path !== "/") {
-            this.dir = this.path.split("/");
-            this.dir.shift();
-            this.filename = this.dir[this.dir.length-1];
-        }
-
-        FileLoader.getStructure(window.location.pathname)
+        FileLoader.getStructure()
             .then(structure => this.setState({structure: structure}));
     }
-
-
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
@@ -49,7 +37,7 @@ class Wiki extends Component {
                     open={this.state.showSideBar}
                     structure={this.state.structure}
                     onClose={(sideBarState) => this.setState({showSideBar: sideBarState})}/>
-                <Page readOnly={this.state.page.readOnly}  filename={this.filename} {...this.props.location}/>
+                <Page readOnly={this.state.page.readOnly}/>
                 <Footer/>
             </div>
         );

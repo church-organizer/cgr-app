@@ -9,19 +9,31 @@ import Fade from "@material-ui/core/Fade";
  */
 class Page extends Component {
     state = {
-        content: ''
+        content: "",
+        filename: "",
+        path: ""
     };
 
     constructor(props) {
         super(props);
-        FileLoader.getPage(props.path).then(text => this.setState({content: text}));
+    }
+
+    reload() {
+        if (window.location.pathname !== this.state.path){
+            let path = window.location.pathname;
+            FileLoader.getPage(path).then(text => {
+                path = path.split("/");
+                this.setState({content: text, filename: path[path.length-1], path: window.location.pathname})
+            });
+        }
     }
 
     render() {
+        this.reload();
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content" style={{minHeight : "calc(100vh - 110px)"}}>
-                    <Content readOnly={this.props.readOnly} title={this.props.filename} content={this.state.content}/>
+                    <Content readOnly={this.props.readOnly} title={this.state.filename} content={this.state.content}/>
                 </div>
             </Fade>
         );

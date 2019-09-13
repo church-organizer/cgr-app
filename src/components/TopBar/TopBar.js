@@ -27,12 +27,27 @@ const useStyle = makeStyles(theme => ({
 const TopBar = (props) => {
     const classes = useStyle();
     const [edit, setEdit] = useState(false);
+    const [dir, setDir] = useState({dir: [], path: ""});
+
+    function reload() {
+        console.log(window.location.pathname, dir.path);
+        if (dir.path !== window.location.pathname) {
+            const path = window.location.pathname.slice(1);
+            if (path !== "" && path !== "/") {
+                setDir({dir: path.split("/"), path: window.location.pathname});
+            } else {
+                setDir({dir: [], path: window.location.pathname});
+            }
+        }
+    }
+    reload();
+
     const fillPath = () => {
         return (
             <div>
                 <Grid alignItems={"center"} justify={"space-between"} container>
                     <Grid item xs={9}>
-                        <Path folder={props.path}/>
+                        <Path folder={dir.dir}/>
                     </Grid>
                     <Grid item xs={3}>
                         <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
