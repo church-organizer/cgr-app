@@ -9,7 +9,8 @@ import IconButton from "@material-ui/core/IconButton";
 const useStyle = makeStyles(theme => ({
     root: {
         height: "30px",
-        padding: "10px"
+        paddingLeft: "10px",
+        paddingBottom: "5px"
     },
     rotate: {
         '&:focus':{
@@ -35,8 +36,8 @@ const TopBar = (props) => {
                     </Grid>
                     <Grid item xs={3}>
                         <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
-                            {!edit ? <EditIcon fontSize={"large"}/> :
-                                <ClearIcon fontSize={"large"}/>}
+                            {!edit ? <EditIcon fontSize={"inherit"}/> :
+                                <ClearIcon fontSize={"inherit"}/>}
                         </IconButton>
                     </Grid>
                 </Grid>
