@@ -1,0 +1,12 @@
+.sidebarLink {
+    width: max-content;
+    color: white;
+}
+
+.sidebarLink:hover {
+    opacity: 0.7;
+}
+
+.fullWidth {
+    width: 100%;
+}

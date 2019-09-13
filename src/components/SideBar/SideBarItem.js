@@ -3,21 +3,7 @@ import {Link} from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
-import {makeStyles} from "@material-ui/core";
-
-
-const useStyles = makeStyles(theme => ({
-    fullWidth: {
-        width: "100%",
-    },
-    link: {
-        width: "max-content",
-        color: "white",
-        '&:hover': {
-            opacity: "0.7",
-        }
-    },
-}));
+import "./SideBar.css"
 
 /**
  * The Item component for the SideBar
@@ -28,11 +14,10 @@ const useStyles = makeStyles(theme => ({
  * @constructor
  */
 export const SideBarItem = (props) => {
-    const classes = useStyles();
     return (
-        <Link onClick={() => props.setOpen(false)} className={classes.link} to={props.to}>
+        <Link onClick={() => props.setOpen(false)} className="sidebarLink" to={props.to}>
             <ListItem key={props.to} button>
-                <ListItemText classes={{root: classes.fullWidth}} style={!props.header? {marginLeft: 15}: {}}>
+                <ListItemText classes={{root: "fullWidth"}} style={!props.header? {marginLeft: 15}: {}}>
                     <Typography variant={props.header ? "h6" : "body1"}>
                         {props.label}
                     </Typography>
