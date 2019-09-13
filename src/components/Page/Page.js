@@ -33,7 +33,7 @@ class Page extends Component {
         this.reload();
         return (
             <Fade in={true} timeout={0.6}>
-                <div id="page-content" style={{minHeight : "calc(100vh - 110px)"}}>
+                <div id="page-content">
                     <Content readOnly={this.props.readOnly} title={this.state.filename} content={this.state.content}/>
                 </div>
             </Fade>

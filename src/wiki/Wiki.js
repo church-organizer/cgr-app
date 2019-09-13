@@ -5,6 +5,8 @@ import TopBar from "../components/TopBar/TopBar";
 import SideBar from "../components/SideBar/SideBar";
 import Footer from "../components/Footer/Footer";
 import FileLoader from "../services/FileLoader";
+import AdvancedSearch from "../components/Search/AdvancedSearch";
+import {Route, Switch} from "react-router-dom";
 
 /**
  * Shows all of the Wiki Entries
@@ -32,12 +34,19 @@ class Wiki extends Component {
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
-                <TopBar onEdit={(readOnly) => this.setState({page: {readOnly: readOnly}})} path={this.dir}/>
                 <SideBar
                     open={this.state.showSideBar}
                     structure={this.state.structure}
                     onClose={(sideBarState) => this.setState({showSideBar: sideBarState})}/>
-                <Page readOnly={this.state.page.readOnly}/>
+                <Switch>
+                    <Route exact path="/search" component={AdvancedSearch}/>
+                    <Route path="/" render={() =>
+                        <div>
+                            <TopBar onEdit={(readOnly) => this.setState({page: {readOnly: readOnly}})} path={this.dir}/>
+                            <Page readOnly={this.state.page.readOnly}/>
+                        </div>}/>
+
+                </Switch>
                 <Footer/>
             </div>
         );

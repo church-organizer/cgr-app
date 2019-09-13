@@ -21,10 +21,7 @@ class App extends Component {
         if (this.state.login.isLoggedIn) {
             return (
                 <div className="content">
-                    <Switch>
-                        <Route exact path="/search" component={AdvancedSearch}/>
-                        <Route path="/" component={Wiki}/>
-                    </Switch>
+                    <Wiki/>
                 </div>
             )
         } else {
