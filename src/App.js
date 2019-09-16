@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import Wiki from "./wiki/Wiki";
 import Login from "./components/Login/Login";
-import AdvancedSearch from "./components/Search/AdvancedSearch";
 import FileLoader from "./services/FileLoader";
 import "./animations.css"
 

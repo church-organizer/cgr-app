@@ -25,6 +25,12 @@
     display: block;
 }
 
+.match {
+    background-color: rgba(236, 255, 42, 0.6);
+    width: fit-content;
+    display: inline-list-item;
+}
+
 .content {
     overflow: scroll;
     height: 100%;

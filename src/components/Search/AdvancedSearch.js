@@ -7,6 +7,7 @@ import Divider from "@material-ui/core/Divider";
 import Markdown from "../Content/Markdown";
 import "./Search.css"
 import Path from "../TopBar/Path";
+import changeContentIfMatch from "../../services/SearchContent";
 
 
 const useStyle = makeStyles(theme => ({
@@ -38,6 +39,7 @@ const AdvancedSearch = (props) => {
     const [results, setResults] = useState([]);
     let params = window.location.search.replace("?","");
     const [key, setKey] = useState(null);
+    const [searchContent, setSearch] = useState("");
 
     if (params !== "") {
         params = params.split("&");
@@ -51,15 +53,23 @@ const AdvancedSearch = (props) => {
      * @param search content
      */
     const onSearch = (search) => {
-        FileLoader.search(search).then((res)=> {
-            const result = res.result;
-            let arr = [];
-            for (let item in result) {
-                arr.push([result[item][0], item, result[item][1]])
-            }
-            setResults(arr);
-            setTime(res.time);
-        });
+        if (search === ""){
+            setResults([]);
+            setTime(0);
+            setSearch("");
+        }else {
+            FileLoader.search(search).then((res)=> {
+                const result = res.result;
+                let arr = [];
+                for (let item in result) {
+                    arr.push([result[item][0], item, result[item][1]])
+                }
+                setResults(arr);
+                setTime(res.time);
+                setSearch(search);
+            });
+        }
+
     };
 
     if (key === null && params.length > 0 && results.length === 0) {
@@ -92,7 +102,7 @@ const AdvancedSearch = (props) => {
                                 <Path folder={item[1].split("/").slice(1)}/>
                             </Typography>
                             <Divider/>
-                            <Markdown source={item[2]}/>
+                            <Markdown source={changeContentIfMatch(item[2], searchContent)}/>
                         </Paper>);
                 })}
             </Container>

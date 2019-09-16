@@ -17,7 +17,7 @@ const Markdown = (props) => {
         }
     }
 
-    return <ReactMarkdown transformImageUri={(test) => require("../../files/" + test)}
+    return <ReactMarkdown escapeHtml={false} transformImageUri={(test) => require("../../files/" + test)}
                           className="markdown-content"
                           source={content}/>
 };
