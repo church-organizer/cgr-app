@@ -20,7 +20,6 @@
     "react-simplemde-editor": "^4.1.0",
     "simplemde": "^1.11.2",
     "mem": "^5.1.1",
-    "eslint": "^6.4.0",
     "braces": "^3.0.2",
     "webpack-dev-server": "^3.8.0"
   },
