@@ -26,7 +26,7 @@ const useStyle = makeStyles(theme => ({
 
 const TopBar = (props) => {
     const classes = useStyle();
-    const [edit, setEdit] = useState(false);
+    const edit = !props.readOnlyState;
     const [dir, setDir] = useState({dir: [], path: ""});
 
     function reload() {
@@ -49,7 +49,7 @@ const TopBar = (props) => {
                         <Path folder={dir.dir}/>
                     </Grid>
                     <Grid item xs={3}>
-                        <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit); setEdit(!edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
+                        <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
                             {!edit ? <EditIcon fontSize={"inherit"}/> :
                                 <ClearIcon fontSize={"inherit"}/>}
                         </IconButton>

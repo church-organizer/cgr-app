@@ -24,8 +24,8 @@ class Page extends Component {
     /**
      * Reloads the Content of the Page if the Path changed
      */
-    reload() {
-        if (window.location.pathname !== this.path ){
+    reload(force=false) {
+        if (window.location.pathname !== this.path || force){
             this.path = window.location.pathname;
             let path = window.location.pathname;
             FileLoader.getPage(path).then(text => {
@@ -54,7 +54,13 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <Content closeSidebar={this.props.closeSidebar} readOnly={this.props.readOnly} title={this.state.filename} content={this.state.content}/>
+                    <Content closeSidebar={this.props.closeSidebar}
+                             reload={()=> {this.reload(true)}}
+                             readOnly={this.props.readOnly}
+                             title={this.state.filename}
+                             content={this.state.content}
+                             onEdit={this.props.onEdit}
+                    />
                 </div>
             </Fade>
         );
