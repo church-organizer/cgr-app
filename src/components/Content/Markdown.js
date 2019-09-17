@@ -1,6 +1,8 @@
 import React from "react";
 import ReactMarkdown from "react-markdown";
+import marked from "marked";
 import "./Markdown.css"
+import changeContentIfMatch from "../../services/SearchContent";
 
 const Markdown = (props) => {
     let content = props.source;
@@ -17,9 +19,11 @@ const Markdown = (props) => {
         }
     }
 
+    const set = changeContentIfMatch(marked(content));
+    console.log(set);
     return <ReactMarkdown escapeHtml={false} transformImageUri={(test) => require("../../files/" + test)}
-                          className="markdown-content"
-                          source={content}/>
+        className="markdown-content"
+        source={set} />
 };
 
 export default Markdown;
