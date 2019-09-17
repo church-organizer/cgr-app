@@ -28,7 +28,6 @@ class FileLoader {
     }
 
     static saveFile(filename, content) {
-        console.log(filename, content);
         return fetch(this.url + "save", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},

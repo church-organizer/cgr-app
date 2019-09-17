@@ -23,7 +23,10 @@ export function Content(props) {
             </Typography>
             <Divider/>
             {props.readOnly ? <Markdown source={props.content}/> :
-                <Editor closeSidebar={props.closeSidebar} content={props.content}/>}
+                <Editor onEdit={props.onEdit}
+                        reload={props.reload}
+                        closeSidebar={props.closeSidebar}
+                        content={props.content}/>}
         </Paper>
     );
 };

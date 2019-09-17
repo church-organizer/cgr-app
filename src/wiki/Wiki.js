@@ -36,6 +36,10 @@ class Wiki extends Component {
         this.setState({showSideBar: state})
     }
 
+    changeReadOnlyState(state){
+        this.setState({page: {readOnly: state}})
+    }
+
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
@@ -47,9 +51,12 @@ class Wiki extends Component {
                     <Route exact path="/search" component={AdvancedSearch}/>
                     <Route path="/" render={() =>
                         <div>
-                            <TopBar onEdit={(readOnly) => this.setState({page: {readOnly: readOnly}})} path={this.dir}/>
+                            <TopBar onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}
+                                    readOnlyState={this.state.page.readOnly}
+                                    path={this.dir}/>
                             <Page closeSidebar={(sideBarState)=> this.changeSidebarState(sideBarState)}
-                                  readOnly={this.state.page.readOnly}/>
+                                  readOnly={this.state.page.readOnly}
+                                  onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
                         </div>}/>
 
                 </Switch>
