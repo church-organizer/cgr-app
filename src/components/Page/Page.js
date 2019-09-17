@@ -54,7 +54,7 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <Content readOnly={this.props.readOnly} title={this.state.filename} content={this.state.content}/>
+                    <Content closeSidebar={this.props.closeSidebar} readOnly={this.props.readOnly} title={this.state.filename} content={this.state.content}/>
                 </div>
             </Fade>
         );

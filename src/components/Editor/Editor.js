@@ -55,7 +55,7 @@ const Editor = (props) => {
                            autofocus: true,
                            spellChecker: false,
                            onToggleFullScreen(is) {
-                               console.log(is);
+                               props.closeSidebar(!is);
                            },
                            previewRender(text) {
                                return ReactDOMServer.renderToString(<Markdown source={text}/>);

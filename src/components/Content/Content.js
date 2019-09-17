@@ -22,7 +22,8 @@ export function Content(props) {
                 Bearbeitet von {"Max Mustermann"} am: {"12.12.12"}
             </Typography>
             <Divider/>
-            {props.readOnly ? <Markdown source={props.content}/> : <Editor content={props.content}/>}
+            {props.readOnly ? <Markdown source={props.content}/> :
+                <Editor closeSidebar={props.closeSidebar} content={props.content}/>}
         </Paper>
     );
 };

@@ -31,6 +31,11 @@ class Wiki extends Component {
         FileLoader.getStructure()
             .then(structure => this.setState({structure: structure}));
     }
+
+    changeSidebarState(state){
+        this.setState({showSideBar: state})
+    }
+
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
@@ -43,7 +48,8 @@ class Wiki extends Component {
                     <Route path="/" render={() =>
                         <div>
                             <TopBar onEdit={(readOnly) => this.setState({page: {readOnly: readOnly}})} path={this.dir}/>
-                            <Page readOnly={this.state.page.readOnly}/>
+                            <Page closeSidebar={(sideBarState)=> this.changeSidebarState(sideBarState)}
+                                  readOnly={this.state.page.readOnly}/>
                         </div>}/>
 
                 </Switch>

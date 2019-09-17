@@ -80,11 +80,6 @@ const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     const [seachWord, setSearchWord] = useState("");
-    const [open, setOpen] = useState(!matches);
-
-    if (open !== props.open) {
-        props.onClose(open);
-    }
 
     /**
      * Gets the searchContent and sets it
@@ -100,24 +95,23 @@ const SideBar = (props) => {
      */
     const onChange = (state) => {
         props.onClose(state);
-        setOpen(state);
     };
 
 
     const structure = props.structure;
     return (
         <div>
-            <Zoom in={!open}>
-                <Button className={classes.openButton} onClick={() => onChange(!open)}>
+            <Zoom in={!props.open}>
+                <Button className={classes.openButton} onClick={() => onChange(!props.open)}>
                     <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
                 </Button>
             </Zoom>
             <Drawer onClose={() => {
-                if (!matches) setOpen(false)
-            }} variant={matches ? "persistent" : "temporary"} open={open} anchor={"left"} classes={{
+                if (!matches) onChange(false)
+            }} variant={matches ? "persistent" : "temporary"} open={props.open} anchor={"left"} classes={{
                 paper: clsx({
-                    [classes.drawerOpen]: open,
-                    [classes.drawerClose]: !open,
+                    [classes.drawerOpen]: props.open,
+                    [classes.drawerClose]: !props.open,
                 })
             }}>
                 <div>
@@ -133,7 +127,7 @@ const SideBar = (props) => {
                     </div>
                     <div>
                         <SearchBar onSearch={onSearch}/>
-                        <Link onClick={() => !matches ? setOpen(false) : null} to={"/search"}>
+                        <Link onClick={() => !matches ? onChange(false) : null} to={"/search"}>
                             <Chip size={"medium"}
                                   avatar={<Avatar className="rotate-center"
                                                   classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
@@ -143,10 +137,10 @@ const SideBar = (props) => {
                         </Link>
                     </div>
                     <SideBarLinks setOpen={(value) => {
-                        if (!matches) setOpen(value)
+                        if (!matches) onChange(value)
                     }} structure={structure} searchWord={seachWord}/>
                     {!matches ?
-                        <Button className={classes.closeButton} onClick={() => setOpen(!open)} color={"primary"}>
+                        <Button className={classes.closeButton} onClick={() => onChange(!props.open)} color={"primary"}>
                             <KeyboardArrowLeftIcon color={"action"}
                                                    fontSize={"large"}/>
                         </Button> : ""}
