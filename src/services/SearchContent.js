@@ -6,7 +6,8 @@ const changeContentIfMatch = (content, searchContent) => {
 
     if (matches && searchContent) {
         for (let match of matches) {
-            content = content.replace(match, `<span class="match">${match}</span>`);
+            const regex = new RegExp(match, "g");
+            content = content.replace(regex, `<span class="match">${match}</span>`);
         }
     }
     return content;
