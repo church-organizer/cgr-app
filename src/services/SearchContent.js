@@ -1,9 +1,13 @@
 const changeContentIfMatch = (content, searchContent) => {
     // return content;
-    const regex = new RegExp(searchContent, "g");
+    const regex = new RegExp(searchContent, "gi");
     let matches = content.match(regex);
+
+
     if (matches && searchContent) {
-        return content.replace(regex, `<span class="match">${searchContent}</span>`);
+        for (let match of matches) {
+            content = content.replace(match, `<span class="match">${match}</span>`);
+        }
     }
     return content;
 };
