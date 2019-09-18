@@ -3,7 +3,7 @@ import {Typography, Paper} from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "./Markdown";
 import Editor from "../Editor/Editor";
-import "./Content.css"
+import "./PageContent.css"
 
 /**
  * Shows the content of a Page
@@ -11,7 +11,7 @@ import "./Content.css"
  * @returns {*}
  * @constructor
  */
-export function Content(props) {
+export function PageContent(props) {
     const fileName = props.title.replace("-", " ");
     return (
         <Paper className="content-root">

@@ -1,18 +1,19 @@
 import React, {Component} from 'react';
 import FileLoader from "../../services/FileLoader";
-import {Content} from '../Content/Content';
+import {PageContent} from './PageContent';
 import Fade from "@material-ui/core/Fade";
 import "./Page.css"
 import changeContentIfMatch from "../../services/SearchContent";
 
 /**
- * WikiPage, shows the Content of a Wikipage
+ * WikiPage, shows the PageContent of a Wikipage
  *
  */
 class Page extends Component {
     path = "";
     state = {
         content: "",
+        originContent: "",
         filename: "",
         search: this.getDataFromSearchbar()
     };
@@ -22,7 +23,7 @@ class Page extends Component {
     }
 
     /**
-     * Reloads the Content of the Page if the Path changed
+     * Reloads the PageContent of the Page if the Path changed
      */
     reload(force=false) {
         if (window.location.pathname !== this.path || force){
@@ -31,7 +32,7 @@ class Page extends Component {
             FileLoader.getPage(path).then(text => {
                 path = path.split("/");
                 const content = changeContentIfMatch(text, this.state.search);
-                this.setState({content: content, filename: path[path.length-1]})
+                this.setState({content: content, filename: path[path.length-1], originContent:text})
             });
         }
     }
@@ -47,6 +48,10 @@ class Page extends Component {
         return "";
     }
 
+    getContent(){
+        return this.props.readOnly ? this.state.content : this.state.originContent;
+    }
+
     render() {
         this.reload();
 
@@ -54,12 +59,12 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <Content closeSidebar={this.props.closeSidebar}
-                             reload={()=> {this.reload(true)}}
-                             readOnly={this.props.readOnly}
-                             title={this.state.filename}
-                             content={this.state.content}
-                             onEdit={this.props.onEdit}
+                    <PageContent closeSidebar={this.props.closeSidebar}
+                                 reload={()=> {this.reload(true)}}
+                                 readOnly={this.props.readOnly}
+                                 title={this.state.filename}
+                                 content={this.getContent()}
+                                 onEdit={this.props.onEdit}
                     />
                 </div>
             </Fade>

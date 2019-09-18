@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {makeStyles} from "@material-ui/core";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import Markdown from "../Content/Markdown";
+import Markdown from "../Page/Markdown";
 import ReactDOMServer from "react-dom/server";
 import Button from "@material-ui/core/Button";
 import {Link} from "react-router-dom";

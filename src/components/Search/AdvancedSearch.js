@@ -4,7 +4,7 @@ import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
-import Markdown from "../Content/Markdown";
+import Markdown from "../Page/Markdown";
 import "./Search.css"
 import Path from "../TopBar/Path";
 import changeContentIfMatch from "../../services/SearchContent";
