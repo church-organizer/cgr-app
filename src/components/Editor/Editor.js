@@ -81,19 +81,16 @@ const Editor = (props) => {
                                return ReactDOMServer.renderToString(<Markdown source={text}/>);
                            }
                        }}/>
-            <Link>
-                <Button className={classes.button}
-                        onClick={onSaveClick}
-                        variant={"contained"}
-                        color={"primary"}>
-                    <SaveIcon className={classes.icon}/>Speichern
-                </Button>
-            </Link>
-            <Link >
-                <Button onClick={()=> props.onEdit(true)} className={classes.button} variant={"contained"} color={"inherit"}>
-                    <ClearIcon className={classes.icon}/>Abbrechen
-                </Button>
-            </Link>
+            <Button className={classes.button}
+                    onClick={onSaveClick}
+                    variant={"contained"}
+                    color={"primary"}>
+                <SaveIcon className={classes.icon}/>Speichern
+            </Button>
+            <Button onClick={() => props.onEdit(true)} className={classes.button} variant={"contained"}
+                    color={"inherit"}>
+                <ClearIcon className={classes.icon}/>Abbrechen
+            </Button>
         </div>
     );
 };

@@ -46,7 +46,7 @@ class Wiki extends Component {
                 <SideBar
                     open={this.state.showSideBar}
                     structure={this.state.structure}
-                    onClose={(sideBarState) => this.setState({showSideBar: sideBarState})}/>
+                    onClose={(sideBarState) => this.changeSidebarState(sideBarState)}/>
                 <Switch>
                     <Route exact path="/search" component={AdvancedSearch}/>
                     <Route path="/" render={() =>
