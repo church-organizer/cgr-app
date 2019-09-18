@@ -1,24 +1,24 @@
 class FileLoader {
-    static url = 'https://wiki.loetkemann.com/wiki/';
+    static url = 'http://localhost:3001/';
 
 
     static getPage(path = "") {
         if (path !== "") {
             path = "?page=" + path;
         }
-        return fetch(this.url + "file/" + path).then(res => {
+        return fetch(this.url + "wiki/file/" + path).then(res => {
             return res.json().then(result => result.content);
         });
     }
 
     static getStructure() {
-        return fetch(this.url + "structure/").then(res => {
+        return fetch(this.url + "wiki/structure/").then(res => {
             return res.json().then(result => result.structure);
         });
     }
 
     static search(searchWord, type="") {
-        return fetch(this.url + "search", {
+        return fetch(this.url + "wiki/search", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({searchWord: searchWord, type: type})
@@ -28,7 +28,7 @@ class FileLoader {
     }
 
     static saveFile(filename, content) {
-        return fetch(this.url + "save", {
+        return fetch(this.url + "wiki/save", {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({filename: filename, content: content})

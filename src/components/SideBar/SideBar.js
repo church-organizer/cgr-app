@@ -8,13 +8,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import logo from "../../files/logo.png"
 import SettingsIcon from "@material-ui/icons/Settings"
 import SideBarLinks from "./SideBarLinks";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Zoom from "@material-ui/core/Zoom";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import FileLoader from "../../services/FileLoader";
 
 
 const initWidth = 250;
@@ -119,7 +119,7 @@ const SideBar = (props) => {
                         <Link className={classes.header} to={"/"}>
                             <Chip size={"medium"}
                                   avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
-                                                  src={logo}/>}
+                                                  src={FileLoader.url + "images/logo.png"}/>}
                                   className={classes.avatar}
                                   variant="outlined" color={"primary"}
                                   label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>

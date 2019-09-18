@@ -1,15 +1,18 @@
 import React from "react";
-import ReactMarkdown from "react-markdown";
+import ReactHtmlParser from 'react-html-parser';
 import marked from "marked";
 import "./Markdown.css"
 import changeContentIfMatch from "../../services/SearchContent";
+import FileLoader from "../../services/FileLoader";
 
 const Markdown = (props) => {
     let content = props.source;
-    const regex = /\B#[\w\-\.\_]+(?:\s|$)/g;
+    const hashtagRegex = /\B#[\w\-\.\_]+(?:\s|$)/g;
+    const imageRegex = /\!\[.*\]\(.*.png\)/g;
 
-    if (content) {
-        const matches = content.match(regex);
+
+    const changeHashtagIntoLink = () => {
+        const matches = content.match(hashtagRegex);
         if (matches) {
             for (let match of matches) {
                 match = match.trim();
@@ -17,12 +20,34 @@ const Markdown = (props) => {
                 content = content.replace(match, replaceText);
             }
         }
+
+    };
+
+    const changeImageUrlInMD = () => {
+        const logoRegex = /\(.*\)/;
+        const matches = content.match(imageRegex);
+        if(matches) {
+            for (let match of matches) {
+                let newUrl = match;
+                let imageName = newUrl.match(logoRegex)[0];
+                imageName = imageName.replace(/(\(|\))/g, "");
+                newUrl = newUrl.replace(logoRegex, "("+FileLoader.url + "images/" + imageName + ")");
+                content = content.replace(match, newUrl);
+            }
+        }
+    };
+
+    if(content){
+        changeHashtagIntoLink();
+        changeImageUrlInMD();
     }
 
+
     const set = changeContentIfMatch(marked(content));
-    return <ReactMarkdown escapeHtml={false} transformImageUri={(test) => require("../../files/" + test)}
-        className="markdown-content"
-        source={set} />
+    return <div>{ReactHtmlParser(set)}</div>
+    // return (<ReactMarkdown escapeHtml={false} transformImageUri={(test) => require("../../files/" + test)}
+    //     className="markdown-content"
+    //     source={set} />);
 };
 
 export default Markdown;
