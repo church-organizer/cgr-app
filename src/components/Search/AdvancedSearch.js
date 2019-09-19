@@ -73,17 +73,17 @@ const AdvancedSearch = (props) => {
     };
 
     if (key === null && params.length > 0 && results.length === 0) {
-        let bla = "";
+        let searchKey = "";
         for (let param of params) {
             let pair = param.split("=");
             if (pair[0] === "type" && pair[1] === "tags") {
-                bla = "#" + bla;
+                searchKey = "#" + searchKey;
             } else if (pair[0] === "key") {
-                bla = bla + pair[1];
+                searchKey = searchKey + pair[1];
             }
         }
-        setKey(bla);
-        onSearch(bla);
+        setKey(searchKey);
+        onSearch(searchKey);
     }
 
     return (
