@@ -97,6 +97,15 @@ const SideBar = (props) => {
         props.onClose(state);
     };
 
+    const changeOpenCloseButton = () => {
+        if (!matches) {
+            return (
+                <Button className={classes.closeButton} onClick={() => onChange(!props.open)} color={"primary"}>
+                    <KeyboardArrowLeftIcon color={"action"} fontSize={"large"}/>
+                </Button>);
+        }
+        return "";
+    };
 
     const structure = props.structure;
     return (
@@ -136,14 +145,11 @@ const SideBar = (props) => {
                                   label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
                         </Link>
                     </div>
-                    <SideBarLinks setOpen={(value) => {
-                        if (!matches) onChange(value)
-                    }} structure={structure} searchWord={seachWord}/>
-                    {!matches ?
-                        <Button className={classes.closeButton} onClick={() => onChange(!props.open)} color={"primary"}>
-                            <KeyboardArrowLeftIcon color={"action"}
-                                                   fontSize={"large"}/>
-                        </Button> : ""}
+                    <SideBarLinks setOpen={(value) => !matches ? onChange(value): {}}
+                                  structure={structure}
+                                  searchWord={seachWord}
+                                  resetReadOnlyState={props.resetReadOnlyState}/>
+                    {changeOpenCloseButton()}
                 </div>
             </Drawer>
         </div>

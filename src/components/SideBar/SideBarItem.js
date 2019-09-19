@@ -15,7 +15,7 @@ import "./SideBar.css"
  */
 export const SideBarItem = (props) => {
     return (
-        <Link onClick={() => props.setOpen(false)} className="sidebarLink" to={props.to}>
+        <Link onClick={() => props.onClick(false)} className="sidebarLink" to={props.to}>
             <ListItem key={props.to} button>
                 <ListItemText classes={{root: "fullWidth"}} style={!props.header? {marginLeft: 15}: {}}>
                     <Typography variant={props.header ? "h6" : "body1"}>

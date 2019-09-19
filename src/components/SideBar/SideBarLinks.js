@@ -3,10 +3,8 @@ import {Collapse} from "@material-ui/core";
 import {SideBarItem} from "./SideBarItem";
 
 
-
-
 const SideBarLinks = (props) => {
-    const [open, setOpen] = useState(0);
+    const [openGoup, setOpenGroup] = useState(0);
     const structure = props.structure;
     const searchWord = props.searchWord;
     let folder = [];
@@ -15,18 +13,33 @@ const SideBarLinks = (props) => {
     }
 
     const show = (index, link) => {
-        return (open === index && searchWord === "") || (searchWord !== "" && link.match(searchWord) !== null)
+        return (openGoup === index && searchWord === "") || (searchWord !== "" && link.match(searchWord) !== null)
+    };
+
+    const resetReadOnlyState = () => {
+        props.resetReadOnlyState();
+    };
+
+    const changeSidebarState = (sideBarState) => {
+        props.setOpen(sideBarState);
     };
 
     return (folder.map((item, index) => {
         return (
-            <div key={index} className={(index === open) ? "shadow-inset-center active" : ""}>
-                <SideBarItem setOpen={() => setOpen(index)} key={index} to={"/" + item} label={item} header/>
+            <div key={index} className={(index === openGoup) ? "shadow-inset-center active" : ""}>
+                <SideBarItem key={index} to={"/" + item} label={item} header
+                             onClick={() => {
+                                 setOpenGroup(index);
+                                 resetReadOnlyState()
+                             }}/>
                 {structure[item].map((link, subindex) => {
                     return (
                         <Collapse key={subindex} in={show(index, link)} unmountOnExit>
-                            <SideBarItem setOpen={props.setOpen} key={subindex}
-                                         to={"/" + item + "/" + link} label={link}/>
+                            <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}
+                                         onClick={(sideBarState) => {
+                                             changeSidebarState(sideBarState);
+                                             resetReadOnlyState();
+                                         }}/>
                         </Collapse>);
                 })}
             </div>
