@@ -39,6 +39,15 @@ const TopBar = (props) => {
             }
         }
     }
+
+    /**
+     * Checks if the shown content is editable
+     * @returns {boolean}
+     */
+    const allowEditContent= () => {
+        return !(dir.dir.length === 1);
+    };
+
     reload();
 
     const fillPath = () => {
@@ -49,7 +58,7 @@ const TopBar = (props) => {
                         <Path folder={dir.dir}/>
                     </Grid>
                     <Grid item xs={3}>
-                        <IconButton className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
+                        <IconButton disabled={!allowEditContent()} className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
                             {!edit ? <EditIcon fontSize={"inherit"}/> :
                                 <ClearIcon fontSize={"inherit"}/>}
                         </IconButton>
@@ -58,7 +67,7 @@ const TopBar = (props) => {
             </div>
         );
     };
-
+    console.log(dir);
     return (
         <Paper className={classes.root} elevation={0}>
             {fillPath()}
