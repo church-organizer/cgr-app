@@ -67,7 +67,7 @@ const TopBar = (props) => {
             </div>
         );
     };
-    console.log(dir);
+
     return (
         <Paper className={classes.root} elevation={0}>
             {fillPath()}
