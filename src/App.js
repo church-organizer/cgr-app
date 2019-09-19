@@ -13,8 +13,6 @@ class App extends Component {
 
     constructor(props) {
         super(props);
-        FileLoader.getStructure(window.location.pathname)
-            .then(structure => this.setState({structure: structure}));
     }
     content = () => {
         if (this.state.login.isLoggedIn) {
