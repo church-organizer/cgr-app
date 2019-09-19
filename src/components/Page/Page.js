@@ -18,10 +18,6 @@ class Page extends Component {
         search: this.getDataFromSearchbar()
     };
 
-    constructor(props) {
-        super(props);
-    }
-
     /**
      * Reloads the PageContent of the Page if the Path changed
      */

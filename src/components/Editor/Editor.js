@@ -5,14 +5,12 @@ import "easymde/dist/easymde.min.css";
 import Markdown from "../Page/Markdown";
 import ReactDOMServer from "react-dom/server";
 import Button from "@material-ui/core/Button";
-import {Link} from "react-router-dom";
 import FileLoader from "../../services/FileLoader";
 import ClearIcon from '@material-ui/icons/Clear';
 import SaveIcon from '@material-ui/icons/Save';
 import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import "./Editor.css"
-import Backdrop from "@material-ui/core/Backdrop/Backdrop";
 
 
 const useStyles = makeStyles(theme => ({

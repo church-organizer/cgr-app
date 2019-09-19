@@ -3,7 +3,6 @@ import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import Wiki from "./wiki/Wiki";
 import Login from "./components/Login/Login";
-import FileLoader from "./services/FileLoader";
 import "./animations.css"
 
 class App extends Component {
@@ -11,9 +10,6 @@ class App extends Component {
         login: {isLoggedIn: true, username: 'asd'},
     };
 
-    constructor(props) {
-        super(props);
-    }
     content = () => {
         if (this.state.login.isLoggedIn) {
             return (
