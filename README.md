@@ -62,6 +62,17 @@ C. Dashboard auf homepage
   - logout
   - verify (kriegt ein token rein und verifiziert das)
 - 
+
+## für die erste version mvp
+- login für bearbeitung
+- advanced search umbauen
+- design 
+- hilfe
+- schriftart
+- bilder hochladen
+
+ 
+
 ### Datenbank
 - benutzer + rechte
 - wikipages (createdAt, updatedAt, titel, author, group, content)
