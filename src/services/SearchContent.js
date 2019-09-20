@@ -1,16 +1,27 @@
+/**
+ * gets a content and searchContent and replaces every match with a html string
+ * appends the difference from start to the index and the replaced text
+ * in the end it adds the rest of the content
+ * @param content
+ * @param searchContent
+ * @returns {string|*}
+ */
 const changeContentIfMatch = (content, searchContent) => {
-    // return content;
     const regex = new RegExp(searchContent, "gi");
     let matches = content.match(regex);
-
-
-    if (matches && searchContent) {
-        for (let match of matches) {
-            const regex = new RegExp(match, "g");
-            content = content.replace(regex, `<span class="match">${match}</span>`);
-        }
+    if(matches === null){
+        return content;
     }
-    return content;
+
+    let start = 0;
+    let readyContent ="";
+    for(let match of matches) {
+        let index = content.indexOf(match, start);
+        let replaceContent = `<span class="match">${match}</span>`;
+        readyContent += content.slice(start, index) + replaceContent;
+        start = index + match.length;
+    }
+    return readyContent + content.slice(start, content.length);
 };
 
 export default changeContentIfMatch;

@@ -43,11 +43,8 @@ const Markdown = (props) => {
     }
 
 
-    const set = changeContentIfMatch(marked(content));
+    const set = marked(content);
     return <div>{ReactHtmlParser(set)}</div>
-    // return (<ReactMarkdown escapeHtml={false} transformImageUri={(test) => require("../../files/" + test)}
-    //     className="markdown-content"
-    //     source={set} />);
 };
 
 export default Markdown;

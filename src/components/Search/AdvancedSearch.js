@@ -35,17 +35,41 @@ const useStyle = makeStyles(theme => ({
 
 const AdvancedSearch = (props) => {
     const classes = useStyle();
-    const [time, setTime] = useState(0);
-    const [results, setResults] = useState([]);
-    let params = window.location.search.replace("?","");
     const [key, setKey] = useState(null);
-    const [searchContent, setSearch] = useState("");
+    const [res, setRes] = useState({time: 0, results: [], searchContent: ""});
+    let params = window.location.search.replace("?","");
+    let timeOut = 0;
 
+    // to check if the params from the url is not empty and it gets split at the params connector '&'
     if (params !== "") {
         params = params.split("&");
     } else {
         params = [];
     }
+
+    const applySearch = (res, time, search) => {
+        setRes({time: time, results: res, searchContent: search});
+    };
+
+    const waitTillInputReady = (search) => {
+        if (timeOut) {
+            clearTimeout(timeOut);
+        }
+        timeOut = setTimeout(function () {
+            sendSearchRequest(search);
+        }, 500);
+    };
+
+    const sendSearchRequest = (search) => {
+        FileLoader.search(search).then((res) => {
+            const result = res.result;
+            let arr = [];
+            for (let item in result) {
+                arr.push([result[item][0], item, result[item][1]])
+            }
+            applySearch(arr, res.time, search);
+        });
+    };
 
     /**
      * Search request to the Api
@@ -54,20 +78,10 @@ const AdvancedSearch = (props) => {
      */
     const onSearch = (search) => {
         if (search === ""){
-            setResults([]);
-            setTime(0);
-            setSearch("");
-        }else {
-            FileLoader.search(search).then((res)=> {
-                const result = res.result;
-                let arr = [];
-                for (let item in result) {
-                    arr.push([result[item][0], item, result[item][1]])
-                }
-                setResults(arr);
-                setTime(res.time);
-                setSearch(search);
-            });
+            clearTimeout(timeOut);
+            applySearch([], 0, "");
+        } else {
+            waitTillInputReady(search);
         }
 
     };
@@ -77,7 +91,7 @@ const AdvancedSearch = (props) => {
      * if its type is a hashtag, the hashtag will be appended
      */
     const loadParamFromUrl = () => {
-        if (key === null && params.length > 0 && results.length === 0) {
+        if (key === null && params.length > 0 && res.results.length === 0) {
             let searchKey = "";
             for (let param of params) {
                 let pair = param.split("=");
@@ -91,7 +105,6 @@ const AdvancedSearch = (props) => {
             onSearch(searchKey);
         }
     };
-
     loadParamFromUrl();
 
     return (
@@ -100,9 +113,9 @@ const AdvancedSearch = (props) => {
             <SearchBar onSearch={onSearch}
                        startValue={key}
                        color={"#444444"}/>
-            {time > 0 ? <Typography className={classes.time}>Suche beendet in {time} Sekunden</Typography> : ""}
+            {res.time > 0 ? <Typography className={classes.time}>Suche beendet in {res.time} Sekunden</Typography> : ""}
             <Container>
-                {results.map((item, index) => {
+                {res.results.map((item, index) => {
                     return (
                         <Paper className={classes.result} key={index}>
                             <Typography variant={"h5"}> {item[0]}</Typography>
@@ -110,7 +123,7 @@ const AdvancedSearch = (props) => {
                                 <Path folder={item[1].split("/").slice(1)}/>
                             </Typography>
                             <Divider/>
-                            <Markdown source={changeContentIfMatch(item[2], searchContent)}/>
+                            <Markdown source={changeContentIfMatch(item[2], res.searchContent)}/>
                         </Paper>);
                 })}
             </Container>
