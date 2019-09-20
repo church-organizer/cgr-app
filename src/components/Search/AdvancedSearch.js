@@ -72,19 +72,27 @@ const AdvancedSearch = (props) => {
 
     };
 
-    if (key === null && params.length > 0 && results.length === 0) {
-        let searchKey = "";
-        for (let param of params) {
-            let pair = param.split("=");
-            if (pair[0] === "type" && pair[1] === "tags") {
-                searchKey = "#" + searchKey;
-            } else if (pair[0] === "key") {
-                searchKey = searchKey + pair[1];
+    /**
+     * loads the search keyword from the url and uses it as start keyword
+     * if its type is a hashtag, the hashtag will be appended
+     */
+    const loadParamFromUrl = () => {
+        if (key === null && params.length > 0 && results.length === 0) {
+            let searchKey = "";
+            for (let param of params) {
+                let pair = param.split("=");
+                if (pair[0] === "type" && pair[1] === "tags") {
+                    searchKey = "#" + searchKey;
+                } else if (pair[0] === "key") {
+                    searchKey = searchKey + pair[1];
+                }
             }
+            setKey(searchKey);
+            onSearch(searchKey);
         }
-        setKey(searchKey);
-        onSearch(searchKey);
-    }
+    };
+
+    loadParamFromUrl();
 
     return (
         <div className="advancedSearch">
