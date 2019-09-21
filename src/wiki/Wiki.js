@@ -7,6 +7,9 @@ import Footer from "../components/Footer/Footer";
 import FileLoader from "../services/FileLoader";
 import AdvancedSearch from "../components/Search/AdvancedSearch";
 import {Route, Switch} from "react-router-dom";
+import Error from "../components/Error/Error";
+import Button from "@material-ui/core/Button";
+import {DialogActions} from "@material-ui/core";
 
 /**
  * Shows all of the Wiki Entries
@@ -19,6 +22,11 @@ class Wiki extends Component {
         showSideBar: true,
         page: {
             readOnly: true
+        },
+        error: {
+            title: "",
+            message: "",
+            open: false
         }
     };
     //später würde ich über Css-Classes/Ids machen
@@ -29,20 +37,34 @@ class Wiki extends Component {
     constructor(props) {
         super(props);
         FileLoader.getStructure()
-            .then(structure => this.setState({structure: structure}));
+            .then(structure => this.setState({structure: structure}))
+            .catch(error => {
+                this.setState({
+                    error: {
+                        title: "Keine Daten",
+                        message: error.toString(),
+                        open: true
+                    }
+                });
+            });
     }
 
-    changeSidebarState(state){
+    changeSidebarState(state) {
         this.setState({showSideBar: state})
     }
 
-    changeReadOnlyState(state){
+    changeReadOnlyState(state) {
         this.setState({page: {readOnly: state}})
     }
 
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
+                <Error open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
+                       isError>
+                    <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>
+                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>
+                </Error>
                 <SideBar
                     open={this.state.showSideBar}
                     structure={this.state.structure}
@@ -55,7 +77,7 @@ class Wiki extends Component {
                             <TopBar onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}
                                     readOnlyState={this.state.page.readOnly}
                                     path={this.dir}/>
-                            <Page closeSidebar={(sideBarState)=> this.changeSidebarState(sideBarState)}
+                            <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
                                   readOnly={this.state.page.readOnly}
                                   onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
                         </div>}/>
