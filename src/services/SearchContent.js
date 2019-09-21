@@ -8,7 +8,7 @@
  */
 const changeContentIfMatch = (content, searchContent) => {
     const regex = new RegExp(searchContent, "gi");
-    let matches = content.match(regex);
+    let matches = content.match(regex).filter(match => match !== "" && match !== null);
     if(matches === null){
         return content;
     }

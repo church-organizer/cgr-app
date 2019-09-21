@@ -2,7 +2,6 @@ import React from "react";
 import ReactHtmlParser from 'react-html-parser';
 import marked from "marked";
 import "./Markdown.css"
-import changeContentIfMatch from "../../services/SearchContent";
 import FileLoader from "../../services/FileLoader";
 
 const Markdown = (props) => {
