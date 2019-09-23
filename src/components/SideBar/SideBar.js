@@ -137,12 +137,12 @@ const SideBar = (props) => {
                     <div>
                         <SearchBar onSearch={onSearch}/>
                         <Link onClick={() => !matches ? onChange(false) : null} to={"/search"}>
-                            <Chip size={"medium"}
-                                  avatar={<Avatar className="rotate-center"
-                                                  classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
-                                  className={classes.advancedSearch}
-                                  variant="outlined" color={"primary"}
-                                  label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
+                            {/*<Chip size={"medium"}*/}
+                            {/*      avatar={<Avatar className="rotate-center"*/}
+                            {/*                      classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}*/}
+                            {/*      className={classes.advancedSearch}*/}
+                            {/*      variant="outlined" color={"primary"}*/}
+                            {/*      label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>*/}
                         </Link>
                     </div>
                     <SideBarLinks setOpen={(value) => !matches ? onChange(value): {}}
