@@ -1,7 +1,6 @@
 .footer {
-    border-top: 1px solid;
-    border-color: rgba(120,120,120,0.33);
+    border-top: 1px solid rgba(120, 120, 120, 0.33);
     background-color: white;
-    padding: 15px;
+    padding-top: 10px;
     z-index: -10;
 }
