@@ -105,14 +105,13 @@ const AdvancedSearch = (props) => {
             onSearch(searchKey);
         }
     };
-    loadParamFromUrl();
 
     return (
         <div className="advancedSearch">
-            <Typography variant={"h3"}>Advanced Search</Typography>
-            <SearchBar onSearch={onSearch}
-                       startValue={key}
-                       color={"#444444"}/>
+            {/*<Typography variant={"h3"}>Advanced Search</Typography>*/}
+            {/*<SearchBar onSearch={onSearch}*/}
+            {/*           startValue={key}*/}
+            {/*           color={"#444444"}/>*/}
             {res.time > 0 ? <Typography className={classes.time}>Suche beendet in {res.time} Sekunden</Typography> : ""}
             <Container>
                 {res.results.map((item, index) => {
