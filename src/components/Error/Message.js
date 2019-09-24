@@ -6,9 +6,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const Error = (props) => {
+const Message = (props) => {
     const beginningText = props.isError ? "Es gab leider ein kleines Problem" : "";
-    console.log(props.isError);
     return (
         <Dialog open={props.open}
                 TransitionComponent={Transition}
@@ -27,4 +26,4 @@ const Error = (props) => {
     );
 };
 
-export default Error;
+export default Message;
