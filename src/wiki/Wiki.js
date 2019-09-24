@@ -7,7 +7,7 @@ import Footer from "../components/Footer/Footer";
 import FileLoader from "../services/FileLoader";
 import AdvancedSearch from "../components/Search/AdvancedSearch";
 import {Route, Switch} from "react-router-dom";
-import Error from "../components/Error/Error";
+import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
 import {DialogActions} from "@material-ui/core";
 
@@ -60,11 +60,11 @@ class Wiki extends Component {
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
-                <Error open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
-                       isError>
+                <Message open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
+                         isError>
                     <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>
                     <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>
-                </Error>
+                </Message>
                 <SideBar
                     open={this.state.showSideBar}
                     structure={this.state.structure}
