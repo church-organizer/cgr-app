@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {makeStyles} from "@material-ui/core";
+import React, {Component} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import Markdown from "../Page/Markdown";
@@ -13,30 +12,17 @@ import CircularProgress from "@material-ui/core/CircularProgress/CircularProgres
 import "./Editor.css"
 
 
-const useStyles = makeStyles(theme => ({
-    div: {
-        textAlign: "left",
-        border: 'none',
-    },
-    button: {
-        marginRight: "20px"
-    },
-    icon: {
-        marginRight: theme.spacing(1),
-    }
-}));
-
-const Editor = (props) => {
-    const classes = useStyles();
-    const [content, setContent] = useState("");
-    const [loading, setLoading] = useState(false);
-
-    if (content === '' && props.content !== '') {
-        setContent(props.content);
-    }
+class Editor extends Component {
+    state = {
+        content: this.props.content,
+        loading: false,
+        position: {line: 0, row: 0},
+        changeContent: {await: false, replaceLength: 0}
+    };
+    editor;
 
     // passing functions into editor for extra functionality
-    const extraKeys = {
+    extraKeys = {
         Esc: function (cm) { // todo save file here
             cm.replaceSelection(" surprise again! ");
         },
@@ -44,53 +30,121 @@ const Editor = (props) => {
 
     /**
      * Called on content changed
+     * If there is content to be changed (e.g)
      * @param value
      */
-    const handleChange = (value) => {
-        setContent(value);
+    handleChange = (value) => {
+        this.setState({content: value});
+        if (this.state.changeContent.await) {
+            this.changeContentAtPosition(this.state.position, this.state.changeContent.replaceLength);
+            this.setState({changeContent: {await: false, replaceLength: 0}});
+        }
+
     };
 
-    const onSaveClick= () => {
-        props.onEdit(true);
-        setLoading(true);
-        FileLoader.saveFile(window.location.pathname, content).then((result) => {
-            props.reload();
-            setLoading(false)
+    /**
+     * saves the content and makes it readonly again
+     */
+    onSaveClick = () => {
+        this.props.onEdit(true);
+        this.setState({loading: true});
+        FileLoader.saveFile(window.location.pathname, this.state.content).then((result) => {
+            this.props.reload();
+            this.setState({loading: false});
         });
     };
 
-    return (
-        <div className={classes.root}>
-            <Fade in={loading}>
-                <div>
-                    <CircularProgress className="loading" size={70}/>
-                </div>
-            </Fade>
+    /**
+     * adds the click event to the image button of the editor
+     */
+    addClickEventToExistingButton() {
+        const button = document.getElementsByClassName("image")[0];
+        button.addEventListener("click", () => this.uploadImage());
+    };
 
-            <SimpleMDE onChange={handleChange} value={content} extraKeys={extraKeys}
-                       options={{
-                           placeholder: "Hier kommt der Text hin.",
-                           autofocus: true,
-                           spellChecker: false,
-                           onToggleFullScreen(is) {
-                               props.closeSidebar(!is);
-                           },
-                           previewRender(text) {
-                               return ReactDOMServer.renderToString(<Markdown source={text}/>);
-                           }
-                       }}/>
-            <Button className={classes.button}
-                    onClick={onSaveClick}
-                    variant={"contained"}
-                    color={"primary"}>
-                <SaveIcon className={classes.icon}/>Speichern
-            </Button>
-            <Button onClick={() => props.onEdit(true)} className={classes.button} variant={"contained"}
-                    color={"inherit"}>
-                <ClearIcon className={classes.icon}/>Abbrechen
-            </Button>
-        </div>
-    );
-};
+    /**
+     * calls the api to upload the image
+     * and sets the state so when the editor adds the image part in the md content it removes the next 8 chars
+     * after the cursor
+     */
+    uploadImage() {
+        document.getElementById("uploadImage").click();
+        this.setState({changeContent: {await: true, replaceLength: 8}});
+        // change content and delete the https:// part added by the simpleMDE Editor
+        // this.changeContentAtPosition(this.state.position, 8);
+    };
+
+    /**
+     * changes the to content and cuts the next chars (depending on the length param) and
+     * replaces it with the param replaceText
+     * @param position the start position from where to cut
+     * @param length how many chars will be cut
+     * @param replaceText the text to be insert
+     */
+    changeContentAtPosition(position, length = 0, replaceText = "") {
+        const index = this.positionToIndex(position);
+        const tempContent = this.state.content.slice(0, index) + replaceText + this.state.content.slice(index + length, this.state.content.length);
+        this.setState({content: tempContent});
+    };
+
+    /**
+     * Returns the Index of the Cursor position
+     * @param position
+     * @returns {number} the index in the content
+     */
+    positionToIndex = (position) => {
+        let counter = 0;
+        const lines = this.state.content.split("\n");
+        for (let i = 0; i < position.line && i < lines.length; i++) {
+            counter += lines[i].length;
+        }
+        return counter + position.row;
+    };
+
+    render() {
+        return (
+            <div>
+                <Fade in={this.state.loading}>
+                    <div>
+                        <CircularProgress className="loading" size={70}/>
+                    </div>
+                </Fade>
+                <input style={{display: "none"}} id="uploadImage" type="file"
+                       accept="image/gif,image/jpeg,image/jpg,image/png"/>
+                <SimpleMDE onChange={this.handleChange} value={this.state.content} extraKeys={this.extraKeys}
+                           getLineAndCursor={pPosition => this.setState({
+                               position: {
+                                   line: pPosition.line,
+                                   row: pPosition.ch
+                               }
+                           })}
+                           getMdeInstance={instance => {
+                               this.addClickEventToExistingButton();
+                           }}
+                           options={{
+                               placeholder: "Hier kommt der Text hin.",
+                               autofocus: true,
+                               spellChecker: false,
+                               onToggleFullScreen(is) {
+                                   this.props.closeSidebar(!is);
+                               },
+                               previewRender(text) {
+                                   return ReactDOMServer.renderToString(<Markdown source={text}/>);
+                               }
+                           }}/>
+                <Button className="editorButton"
+                        onClick={this.onSaveClick}
+                        variant={"contained"}
+                        color={"primary"}>
+                    <SaveIcon className=""/>Speichern
+                </Button>
+                <Button onClick={() => this.props.onEdit(true)} className="editorButton" variant={"contained"}
+                        color={"inherit"}>
+                    <ClearIcon className=""/>Abbrechen
+                </Button>
+            </div>
+        );
+    }
+}
 
 export default Editor;
