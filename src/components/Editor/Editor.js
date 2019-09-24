@@ -17,9 +17,9 @@ class Editor extends Component {
         content: this.props.content,
         loading: false,
         position: {line: 0, row: 0},
-        changeContent: {await: false, replaceLength: 0}
+        changeContent: {await: false, replaceLength: 0},
+        newImageList: []
     };
-    editor;
 
     // passing functions into editor for extra functionality
     extraKeys = {
@@ -52,6 +52,14 @@ class Editor extends Component {
             this.props.reload();
             this.setState({loading: false});
         });
+        if (this.state.newImageList.length >0){
+            for(let image of this.state.newImageList){
+                FileLoader.uploadImage(image).then(res => console.log(res)).catch(err => console.error(err));
+            }
+        }
+        this.setState({newImageList: []});
+        this.props.onEdit(true);
+
     };
 
     /**
@@ -59,8 +67,17 @@ class Editor extends Component {
      */
     addClickEventToExistingButton() {
         const button = document.getElementsByClassName("image")[0];
+        const fileUpload = document.getElementById("uploadImage");
+        fileUpload.addEventListener("change", () => this.addToImageList());
         button.addEventListener("click", () => this.uploadImage());
     };
+
+    addToImageList(){
+        const list = this.state.newImageList;
+        list.push(document.getElementById("uploadImage").files[0]);
+        console.log(list);
+        this.setState({newImageList: list});
+    }
 
     /**
      * calls the api to upload the image
@@ -70,8 +87,6 @@ class Editor extends Component {
     uploadImage() {
         document.getElementById("uploadImage").click();
         this.setState({changeContent: {await: true, replaceLength: 8}});
-        // change content and delete the https:// part added by the simpleMDE Editor
-        // this.changeContentAtPosition(this.state.position, 8);
     };
 
     /**
