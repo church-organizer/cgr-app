@@ -4,3 +4,7 @@
     left: calc(50% - 140px);
     z-index: 50;
 }
+
+.editorButton {
+    margin-right: 20px;
+}
