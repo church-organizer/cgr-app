@@ -40,15 +40,24 @@ class Editor extends Component {
      * saves the content and makes it readonly again
      */
     onSaveClick = () => {
-        this.props.onEdit(true);
         this.setState({loading: true});
         FileLoader.saveFile(window.location.pathname, this.state.content).then((result) => {
-            this.props.reload();
-            this.setState({loading: false});
+            if (this.state.newImageList.length === 0) {
+                this.props.reload();
+                this.setState({loading: false});
+            }
         });
-        if (this.state.newImageList.length >0){
-            for(let image of this.state.newImageList){
-                FileLoader.uploadImage(image).then(res => console.log(res)).catch(err => console.error(err));
+        if (this.state.newImageList.length > 0) {
+            const list = this.state.newImageList;
+            for (let i = 0; i < list.length; i++) {
+                // when the last one is ready, its finished loading
+                const isLast = i === list.length - 1;
+                FileLoader.uploadImage(list[i]).then(() => {
+                    if (isLast) {
+                        this.props.reload();
+                        this.setState({loading: false});
+                    }
+                }).catch(err => console.error(err));
             }
         }
         this.setState({newImageList: []});
@@ -125,7 +134,7 @@ class Editor extends Component {
                         <CircularProgress className="loading" size={70}/>
                     </div>
                 </Fade>
-                <input style={{display: "none"}} id="uploadImage" type="file"
+                <input style={{display: "none"}} id="uploadImage" type="file" name="file"
                        accept="image/gif,image/jpeg,image/jpg,image/png"/>
                 <SimpleMDE onChange={this.handleChange} value={this.state.content} extraKeys={this.extraKeys}
                            getLineAndCursor={pPosition => this.setState({
