@@ -17,7 +17,6 @@ class Editor extends Component {
         content: this.props.content,
         loading: false,
         position: {line: 0, row: 0},
-        changeContent: {await: false, replaceLength: 0},
         newImageList: []
     };
 
@@ -30,16 +29,11 @@ class Editor extends Component {
 
     /**
      * Called on content changed
-     * If there is content to be changed (e.g)
+     * If there is content to be changed
      * @param value
      */
     handleChange = (value) => {
         this.setState({content: value});
-        if (this.state.changeContent.await) {
-            this.changeContentAtPosition(this.state.position, this.state.changeContent.replaceLength);
-            this.setState({changeContent: {await: false, replaceLength: 0}});
-        }
-
     };
 
     /**
@@ -69,14 +63,21 @@ class Editor extends Component {
         const button = document.getElementsByClassName("image")[0];
         const fileUpload = document.getElementById("uploadImage");
         fileUpload.addEventListener("change", () => this.addToImageList());
-        button.addEventListener("click", () => this.uploadImage());
+        button.addEventListener("click", () => this.openImageSelect());
     };
 
+    /**
+     * adds the selected Image to the image list
+     * the image list will be uploaded when the page is saved
+     */
     addToImageList(){
         const list = this.state.newImageList;
-        list.push(document.getElementById("uploadImage").files[0]);
-        console.log(list);
-        this.setState({newImageList: list});
+        const image = document.getElementById("uploadImage").files[0];
+        list.push(image);
+        this.setState({
+            newImageList: list,
+            content: this.changeContentAtPosition(this.state.position,8, image.name),
+        });
     }
 
     /**
@@ -84,22 +85,22 @@ class Editor extends Component {
      * and sets the state so when the editor adds the image part in the md content it removes the next 8 chars
      * after the cursor
      */
-    uploadImage() {
+    openImageSelect() {
         document.getElementById("uploadImage").click();
-        this.setState({changeContent: {await: true, replaceLength: 8}});
     };
 
     /**
      * changes the to content and cuts the next chars (depending on the length param) and
      * replaces it with the param replaceText
+     * todo the cursor jumps to the start after selecting one image, has to be fixed
      * @param position the start position from where to cut
      * @param length how many chars will be cut
      * @param replaceText the text to be insert
+     * @return the changed content
      */
     changeContentAtPosition(position, length = 0, replaceText = "") {
         const index = this.positionToIndex(position);
-        const tempContent = this.state.content.slice(0, index) + replaceText + this.state.content.slice(index + length, this.state.content.length);
-        this.setState({content: tempContent});
+        return this.state.content.slice(0, index) + replaceText + this.state.content.slice(index + length, this.state.content.length);
     };
 
     /**
@@ -111,7 +112,7 @@ class Editor extends Component {
         let counter = 0;
         const lines = this.state.content.split("\n");
         for (let i = 0; i < position.line && i < lines.length; i++) {
-            counter += lines[i].length;
+            counter += lines[i].length + 1; // plus one for every linebreak
         }
         return counter + position.row;
     };
