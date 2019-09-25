@@ -71,7 +71,7 @@ C. Dashboard auf homepage
 - design 
 - hilfe
 - schriftart
-- bilder hochladen
+- bilder hochladen (done)
 
  
 
