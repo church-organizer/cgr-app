@@ -37,11 +37,11 @@ class FileLoader {
     }
 
     static uploadImage(image){
+        console.log(image);
         const formData = new FormData();
-        formData.append("i", image);
-        return fetch(this.url + "wiki/image/", {
+        formData.append("image", image);
+        return fetch(this.url + "image", {
             method: "POST",
-            headers: {"Content-Type": "multipart/form-data"},
             body: formData
         }).then(res => res.json().then(res => res));
     }
