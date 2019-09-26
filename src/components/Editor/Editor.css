@@ -16,3 +16,8 @@
 .help-category {
     background-color: rgba(49, 57, 163, 0.42);
 }
+
+.alignLeft {
+    display: inline-flex;
+    float: left;
+}
