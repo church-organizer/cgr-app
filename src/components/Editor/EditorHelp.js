@@ -5,30 +5,25 @@ import {
     DialogTitle,
     DialogActions,
     Button,
-    Typography,
-    Collapse,
-    ListItemText
+    Typography, ExpansionPanel
 } from "@material-ui/core";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import Markdown from "../Page/Markdown";
-import {ExpandLess, ExpandMore} from "@material-ui/icons";
-import List from "@material-ui/core/List/List";
-import ListItem from "@material-ui/core/ListItem/ListItem";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 
 class EditorHelpEntry extends Component {
     render() {
         return (
-            <div>
-                <ListItem button onClick={() => this.props.select(this.props.key)}>
-                    <ListItemText>{this.props.title}</ListItemText>
-                    {this.props.isSeleced ? <ExpandLess/> : <ExpandMore/>}
-                </ListItem>
-                <Collapse in={this.props.isSeleced}>
-                    <div className="helpcontent">
-                        <Markdown source={this.props.text}/>
-                    </div>
-                </Collapse>
-            </div>
-        );
+            <ExpansionPanel expanded={this.props.isSelected} onClick={() => this.props.select(this.props.key)}>
+                <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                    <Typography>{this.props.title}</Typography>
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <Markdown source={this.props.text}/>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>);
     }
 }
 
@@ -82,7 +77,7 @@ Das sieht dann so aus: ~~Beispiel~~
             <EditorHelpEntry title={"Texte Bearbeiten"}
                              text={mdContent}
                              key={key}
-                             isSeleced={this.isSelected(key)}
+                             isSelected={this.isSelected(key)}
                              select={() => this.openOtherCategory(key)}/>);
     }
 
@@ -95,7 +90,7 @@ Das sieht dann so aus: ~~Beispiel~~
             <EditorHelpEntry title={"Überschriften"}
                              text={mdContent}
                              key={key}
-                             isSeleced={this.isSelected(key)}
+                             isSelected={this.isSelected(key)}
                              select={() => this.openOtherCategory(key)}/>);
     }
 
@@ -127,7 +122,7 @@ Eine 'angekreuzte Checkbox' enthält zwischen den eckigen Klammern ein 'x'\n
             <EditorHelpEntry title={"Listen"}
                              text={mdContent}
                              key={key}
-                             isSeleced={this.isSelected(key)}
+                             isSelected={this.isSelected(key)}
                              select={() => this.openOtherCategory(key)}/>);
 
     }
@@ -175,7 +170,7 @@ Das Ergbenis würde dann so aussehen:\n
             <EditorHelpEntry title={"Tabllen"}
                              text={mdContent}
                              key={key}
-                             isSeleced={this.isSelected(key)}
+                             isSelected={this.isSelected(key)}
                              select={() => this.openOtherCategory(key)}/>);
     }
 
@@ -187,12 +182,10 @@ Das Ergbenis würde dann so aussehen:\n
                     onClose={this.props.onClose}>
                 <DialogTitle>Deine Hilfe</DialogTitle>
                 <DialogContent>
-                    <List>
-                        {this.getHelpForHeader()}
-                        {this.getHelpForLists()}
-                        {this.getHelpForTables()}
-                        {this.getHelpForText()}
-                    </List>
+                    {this.getHelpForHeader()}
+                    {this.getHelpForLists()}
+                    {this.getHelpForTables()}
+                    {this.getHelpForText()}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose} color={"primary"}>Schließen</Button>
