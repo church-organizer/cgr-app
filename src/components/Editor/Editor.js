@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createElement} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import Markdown from "../Page/Markdown";
@@ -10,6 +10,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import "./Editor.css"
+import EditorHelp from "./EditorHelp";
 
 
 class Editor extends Component {
@@ -17,7 +18,8 @@ class Editor extends Component {
         content: this.props.content,
         loading: false,
         position: {line: 0, row: 0},
-        newImageList: []
+        newImageList: [],
+        openHelp: false
     };
 
     // passing functions into editor for extra functionality
@@ -73,7 +75,60 @@ class Editor extends Component {
         const fileUpload = document.getElementById("uploadImage");
         fileUpload.addEventListener("change", () => this.addToImageList());
         button.addEventListener("click", () => this.openImageSelect());
+        this.removeDefaultHelpButtonFromEditor();
+        this.addSimpleHelpToStatusbar();
     };
+
+    /**
+     * adds a simple Help for the Editor
+     * Add some small examples below the editor
+     */
+    addSimpleHelpToStatusbar() {
+        const createElement = (element, content) => {
+            const span = document.createElement('span');
+            const child = document.createElement(element);
+            child.appendChild(document.createTextNode(content));
+            span.appendChild(child);
+            return span;
+        };
+        const statusBar = document.getElementsByClassName("editor-statusbar")[0];
+        const simpleHelp = document.createElement('div');
+        simpleHelp.appendChild(createElement('strong', "**dick**"));
+        simpleHelp.appendChild(createElement('em', "*kursiv*"));
+        simpleHelp.appendChild(createElement('del', "~~durchgestrichen~~"));
+        simpleHelp.appendChild(createElement('pre', "`blau markieren`"));
+        simpleHelp.appendChild(createElement('blockquote', "> grün markieren"));
+
+        simpleHelp.className = "alignLeft";
+        statusBar.appendChild(simpleHelp);
+    }
+
+    /**
+     * Makes some js foo
+     * gets the help help button, creates a new with the same atributes
+     * and adds a new event for 'click'
+     * the new replaces the old one
+     */
+    removeDefaultHelpButtonFromEditor(){
+        const toolbar = document.getElementsByClassName("editor-toolbar")[0];
+        const helpButton = document.getElementsByClassName("guide")[0];
+        const newHelpButton = document.createElement(helpButton.tagName);
+        newHelpButton.className = helpButton.className;
+        newHelpButton.type = helpButton.type;
+        newHelpButton.title = helpButton.title;
+        newHelpButton.addEventListener("click", ()=> this.changeStateOpenHelpForMarkdownContent(true));
+        for(let node of helpButton.childNodes){
+            newHelpButton.appendChild(node);
+        }
+        toolbar.replaceChild(newHelpButton, helpButton);
+    }
+
+    /**
+     * opens the help for the Markdown content
+     */
+    changeStateOpenHelpForMarkdownContent(open){
+        this.setState({openHelp: open});
+    }
 
     /**
      * adds the selected Image to the image list
@@ -134,6 +189,7 @@ class Editor extends Component {
                         <CircularProgress className="loading" size={70}/>
                     </div>
                 </Fade>
+                <EditorHelp open={this.state.openHelp} onClose={()=> this.changeStateOpenHelpForMarkdownContent(false)}/>
                 <input style={{display: "none"}} id="uploadImage" type="file" name="file"
                        accept="image/gif,image/jpeg,image/jpg,image/png"/>
                 <SimpleMDE onChange={this.handleChange} value={this.state.content} extraKeys={this.extraKeys}
@@ -150,9 +206,7 @@ class Editor extends Component {
                                placeholder: "Hier kommt der Text hin.",
                                autofocus: true,
                                spellChecker: false,
-                               onToggleFullScreen(is) {
-                                   this.props.closeSidebar(!is);
-                               },
+                               onToggleFullScreen: (is)=> {this.props.closeSidebar(!is)},
                                previewRender(text) {
                                    return ReactDOMServer.renderToString(<Markdown source={text}/>);
                                }

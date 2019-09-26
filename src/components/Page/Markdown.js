@@ -25,7 +25,6 @@ const Markdown = (props) => {
     const changeImageUrlInMD = () => {
         const logoRegex = /\(.*\)/;
         const matches = content.match(imageRegex);
-        console.log(matches);
         if(matches) {
             for (let match of matches) {
                 let newUrl = match;
