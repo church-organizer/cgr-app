@@ -79,6 +79,10 @@ class Editor extends Component {
         this.addSimpleHelpToStatusbar();
     };
 
+    /**
+     * adds a simple Help for the Editor
+     * Add some small examples below the editor
+     */
     addSimpleHelpToStatusbar() {
         const createElement = (element, content) => {
             const span = document.createElement('span');
