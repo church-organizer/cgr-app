@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, createElement} from 'react';
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import Markdown from "../Page/Markdown";
@@ -76,7 +76,28 @@ class Editor extends Component {
         fileUpload.addEventListener("change", () => this.addToImageList());
         button.addEventListener("click", () => this.openImageSelect());
         this.removeDefaultHelpButtonFromEditor();
+        this.addSimpleHelpToStatusbar();
     };
+
+    addSimpleHelpToStatusbar() {
+        const createElement = (element, content) => {
+            const span = document.createElement('span');
+            const child = document.createElement(element);
+            child.appendChild(document.createTextNode(content));
+            span.appendChild(child);
+            return span;
+        };
+        const statusBar = document.getElementsByClassName("editor-statusbar")[0];
+        const simpleHelp = document.createElement('div');
+        simpleHelp.appendChild(createElement('strong', "**dick**"));
+        simpleHelp.appendChild(createElement('em', "*kursiv*"));
+        simpleHelp.appendChild(createElement('del', "~~durchgestrichen~~"));
+        simpleHelp.appendChild(createElement('pre', "`blau markieren`"));
+        simpleHelp.appendChild(createElement('blockquote', "> grün markieren"));
+
+        simpleHelp.className = "alignLeft";
+        statusBar.appendChild(simpleHelp);
+    }
 
     /**
      * Makes some js foo
