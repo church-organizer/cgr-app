@@ -5,6 +5,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Grid from "@material-ui/core/Grid";
 import Path from "./Path";
 import IconButton from "@material-ui/core/IconButton";
+import Login from "../Login/Login";
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -13,12 +14,12 @@ const useStyle = makeStyles(theme => ({
         paddingBottom: "5px"
     },
     rotate: {
-        '&:focus':{
+        '&:focus': {
             animation: "rotate-center 0.6s ease-in-out both"
         }
     },
     rotateLeft: {
-        '&:focus':{
+        '&:focus': {
             animation: "rotate-in-center 0.6s cubic-bezier(0.940, 0.450, 0.460, 0.250) both"
         }
     }
@@ -44,7 +45,7 @@ const TopBar = (props) => {
      * Checks if the shown content is editable
      * @returns {boolean}
      */
-    const allowEditContent= () => {
+    const allowEditContent = () => {
         return !(dir.dir.length === 1);
     };
 
@@ -58,7 +59,14 @@ const TopBar = (props) => {
                         <Path folder={dir.dir}/>
                     </Grid>
                     <Grid item xs={3}>
-                        <IconButton disabled={!allowEditContent()} className={edit? classes.rotate : classes.rotateLeft} onClick={()=> {props.onEdit(edit)}} variant={"contained"} color={edit? "secondary": "primary"} style={{float: "right"}}>
+                        <IconButton disabled={!allowEditContent()}
+                                    className={edit ? classes.rotate : classes.rotateLeft}
+                                    onClick={() => {
+                                        props.onEdit(edit)
+                                    }}
+                                    variant={"contained"}
+                                    color={edit ? "secondary" : "primary"}
+                                    style={{float: "right"}}>
                             {!edit ? <EditIcon fontSize={"inherit"}/> :
                                 <ClearIcon fontSize={"inherit"}/>}
                         </IconButton>
@@ -70,6 +78,7 @@ const TopBar = (props) => {
 
     return (
         <Paper className={classes.root} elevation={0}>
+            <Login open={}/>
             {fillPath()}
         </Paper>
     );
