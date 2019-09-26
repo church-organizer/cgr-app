@@ -8,3 +8,11 @@
 .editorButton {
     margin-right: 20px;
 }
+
+.helpcontent {
+    margin: 1em;
+}
+
+.help-category {
+    background-color: rgba(49, 57, 163, 0.42);
+}

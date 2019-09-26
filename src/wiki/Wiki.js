@@ -9,7 +9,6 @@ import AdvancedSearch from "../components/Search/AdvancedSearch";
 import {Route, Switch} from "react-router-dom";
 import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
-import {DialogActions} from "@material-ui/core";
 
 /**
  * Shows all of the Wiki Entries
