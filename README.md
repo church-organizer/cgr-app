@@ -69,7 +69,7 @@ C. Dashboard auf homepage
 - login für bearbeitung
 - advanced search umbauen
 - design 
-- hilfe
+- hilfe (muss nur noch der inhalt rein)
 - schriftart
 - bilder hochladen (done)
 
