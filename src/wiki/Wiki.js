@@ -9,6 +9,7 @@ import AdvancedSearch from "../components/Search/AdvancedSearch";
 import {Route, Switch} from "react-router-dom";
 import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
+import Login from "../components/Login/Login";
 
 /**
  * Shows all of the Wiki Entries
@@ -26,6 +27,12 @@ class Wiki extends Component {
             title: "",
             message: "",
             open: false
+        },
+        login: {
+            open: false,
+            isLoggedIn: false,
+            callback: () => {
+            }
         }
     };
     //später würde ich über Css-Classes/Ids machen
@@ -56,9 +63,39 @@ class Wiki extends Component {
         this.setState({page: {readOnly: state}})
     }
 
+    loginFirst(callback) {
+        this.setState({login: {isLoggedIn: false, open: true, callback: callback}});
+    }
+
+    onSuccess() {
+        this.state.login.callback();
+        this.setState({
+            login: {
+                isLoggedIn: true,
+                open: false,
+                callback: () => {
+                }
+            }
+        })
+    }
+
+    onAbort() {
+        this.setState({
+            login: {
+                isLoggedIn: false,
+                open: false,
+                callback: () => {
+                }
+            }
+        });
+    }
+
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
+                <Login open={this.state.login.open}
+                       onSuccess={() => this.onSuccess()}
+                       onAbort={() => this.onAbort()}/>
                 <Message open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
                          isError>
                     <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>
@@ -73,7 +110,7 @@ class Wiki extends Component {
                     <Route exact path="/search" component={AdvancedSearch}/>
                     <Route path="/" render={() =>
                         <div>
-                            <TopBar onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}
+                            <TopBar onEdit={(readOnly) => this.loginFirst(() => this.changeReadOnlyState(readOnly))}
                                     readOnlyState={this.state.page.readOnly}
                                     path={this.dir}/>
                             <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}

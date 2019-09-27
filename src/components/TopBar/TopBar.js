@@ -78,7 +78,6 @@ const TopBar = (props) => {
 
     return (
         <Paper className={classes.root} elevation={0}>
-            <Login open={}/>
             {fillPath()}
         </Paper>
     );
