@@ -37,7 +37,10 @@ const Markdown = (props) => {
     };
     if(content){
         changeHashtagIntoLink();
-        changeImageUrlInMD();
+        if(!props.disableChangeImageLink){
+            changeImageUrlInMD();
+        }
+
     }
 
 

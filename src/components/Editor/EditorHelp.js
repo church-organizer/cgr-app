@@ -8,7 +8,6 @@ import {
     Typography, ExpansionPanel
 } from "@material-ui/core";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 import Markdown from "../Page/Markdown";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
@@ -21,7 +20,7 @@ class EditorHelpEntry extends Component {
                     <Typography>{this.props.title}</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
-                    <Markdown source={this.props.text}/>
+                    <Markdown disableChangeImageLink source={this.props.text}/>
                 </ExpansionPanelDetails>
             </ExpansionPanel>);
     }
@@ -104,6 +103,37 @@ Das ganze kann man mit bis zu 5 Hashtags machen.\n
 `;
         return (
             <EditorHelpEntry title={"Überschriften"}
+                             text={mdContent}
+                             key={key}
+                             isSelected={this.isSelected(key)}
+                             select={() => this.openOtherCategory(key)}/>);
+    }
+
+    getHelpForHighlights() {
+        const key = "highlights";
+        const mdContent = `## Highlights
+---
+Um besondere Stellen von Texten besonders hervorzuheben gibt es 2 Möglichkeiten
+
+### Grüne Highlights
+Um grüne Hightlights darzustellen braucht man nur ein 'größer' Zeichen '>'\n
+> Bei Windows findet man das Zeichen mit 'Shift + <'\n
+Diese sehen dann so aus:\n
+> Ich bin Grün
+---
+### Blaue Highlights
+Für blaue Highlights braucht man entweder ein Backtick odern 3 Backticks für mehrere Zeilen.\n
+Das Backtick ist ein schräger Strich über Buchstaben der die Betonung z.B. in der franz. Sprache zeigt.\n
+> Bei den meisten Tastaturen findet man die Backticks mit 'Shift und ' und danach Leertaste drücken'\n
+\`Ich bin Blau\`
+\`\`\`
+ich bin ein 
+mehrzeiler
+\`\`\`
+
+`;
+        return (
+            <EditorHelpEntry title={"Texte hervorheben"}
                              text={mdContent}
                              key={key}
                              isSelected={this.isSelected(key)}
@@ -205,6 +235,80 @@ Das Ergbenis würde dann so aussehen:\n
                              select={() => this.openOtherCategory(key)}/>);
     }
 
+    getHelpForImages() {
+        const key = "images";
+        const mdContent = `## Bilder
+### Bilder hochladen
+Um Bilder hochzuladen gibt es den 'Insert Image' Button in der oberen Leiste beim Editor
+Klickt man darauf, öffnet sich ein Fenster und man kann ein Bild auswählen welches man hochladen will.
+Bestätigt man das, wird ein Textausschnitt dem Text hinzugefügt.\n
+Dieser Ausschnitt zeigt wo im Text das Bild dargestellt wird. 
+Dieser Ausschnitt sieht so aus:\n
+\` ![Bild](derNameDesBildes.png) \`
+
+In die eckigen Klammern kann man einen Titel für das Bild schreiben. 
+Dieser wird dargestellt, wenn das Bild nicht geladen werden kann
+
+Man kann auch bereits verwendete Bilder nochmal nutzen, 
+dafür muss man nur den Namen des Bilder in die runden Klammern schreiben .\n
+Eine Oberfläche um alle Bilder anzugucken die bereits Hochgeladen wurden gibt es noch nicht. Ist aber in Plannung.
+`;
+
+
+        return (
+            <EditorHelpEntry title={"Bilder"}
+                             text={mdContent}
+                             key={key}
+                             isSelected={this.isSelected(key)}
+                             select={() => this.openOtherCategory(key)}/>);
+    }
+
+    getHelpForEditor() {
+        const key = "editor";
+        const mdContent = `## Editor
+### Basics
+Der Editor ist ein einfacher Markdown Editor. 
+Das heißt der Inhalt der dargestellt wird, wird mittels Markdown dargestellt und strukturiert.
+
+Die Darstellung wurde teils angepasst um für unseren Kontext zu passen.
+
+### Funktionen
+Es können Bilder, Tabellen, Listen angezeigt werden. 
+> Neue Bilder werden erst hochgeladen wenn man den Artikel speichert.
+
+Man kann den Text auch durch kleine Formatierungen auch unterschiedlich darstellen.
+Für die Basis Elemente gibt es im Editor auch kleine Buttons die zur Hilfe dienen.
+
+### Ansichten
+Es gibt verschiedene Ansichten.
+> Side by Side und der Vollbild-Modus ist auf mobilen Geräten nicht verfügbar\n
+
+#### Nur der Editor
+Hier kann man den Text bearbeiten und es gibt eine kleine Darstellung des Geschriebenen.
+
+#### Side by Side
+Es gibt den Editor und eine Vorschau auf der rechten Seite des Geschriebenen. 
+Das ganze ist in Vollbild und kann durch drücken von 'F11' oder die Vollbildtaste in der Editorleiste verlassen werden.
+Neue Bilder werden hier noch nicht angezeigt. Erst wenn der Artikel gespeichert wurde.
+
+#### Nur Darstellung 
+Bei der Darstellung kann man den Inhalt nicht bearbeiten. 
+Diese Ansicht dient als Hilfe bei der Darstellung. Man sieht wie das Ergebniss nachher aussieht.
+
+#### Vollbild
+Vollbild wird bei der Side by Side Darstellung automatisch aktiviert.
+Bei den anderen Ansichten kann man den Vollbild wechseln.
+
+
+`;
+        return (
+            <EditorHelpEntry title={"Editor"}
+                             text={mdContent}
+                             key={key}
+                             isSelected={this.isSelected(key)}
+                             select={() => this.openOtherCategory(key)}/>);
+    }
+
     render() {
         return (
             <Dialog open={this.props.open}
@@ -213,10 +317,13 @@ Das Ergbenis würde dann so aussehen:\n
                     onClose={this.props.onClose}>
                 <DialogTitle>Deine Hilfe</DialogTitle>
                 <DialogContent>
+                    {this.getHelpForEditor()}
+                    {this.getHelpForText()}
                     {this.getHelpForHeader()}
                     {this.getHelpForLists()}
+                    {this.getHelpForHighlights()}
+                    {this.getHelpForImages()}
                     {this.getHelpForTables()}
-                    {this.getHelpForText()}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={this.props.onClose} color={"primary"}>Schließen</Button>
