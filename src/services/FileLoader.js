@@ -1,5 +1,5 @@
 class FileLoader {
-    static url = 'http://localhost:3001/';
+    static url = 'http://wiki.loetkemann.com/';
 
 
     static getPage(path = "") {
@@ -17,11 +17,16 @@ class FileLoader {
         });
     }
 
-    static search(searchWord, type="") {
+    static search(searchWord, type = "") {
         return fetch(this.url + "wiki/search", {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({searchWord: searchWord, type: type})
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                searchWord: searchWord,
+                type: type
+            })
         }).then(res => {
             return res.json().then(result => result);
         });
@@ -30,8 +35,13 @@ class FileLoader {
     static saveFile(filename, content) {
         return fetch(this.url + "wiki/save", {
             method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({filename: filename, content: content})
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                filename: filename,
+                content: content
+            })
         }).then(res => res.json().then(res => res));
     }
 }
