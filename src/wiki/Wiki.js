@@ -10,6 +10,7 @@ import {Route, Switch} from "react-router-dom";
 import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
+import StateContext from "../contexts/StateContext";
 
 /**
  * Shows all of the Wiki Entries
@@ -19,7 +20,10 @@ class Wiki extends Component {
     dir = [];
     state = {
         structure: {},
-        showSideBar: true,
+        sidebar:{
+            open: true,
+            openCategory: 0
+        },
         page: {
             readOnly: true
         },
@@ -35,9 +39,10 @@ class Wiki extends Component {
             }
         }
     };
+    static contextType = StateContext;
     //später würde ich über Css-Classes/Ids machen
     setSideBarCss = () => {
-        return this.state.showSideBar ? "showSideBar" : "hideSideBar";
+        return this.context.sidebar.open ? "showSideBar" : "hideSideBar";
     };
 
     constructor(props) {
@@ -126,7 +131,6 @@ class Wiki extends Component {
                     <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>
                 </Message>
                 <SideBar
-                    open={this.state.showSideBar}
                     structure={this.state.structure}
                     resetReadOnlyState={() => this.changeReadOnlyState(true)}
                     onClose={(sideBarState) => this.changeSidebarState(sideBarState)}/>

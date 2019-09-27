@@ -1,35 +1,41 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Collapse} from "@material-ui/core";
 import {SideBarItem} from "./SideBarItem";
+import StateContext from "../../contexts/StateContext";
 
 
 const SideBarLinks = (props) => {
-    const [openGoup, setOpenGroup] = useState(0);
+    const pageReadOnly = useContext(StateContext).page;
+    const sidebar = useContext(StateContext).sidebar;
+    const searchWord = useContext(StateContext).search.content;
     const structure = props.structure;
-    const searchWord = props.searchWord;
     let folder = [];
     for (let item in props.structure) {
         folder.push(item);
     }
 
     const show = (index, link) => {
-        return (openGoup === index && searchWord === "") || (searchWord !== "" && link.match(searchWord) !== null)
+        return (sidebar.openCategory === index && searchWord === "") || (searchWord !== "" && link.match(searchWord) !== null)
     };
 
     const resetReadOnlyState = () => {
-        props.resetReadOnlyState();
+        pageReadOnly.changeReadOnly(true);
     };
 
     const changeSidebarState = (sideBarState) => {
         props.setOpen(sideBarState);
     };
 
+    const changeSidebarCategory = (category)=> {
+        sidebar.changeSideBarOpen(sidebar.open, category);
+    };
+
     return (folder.map((item, index) => {
         return (
-            <div key={index} className={(index === openGoup) ? "shadow-inset-center active" : ""}>
+            <div key={index} className={(index === sidebar.openCategory) ? "shadow-inset-center active" : ""}>
                 <SideBarItem key={index} to={"/" + item} label={item} header
                              onClick={() => {
-                                 setOpenGroup(index);
+                                 changeSidebarCategory(index);
                                  resetReadOnlyState()
                              }}/>
                 {structure[item].map((link, subindex) => {
