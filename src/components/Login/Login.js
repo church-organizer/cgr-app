@@ -64,10 +64,10 @@ const Login = (props) => {
             })
         }).then(res => {
             console.log(res);
-            if (res.status === 200) {
-                props.onSuccess();
-            }
-            // props.onSuccess();
+            // if (res.status === 200) {
+            //     props.onSuccess();
+            // }
+            props.onSuccess();
         }).catch(error => {
             console.error(error);
         });
