@@ -1,13 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Container, InputBase, makeStyles} from "@material-ui/core";
+import StateContext from "../../contexts/StateContext";
 
 const useStyles = makeStyles(theme => ({
     search: {
-        paddingTop: "20px",
+        paddingTop: `20px`,
+        paddingBottom: `20px`,
     },
     input: {
         position: "relative",
-        // width: '100%',
         border: "1px solid #eee",
         borderRadius: "3px",
         cursor: "text",
@@ -26,18 +27,17 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = (props) => {
     const classes = useStyles();
-    const [search, setSearch] = useState(props.startValue || '');
+    const search = useContext(StateContext);
 
 
     const onChange = (event) => {
-        setSearch(event.target.value);
-        props.onSearch(event.target.value);
+        search.changeSearchContent(event.target.value)
     };
 
     return (<Container>
             <InputBase
                 placeholder="Suche…" className={classes.search} style={{color: props.color || "white"}}
-                value={search} onChange={onChange}
+                value={search.searchContent} onChange={onChange}
                 classes={{
                     input: classes.input,
                     root: classes.root

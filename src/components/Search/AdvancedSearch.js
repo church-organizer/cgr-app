@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {Container, makeStyles, Typography} from "@material-ui/core";
 import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
@@ -8,6 +8,7 @@ import Markdown from "../Page/Markdown";
 import "./Search.css"
 import Path from "../TopBar/Path";
 import changeContentIfMatch from "../../services/SearchContent";
+import StateContext from "../../contexts/StateContext";
 
 
 const useStyle = makeStyles(theme => ({
@@ -39,6 +40,8 @@ const AdvancedSearch = (props) => {
     const [res, setRes] = useState({time: 0, results: [], searchContent: ""});
     let params = window.location.search.replace("?","");
     let timeOut = 0;
+    const search = useContext(StateContext).search;
+    const searchContent = search.content;
 
     // to check if the params from the url is not empty and it gets split at the params connector '&'
     if (params !== "") {
