@@ -298,8 +298,6 @@ Diese Ansicht dient als Hilfe bei der Darstellung. Man sieht wie das Ergebniss n
 #### Vollbild
 Vollbild wird bei der Side by Side Darstellung automatisch aktiviert.
 Bei den anderen Ansichten kann man den Vollbild wechseln.
-
-
 `;
         return (
             <EditorHelpEntry title={"Editor"}

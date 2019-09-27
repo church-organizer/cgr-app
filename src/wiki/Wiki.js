@@ -55,18 +55,38 @@ class Wiki extends Component {
             });
     }
 
+    /**
+     * changes the sidebar open state
+     * opens or closes the sidebar
+     * @param state the new state
+     */
     changeSidebarState(state) {
         this.setState({showSideBar: state})
     }
 
+    /**
+     * changes the readonly state of the content
+     * @param state new state
+     */
     changeReadOnlyState(state) {
         this.setState({page: {readOnly: state}})
     }
 
+    /**
+     * opens the login form and saves the callback
+     * the callback will be called if login succeded
+     * @param callback
+     */
     loginFirst(callback) {
         this.setState({login: {isLoggedIn: false, open: true, callback: callback}});
     }
 
+
+    /**
+     * gets called if the login succeded
+     * calls the callback which required a login
+     * and closes the login form
+     */
     onSuccess() {
         this.state.login.callback();
         this.setState({
@@ -79,6 +99,10 @@ class Wiki extends Component {
         })
     }
 
+    /**
+     * closes the login form without any further action
+     * no login
+     */
     onAbort() {
         this.setState({
             login: {
@@ -110,9 +134,10 @@ class Wiki extends Component {
                     <Route exact path="/search" component={AdvancedSearch}/>
                     <Route path="/" render={() =>
                         <div>
-                            <TopBar onEdit={(readOnly) => this.loginFirst(() => this.changeReadOnlyState(readOnly))}
-                                    readOnlyState={this.state.page.readOnly}
-                                    path={this.dir}/>
+                            <TopBar
+                                onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
+                                readOnlyState={this.state.page.readOnly}
+                                path={this.dir}/>
                             <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
                                   readOnly={this.state.page.readOnly}
                                   onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>

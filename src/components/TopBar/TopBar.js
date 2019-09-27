@@ -62,7 +62,7 @@ const TopBar = (props) => {
                         <IconButton disabled={!allowEditContent()}
                                     className={edit ? classes.rotate : classes.rotateLeft}
                                     onClick={() => {
-                                        props.onEdit(edit)
+                                        props.onClick(edit)
                                     }}
                                     variant={"contained"}
                                     color={edit ? "secondary" : "primary"}
