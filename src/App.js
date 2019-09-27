@@ -10,7 +10,7 @@ class App extends Component {
     render() {
         return (
             <Router>
-                <div className="App" style={{position: "fixed", width: "100%"}}>
+                <div className="App content" style={{position: "fixed", width: "100%"}}>
                     <StateProvider>
                         <Wiki/>
                     </StateProvider>
