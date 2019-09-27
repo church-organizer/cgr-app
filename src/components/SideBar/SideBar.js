@@ -127,7 +127,7 @@ const SideBar = (props) => {
                     <div>
                         <Link className={classes.header} to={"/"}>
                             <Chip size={"medium"}
-                                  avatar={<Avatar alt="Homepage" classes={{root: classes.noBackground}}
+                                  avatar={<Avatar classes={{root: classes.noBackground}}
                                                   src={FileLoader.url + "images/logo.png"}/>}
                                   className={classes.avatar}
                                   variant="outlined" color={"primary"}

@@ -7,6 +7,9 @@ import Footer from "../components/Footer/Footer";
 import FileLoader from "../services/FileLoader";
 import AdvancedSearch from "../components/Search/AdvancedSearch";
 import {Route, Switch} from "react-router-dom";
+import Message from "../components/Error/Message";
+import Button from "@material-ui/core/Button";
+import Login from "../components/Login/Login";
 
 /**
  * Shows all of the Wiki Entries
@@ -19,6 +22,17 @@ class Wiki extends Component {
         showSideBar: true,
         page: {
             readOnly: true
+        },
+        error: {
+            title: "",
+            message: "",
+            open: false
+        },
+        login: {
+            open: false,
+            isLoggedIn: false,
+            callback: () => {
+            }
         }
     };
     //später würde ich über Css-Classes/Ids machen
@@ -29,20 +43,88 @@ class Wiki extends Component {
     constructor(props) {
         super(props);
         FileLoader.getStructure()
-            .then(structure => this.setState({structure: structure}));
+            .then(structure => this.setState({structure: structure}))
+            .catch(error => {
+                this.setState({
+                    error: {
+                        title: "Keine Daten",
+                        message: error.toString(),
+                        open: true
+                    }
+                });
+            });
     }
 
-    changeSidebarState(state){
+    /**
+     * changes the sidebar open state
+     * opens or closes the sidebar
+     * @param state the new state
+     */
+    changeSidebarState(state) {
         this.setState({showSideBar: state})
     }
 
-    changeReadOnlyState(state){
+    /**
+     * changes the readonly state of the content
+     * @param state new state
+     */
+    changeReadOnlyState(state) {
         this.setState({page: {readOnly: state}})
+    }
+
+    /**
+     * opens the login form and saves the callback
+     * the callback will be called if login succeded
+     * @param callback
+     */
+    loginFirst(callback) {
+        this.setState({login: {isLoggedIn: false, open: true, callback: callback}});
+    }
+
+
+    /**
+     * gets called if the login succeded
+     * calls the callback which required a login
+     * and closes the login form
+     */
+    onSuccess() {
+        this.state.login.callback();
+        this.setState({
+            login: {
+                isLoggedIn: true,
+                open: false,
+                callback: () => {
+                }
+            }
+        })
+    }
+
+    /**
+     * closes the login form without any further action
+     * no login
+     */
+    onAbort() {
+        this.setState({
+            login: {
+                isLoggedIn: false,
+                open: false,
+                callback: () => {
+                }
+            }
+        });
     }
 
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
+                <Login open={this.state.login.open}
+                       onSuccess={() => this.onSuccess()}
+                       onAbort={() => this.onAbort()}/>
+                <Message open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
+                         isError>
+                    <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>
+                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>
+                </Message>
                 <SideBar
                     open={this.state.showSideBar}
                     structure={this.state.structure}
@@ -52,10 +134,11 @@ class Wiki extends Component {
                     <Route exact path="/search" component={AdvancedSearch}/>
                     <Route path="/" render={() =>
                         <div>
-                            <TopBar onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}
-                                    readOnlyState={this.state.page.readOnly}
-                                    path={this.dir}/>
-                            <Page closeSidebar={(sideBarState)=> this.changeSidebarState(sideBarState)}
+                            <TopBar
+                                onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
+                                readOnlyState={this.state.page.readOnly}
+                                path={this.dir}/>
+                            <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
                                   readOnly={this.state.page.readOnly}
                                   onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
                         </div>}/>

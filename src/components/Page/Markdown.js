@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactHtmlParser from 'react-html-parser';
 import marked from "marked";
 import "./Markdown.css"
@@ -7,7 +7,7 @@ import FileLoader from "../../services/FileLoader";
 const Markdown = (props) => {
     let content = props.source;
     const hashtagRegex = /\B#[\w\-\.\_]+(?:\s|$)/g;
-    const imageRegex = /\!\[.*\]\(.*.png\)/g;
+    const imageRegex = /\!\[.*\]\(.*.(png|jpg|jpeg|gif)\)/g;
 
 
     const changeHashtagIntoLink = () => {
@@ -30,15 +30,17 @@ const Markdown = (props) => {
                 let newUrl = match;
                 let imageName = newUrl.match(logoRegex)[0];
                 imageName = imageName.replace(/(\(|\))/g, "");
-                newUrl = newUrl.replace(logoRegex, "("+FileLoader.url + "images/" + imageName + ")");
+                newUrl = newUrl.replace(logoRegex, "("+FileLoader.url + "image/" + imageName + ")");
                 content = content.replace(match, newUrl);
             }
         }
     };
-
     if(content){
         changeHashtagIntoLink();
-        changeImageUrlInMD();
+        if(!props.disableChangeImageLink){
+            changeImageUrlInMD();
+        }
+
     }
 
 
