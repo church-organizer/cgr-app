@@ -1,7 +1,7 @@
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
-const HOST = 'https://localhost:3001/';
+const HOST = 'http://localhost:3001/';
 const AUTH_PATH = 'authenticate/';
 const LOGIN_PATH = 'login/';
 

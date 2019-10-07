@@ -9,8 +9,6 @@ import './Login.css'
 import { login } from '../../services/Authentication';
 import Cookies from 'js-cookie'
 
-const loginUrl = "localhost:3001/login";
-
 const useStyle = makeStyles(theme => ({
     topBar: {
         background: "linear-gradient(to bottom, #454AA3 0%, #363A7F 44%, #2D316B 100%)"
@@ -35,7 +33,6 @@ const TabPanel = (props) => {
     );
 };
 
-
 /**
  * Mask for Login
  * no params required
@@ -45,100 +42,61 @@ const TabPanel = (props) => {
  */
 const Login = (props) => {
     const classes = useStyle();
-    const [value, setValue] = useState(0);
-    const [user, setUser] = useState({ userName: '', password: '' });
-    const [loggedIn, setLoggedIn] = useState(false);
-    // const loginUrl = "https://churchtools.cg-rahden.de/index.php?q=login/ajax";
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
 
-    const onChangeHandler = (event, newValue) => {
-        setValue(newValue);
+    const handleUsernameChange = (event) => {
+        setUsername(event.target.value);
     };
 
-    const onInputChangeHandler = (event) => {
-        if (event.target.id === 'name') {
-            setUser({ userName: event.target.value, password: user.password });
-        } else if (event.target.id === 'password') {
-            setUser({ userName: user.userName, password: event.target.value });
-        }
-    };
+    const handlePasswordChange = (event) => {
+        setPassword(event.target.value);
+    }
 
-    (() => {
-        // if token exists and is valid exit hier
-        // set user.username
-        // props.onLogin(user.username)
-    })();
+    const handleClick = (event) => {
+        event.preventDefault();
+        checkLogin();
+    }
 
-    const checkLogin = (username, password) => {
+    const checkLogin = () => {
         login(username, password).then((res) => {
             Cookies.set('jwt', res.data.jwt);
-            props.onLogin(user.userName);
+            props.onLogin(username);
         }).catch((err) => {
-            console.log(err);
+            console.log(`login Error: `, err);
         });
     }
-    /**
-     * todo login logic
-     */
-    // const login = () => {
-    //     fetch(loginUrl, {
-    //         method: 'POST',
-    //         headers: {
-    //             'Accept': 'application/json',
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: [JSON.stringify({
-    //             func: 'login',
-    //             email: user.userName,
-    //             password: user.password
-    //         })]
-    //     }).then(res => {
-    //         console.log(res);
-    //     }).catch(error => {
-    //         console.error(error);
-    //     });
-    //     window.location.pathname = "/";
-    //     props.onLogin(user.userName);
-    // };
 
-    const loginPossibilities = ['Churchtools'];
-    console.log(props);
     return (
         <Box className="loginWindow">
             <Paper style={{ width: "100%", margin: "20px" }}>
                 <AppBar position={"static"} style={{ borderRadius: "3px" }} classes={{ colorPrimary: classes.topBar }}>
-                    <Tabs onChange={onChangeHandler} variant={"fullWidth"} value={value} indicatorColor="secondary"
+                    <Tabs variant={"fullWidth"} indicatorColor="secondary"
                         textColor="inherit" centered>
-                        {
-                            loginPossibilities.map((item, index) => {
-                                return <Tab key={index} label={item} />
-                            })
-                        }
                     </Tabs>
                 </AppBar>
                 <Container>
-                    {loginPossibilities.map((item, index) => {
-                        return (<TabPanel key={index} value={value} index={index}>
-                            <DialogContentText>
-                                {item} Login
+                    <TabPanel>
+                        <DialogContentText>
+                            Login
                             </DialogContentText>
-                            <FormControl component={"form"}>
-                                <TextField
-                                    autoFocus margin="dense" id="name" label="LoginName" type="text" fullWidth
-                                    variant={"outlined"} onChange={onInputChangeHandler}
-                                    required={true} value={user.userName}
-                                // helperText={"LoginName oder Email"}
-                                />
-                                <TextField
-                                    margin="dense" id="password" label="Password" type="password" fullWidth
-                                    variant={"outlined"} onChange={onInputChangeHandler}
-                                    required={true} value={user.password}
-                                // helperText={"Dein Passwort"}
-                                />
-                                <Link onClick={checkLogin(user.userName, user.password)}><Button type={"submit"}
-                                    variant={"contained"}>Login</Button></Link>
-                            </FormControl>
-                        </TabPanel>)
-                    })}
+                        <FormControl component={"form"}>
+                            <TextField
+                                autoFocus margin="dense" id="name" label="LoginName" type="text" fullWidth
+                                variant={"outlined"} onChange={handleUsernameChange}
+                                required={true} value={username}
+                            // helperText={"LoginName oder Email"}
+                            />
+                            <TextField
+                                margin="dense" id="password" label="Password" type="password" fullWidth
+                                variant={"outlined"} onChange={handlePasswordChange}
+                                required={true} value={password}
+                            // helperText={"Dein Passwort"}
+                            />
+                            <Link onClick={handleClick}><Button type={"submit"}
+                                variant={"contained"}>Login</Button></Link>
+                        </FormControl>
+                    </TabPanel>
                 </Container>
 
             </Paper>

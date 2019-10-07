@@ -1,5 +1,5 @@
 import React from "react";
-import {Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@material-ui/core";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Slide } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -8,12 +8,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const Error = (props) => {
     const beginningText = props.isError ? "Es gab leider ein kleines Problem" : "";
-    console.log(props.isError);
+    console.log('Error Logger:', props.isError);
     return (
         <Dialog open={props.open}
-                TransitionComponent={Transition}
-                keepMounted aria-labelledby="alert-dialog-slide-title"
-                aria-describedby="alert-dialog-slide-description">
+            TransitionComponent={Transition}
+            keepMounted aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description">
             <DialogTitle>{props.title}</DialogTitle>
             <DialogContent>
                 <p>{beginningText}</p>
