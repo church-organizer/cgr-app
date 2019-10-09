@@ -33,24 +33,12 @@ const useStyle = makeStyles(theme => ({
 }));
 
 
-
 const AdvancedSearch = (props) => {
     const classes = useStyle();
-    // const [key, setKey] = useState(null);
     const [res, setRes] = useState({time: 0, results: [], searchContent: ""});
     const [searchContent, setSearchContent] = useState("");
-    // let params = window.location.search.replace("?","");
     let timeOut = 0;
     const search = useContext(StateContext).search;
-
-    // // to check if the params from the url is not empty and it gets split at the params connector '&'
-    // if (params !== "") {
-    //     params = params.split("&");
-    // } else {
-    //     params = [];
-    // }
-
-
 
     /**
      * Sets the variables res, time and search
@@ -90,7 +78,7 @@ const AdvancedSearch = (props) => {
      */
     const onSearch = (search) => {
         setSearchContent(search);
-        if (search === ""){
+        if (search === "") {
             clearTimeout(timeOut);
             applySearch([], 0, "");
         } else {
@@ -100,26 +88,6 @@ const AdvancedSearch = (props) => {
     if (searchContent === "" || searchContent !== search.content) {
         onSearch(search.content);
     }
-
-    // /**
-    //  * loads the search keyword from the url and uses it as start keyword
-    //  * if its type is a hashtag, the hashtag will be appended
-    //  */
-    // const loadParamFromUrl = () => {
-    //     if (key === null && params.length > 0 && res.results.length === 0) {
-    //         let searchKey = "";
-    //         for (let param of params) {
-    //             let pair = param.split("=");
-    //             if (pair[0] === "type" && pair[1] === "tags") {
-    //                 searchKey = "#" + searchKey;
-    //             } else if (pair[0] === "key") {
-    //                 searchKey = searchKey + pair[1];
-    //             }
-    //         }
-    //         setKey(searchKey);
-    //         onSearch(searchKey);
-    //     }
-    // };
 
     return (
         <div className="advancedSearch">
