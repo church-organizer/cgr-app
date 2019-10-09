@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 
 const SearchBar = (props) => {
     const classes = useStyles();
-    const search = useContext(StateContext);
+    const search = useContext(StateContext).search;
 
 
     const onChange = (event) => {
