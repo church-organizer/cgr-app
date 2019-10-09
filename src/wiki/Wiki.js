@@ -20,7 +20,7 @@ class Wiki extends Component {
     dir = [];
     state = {
         structure: {},
-        sidebar:{
+        sidebar: {
             open: true,
             openCategory: 0
         },
@@ -119,6 +119,24 @@ class Wiki extends Component {
         });
     }
 
+    pageOrSearchContent() {
+        if (this.context.search.content === "") {
+            return (
+                <div>
+                    <TopBar
+                        onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
+                        readOnlyState={this.state.page.readOnly}
+                        path={this.dir}/>
+                    <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
+                          readOnly={this.state.page.readOnly}
+                          onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
+                </div>
+            );
+        } else {
+            return (<AdvancedSearch/>);
+        }
+    }
+
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
@@ -134,20 +152,10 @@ class Wiki extends Component {
                     structure={this.state.structure}
                     resetReadOnlyState={() => this.changeReadOnlyState(true)}
                     onClose={(sideBarState) => this.changeSidebarState(sideBarState)}/>
-                <Switch>
-                    <Route exact path="/search" component={AdvancedSearch}/>
-                    <Route path="/" render={() =>
-                        <div>
-                            <TopBar
-                                onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
-                                readOnlyState={this.state.page.readOnly}
-                                path={this.dir}/>
-                            <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
-                                  readOnly={this.state.page.readOnly}
-                                  onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
-                        </div>}/>
+                <div>
 
-                </Switch>
+                    {this.pageOrSearchContent()}
+                </div>
                 <Footer/>
             </div>
         );

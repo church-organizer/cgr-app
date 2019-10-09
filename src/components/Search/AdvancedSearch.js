@@ -36,20 +36,27 @@ const useStyle = makeStyles(theme => ({
 
 const AdvancedSearch = (props) => {
     const classes = useStyle();
-    const [key, setKey] = useState(null);
+    // const [key, setKey] = useState(null);
     const [res, setRes] = useState({time: 0, results: [], searchContent: ""});
-    let params = window.location.search.replace("?","");
+    // let params = window.location.search.replace("?","");
     let timeOut = 0;
     const search = useContext(StateContext).search;
-    const searchContent = search.content;
 
-    // to check if the params from the url is not empty and it gets split at the params connector '&'
-    if (params !== "") {
-        params = params.split("&");
-    } else {
-        params = [];
-    }
+    // // to check if the params from the url is not empty and it gets split at the params connector '&'
+    // if (params !== "") {
+    //     params = params.split("&");
+    // } else {
+    //     params = [];
+    // }
 
+
+
+    /**
+     * Sets the variables res, time and search
+     * @param res
+     * @param time
+     * @param search
+     */
     const applySearch = (res, time, search) => {
         setRes({time: time, results: res, searchContent: search});
     };
@@ -86,35 +93,36 @@ const AdvancedSearch = (props) => {
         } else {
             waitTillInputReady(search);
         }
-
     };
+    if (res.searchContent === "" || res.searchContent !== search.content) {
+        applySearch([], 0, search.content);
+        onSearch(search.content);
+    }
 
-    /**
-     * loads the search keyword from the url and uses it as start keyword
-     * if its type is a hashtag, the hashtag will be appended
-     */
-    const loadParamFromUrl = () => {
-        if (key === null && params.length > 0 && res.results.length === 0) {
-            let searchKey = "";
-            for (let param of params) {
-                let pair = param.split("=");
-                if (pair[0] === "type" && pair[1] === "tags") {
-                    searchKey = "#" + searchKey;
-                } else if (pair[0] === "key") {
-                    searchKey = searchKey + pair[1];
-                }
-            }
-            setKey(searchKey);
-            onSearch(searchKey);
-        }
-    };
+    // /**
+    //  * loads the search keyword from the url and uses it as start keyword
+    //  * if its type is a hashtag, the hashtag will be appended
+    //  */
+    // const loadParamFromUrl = () => {
+    //     if (key === null && params.length > 0 && res.results.length === 0) {
+    //         let searchKey = "";
+    //         for (let param of params) {
+    //             let pair = param.split("=");
+    //             if (pair[0] === "type" && pair[1] === "tags") {
+    //                 searchKey = "#" + searchKey;
+    //             } else if (pair[0] === "key") {
+    //                 searchKey = searchKey + pair[1];
+    //             }
+    //         }
+    //         setKey(searchKey);
+    //         onSearch(searchKey);
+    //     }
+    // };
 
     return (
         <div className="advancedSearch">
-            {/*<Typography variant={"h3"}>Advanced Search</Typography>*/}
-            {/*<SearchBar onSearch={onSearch}*/}
-            {/*           startValue={key}*/}
-            {/*           color={"#444444"}/>*/}
+            <Typography variant={"h3"}>Erweiterte Suche</Typography>
+            <Typography variant={"body1"}>Suche "{search.content}"</Typography>
             {res.time > 0 ? <Typography className={classes.time}>Suche beendet in {res.time} Sekunden</Typography> : ""}
             <Container>
                 {res.results.map((item, index) => {
