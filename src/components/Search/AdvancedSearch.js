@@ -38,6 +38,7 @@ const AdvancedSearch = (props) => {
     const classes = useStyle();
     // const [key, setKey] = useState(null);
     const [res, setRes] = useState({time: 0, results: [], searchContent: ""});
+    const [searchContent, setSearchContent] = useState("");
     // let params = window.location.search.replace("?","");
     let timeOut = 0;
     const search = useContext(StateContext).search;
@@ -67,7 +68,7 @@ const AdvancedSearch = (props) => {
         }
         timeOut = setTimeout(function () {
             sendSearchRequest(search);
-        }, 500);
+        }, 300);
     };
 
     const sendSearchRequest = (search) => {
@@ -84,9 +85,11 @@ const AdvancedSearch = (props) => {
     /**
      * Search request to the Api
      * the result and the time are rendered
+     * todo one call per letter is too much
      * @param search content
      */
     const onSearch = (search) => {
+        setSearchContent(search);
         if (search === ""){
             clearTimeout(timeOut);
             applySearch([], 0, "");
@@ -94,8 +97,7 @@ const AdvancedSearch = (props) => {
             waitTillInputReady(search);
         }
     };
-    if (res.searchContent === "" || res.searchContent !== search.content) {
-        applySearch([], 0, search.content);
+    if (searchContent === "" || searchContent !== search.content) {
         onSearch(search.content);
     }
 
