@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext} from 'react';
 import {
     Drawer, Chip, Avatar,
     makeStyles
@@ -8,13 +8,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import SettingsIcon from "@material-ui/icons/Settings"
 import SideBarLinks from "./SideBarLinks";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Zoom from "@material-ui/core/Zoom";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import FileLoader from "../../services/FileLoader";
+import StateContext from "../../contexts/StateContext";
 
 
 const initWidth = 250;
@@ -79,28 +79,23 @@ const useStyles = makeStyles(theme => ({
 const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
-    const [seachWord, setSearchWord] = useState("");
+    const sidebar = useContext(StateContext).sidebar;
+    const page = useContext(StateContext).page;
 
-    /**
-     * Gets the searchContent and sets it
-     * @param searchContent content to search
-     */
-    const onSearch = (searchContent) => {
-        setSearchWord(searchContent);
-    };
 
     /**
      * changes on click the open state of the Sidebar
      * @param state
      */
     const onChange = (state) => {
-        props.onClose(state);
+        console.log(state);
+        sidebar.changeSideBarOpen(state, sidebar.openCategory);
     };
 
     const changeOpenCloseButton = () => {
         if (!matches) {
             return (
-                <Button className={classes.closeButton} onClick={() => onChange(!props.open)} color={"primary"}>
+                <Button className={classes.closeButton} onClick={() => onChange(!sidebar.open)} color={"primary"}>
                     <KeyboardArrowLeftIcon color={"action"} fontSize={"large"}/>
                 </Button>);
         }
@@ -110,22 +105,22 @@ const SideBar = (props) => {
     const structure = props.structure;
     return (
         <div>
-            <Zoom in={!props.open}>
-                <Button className={classes.openButton} onClick={() => onChange(!props.open)}>
+            <Zoom in={!sidebar.open}>
+                <Button className={classes.openButton} onClick={() => onChange(!sidebar.open)}>
                     <KeyboardArrowRightIcon color={"primary"} fontSize={"large"}/>
                 </Button>
             </Zoom>
             <Drawer onClose={() => {
                 if (!matches) onChange(false)
-            }} variant={matches ? "persistent" : "temporary"} open={props.open} anchor={"left"} classes={{
+            }} variant={matches ? "persistent" : "temporary"} open={sidebar.open} anchor={"left"} classes={{
                 paper: clsx({
-                    [classes.drawerOpen]: props.open,
-                    [classes.drawerClose]: !props.open,
+                    [classes.drawerOpen]: sidebar.open,
+                    [classes.drawerClose]: !sidebar.open,
                 })
             }}>
                 <div>
                     <div>
-                        <Link className={classes.header} to={"/"}>
+                        <Link className={classes.header} to={"/"} onClick={()=> page.changeReadOnly(true)}>
                             <Chip size={"medium"}
                                   avatar={<Avatar classes={{root: classes.noBackground}}
                                                   src={FileLoader.url + "images/logo.png"}/>}
@@ -135,20 +130,10 @@ const SideBar = (props) => {
                         </Link>
                     </div>
                     <div>
-                        <SearchBar onSearch={onSearch}/>
-                        <Link onClick={() => !matches ? onChange(false) : null} to={"/search"}>
-                            <Chip size={"medium"}
-                                  avatar={<Avatar className="rotate-center"
-                                                  classes={{root: classes.noBackground}}><SettingsIcon/></Avatar>}
-                                  className={classes.advancedSearch}
-                                  variant="outlined" color={"primary"}
-                                  label="Advanced Search" classes={{colorPrimary: classes.whiteColor}}/>
-                        </Link>
+                        <SearchBar/>
                     </div>
                     <SideBarLinks setOpen={(value) => !matches ? onChange(value): {}}
-                                  structure={structure}
-                                  searchWord={seachWord}
-                                  resetReadOnlyState={props.resetReadOnlyState}/>
+                                  structure={structure}/>
                     {changeOpenCloseButton()}
                 </div>
             </Drawer>

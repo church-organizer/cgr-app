@@ -11,6 +11,7 @@ import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import "./Editor.css"
 import EditorHelp from "./EditorHelp";
+import StateContext from "../../contexts/StateContext";
 
 
 class Editor extends Component {
@@ -21,6 +22,7 @@ class Editor extends Component {
         newImageList: [],
         openHelp: false
     };
+    static contextType = StateContext;
 
     // passing functions into editor for extra functionality
     extraKeys = {
@@ -63,7 +65,7 @@ class Editor extends Component {
             }
         }
         this.setState({newImageList: []});
-        this.props.onEdit(true);
+        this.context.page.changeReadOnly(true);
 
     };
 
@@ -206,7 +208,9 @@ class Editor extends Component {
                                placeholder: "Hier kommt der Text hin.",
                                autofocus: true,
                                spellChecker: false,
-                               onToggleFullScreen: (is)=> {this.props.closeSidebar(!is)},
+                               onToggleFullScreen: (is)=> {
+                                   this.context.sidebar.changeSideBarOpen(!is, this.context.sidebar.openCategory)
+                               },
                                previewRender(text) {
                                    return ReactDOMServer.renderToString(<Markdown source={text}/>);
                                }
@@ -217,7 +221,7 @@ class Editor extends Component {
                         color={"primary"}>
                     <SaveIcon className=""/>Speichern
                 </Button>
-                <Button onClick={() => this.props.onEdit(true)} className="editorButton" variant={"contained"}
+                <Button onClick={() => this.context.page.changeReadOnly(true)} className="editorButton" variant={"contained"}
                         color={"inherit"}>
                     <ClearIcon className=""/>Abbrechen
                 </Button>

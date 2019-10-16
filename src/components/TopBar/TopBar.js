@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Paper, makeStyles} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import ClearIcon from '@material-ui/icons/Clear';
 import Grid from "@material-ui/core/Grid";
 import Path from "./Path";
 import IconButton from "@material-ui/core/IconButton";
-import Login from "../Login/Login";
+import StateContext from "../../contexts/StateContext";
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -27,8 +27,8 @@ const useStyle = makeStyles(theme => ({
 
 const TopBar = (props) => {
     const classes = useStyle();
-    const edit = !props.readOnlyState;
     const [dir, setDir] = useState({dir: [], path: ""});
+    const edit = !useContext(StateContext).page.readOnly;
 
     function reload() {
         if (dir.path !== window.location.pathname) {

@@ -2,34 +2,17 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import './App.css';
 import Wiki from "./wiki/Wiki";
-import Login from "./components/Login/Login";
 import "./animations.css"
+import StateProvider from "./contexts/StateProvider";
 
 class App extends Component {
-    state = {
-        login: {isLoggedIn: true, username: 'asd'},
-    };
-
-    content = () => {
-        if (this.state.login.isLoggedIn) {
-            return (
-                <div className="content">
-                    <Wiki/>
-                </div>
-            )
-        } else {
-            return (
-                <Route path="/" render={(props) => <Login onLogin={(username) =>
-                    this.setState({isLoggedIn: true, username: username})}/>}/>
-            )
-        }
-    };
-
     render() {
         return (
             <Router>
-                <div className="App" style={{position: "fixed", width: "100%"}}>
-                    {this.content()}
+                <div className="App content" style={{position: "fixed", width: "100%"}}>
+                    <StateProvider>
+                        <Route path="/" component={Wiki}/>
+                    </StateProvider>
                 </div>
             </Router>
         );
