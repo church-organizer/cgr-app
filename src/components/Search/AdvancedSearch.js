@@ -1,6 +1,5 @@
 import React, {useContext, useState} from "react";
 import {Container, makeStyles, Typography} from "@material-ui/core";
-import SearchBar from "./Search";
 import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";

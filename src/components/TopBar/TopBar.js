@@ -5,7 +5,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import Grid from "@material-ui/core/Grid";
 import Path from "./Path";
 import IconButton from "@material-ui/core/IconButton";
-import Login from "../Login/Login";
 import StateContext from "../../contexts/StateContext";
 
 const useStyle = makeStyles(theme => ({
@@ -28,9 +27,8 @@ const useStyle = makeStyles(theme => ({
 
 const TopBar = (props) => {
     const classes = useStyle();
-    const edit = !props.readOnlyState;
     const [dir, setDir] = useState({dir: [], path: ""});
-    const loginContext = useContext(StateContext).login;
+    const edit = !useContext(StateContext).page.readOnly;
 
     function reload() {
         if (dir.path !== window.location.pathname) {

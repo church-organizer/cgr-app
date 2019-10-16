@@ -68,6 +68,17 @@ class StateProvider extends Component {
                                 actionButtons: actionButtons
                             }
                         })
+                    },
+                    close: () => {
+                        this.setState({
+                            message: {
+                                open: false,
+                                title: "",
+                                message: "",
+                                isError: false,
+                                actionButtons: []
+                            }
+                        })
                     }
                 },
                 login: {

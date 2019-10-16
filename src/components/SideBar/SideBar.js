@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {
     Drawer, Chip, Avatar,
     makeStyles
@@ -8,7 +8,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import "./SideBar.css";
 import {Link} from "react-router-dom";
 import SearchBar from "../Search/Search";
-import SettingsIcon from "@material-ui/icons/Settings"
 import SideBarLinks from "./SideBarLinks";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
@@ -81,6 +80,7 @@ const SideBar = (props) => {
     const matches = useMediaQuery('(min-width:1100px)');
     const classes = useStyles();
     const sidebar = useContext(StateContext).sidebar;
+    const page = useContext(StateContext).page;
 
 
     /**
@@ -120,7 +120,7 @@ const SideBar = (props) => {
             }}>
                 <div>
                     <div>
-                        <Link className={classes.header} to={"/"}>
+                        <Link className={classes.header} to={"/"} onClick={()=> page.changeReadOnly(true)}>
                             <Chip size={"medium"}
                                   avatar={<Avatar classes={{root: classes.noBackground}}
                                                   src={FileLoader.url + "images/logo.png"}/>}

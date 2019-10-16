@@ -6,7 +6,6 @@ import SideBar from "../components/SideBar/SideBar";
 import Footer from "../components/Footer/Footer";
 import FileLoader from "../services/FileLoader";
 import AdvancedSearch from "../components/Search/AdvancedSearch";
-import {Route, Switch} from "react-router-dom";
 import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
@@ -20,24 +19,6 @@ class Wiki extends Component {
     dir = [];
     state = {
         structure: {},
-        sidebar: {
-            open: true,
-            openCategory: 0
-        },
-        page: {
-            readOnly: true
-        },
-        error: {
-            title: "",
-            message: "",
-            open: false
-        },
-        login: {
-            open: false,
-            isLoggedIn: false,
-            callback: () => {
-            }
-        }
     };
     static contextType = StateContext;
     //später würde ich über Css-Classes/Ids machen
@@ -50,13 +31,13 @@ class Wiki extends Component {
         FileLoader.getStructure()
             .then(structure => this.setState({structure: structure}))
             .catch(error => {
-                this.setState({
-                    error: {
-                        title: "Keine Daten",
-                        message: error.toString(),
-                        open: true
-                    }
-                });
+                this.context.message.changeMessageState(true,
+                    "",
+                    error.toString(),
+                    [<Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>,
+                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>],
+                    true
+                    );
             });
     }
 
@@ -74,7 +55,7 @@ class Wiki extends Component {
      * @param state new state
      */
     changeReadOnlyState(state) {
-        this.setState({page: {readOnly: state}})
+        this.context.page.changeReadOnly(state);
     }
 
     /**
@@ -92,11 +73,8 @@ class Wiki extends Component {
                 <div>
                     <TopBar
                         onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
-                        readOnlyState={this.state.page.readOnly}
                         path={this.dir}/>
-                    <Page closeSidebar={(sideBarState) => this.changeSidebarState(sideBarState)}
-                          readOnly={this.state.page.readOnly}
-                          onEdit={(readOnly) => this.changeReadOnlyState(readOnly)}/>
+                    <Page/>
                 </div>
             );
         } else {
@@ -108,19 +86,9 @@ class Wiki extends Component {
         return (
             <div className={"base " + this.setSideBarCss()}>
                 <Login/>
-                <Message open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
-                         isError>
-                    <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>
-                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>
-                </Message>
-                <SideBar
-                    structure={this.state.structure}
-                    resetReadOnlyState={() => this.changeReadOnlyState(true)}
-                    onClose={(sideBarState) => this.changeSidebarState(sideBarState)}/>
-                <div>
-
-                    {this.pageOrSearchContent()}
-                </div>
+                <Message/>
+                <SideBar structure={this.state.structure}/>
+                {this.pageOrSearchContent()}
                 <Footer/>
             </div>
         );
