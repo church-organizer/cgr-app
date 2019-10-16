@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
     Dialog, DialogActions, DialogContent,
     DialogContentText,
@@ -8,6 +8,7 @@ import {
 import './Login.css'
 import Button from "@material-ui/core/Button";
 import FileLoader from "../../services/FileLoader";
+import StateContext from "../../contexts/StateContext";
 
 
 /**
@@ -19,6 +20,7 @@ import FileLoader from "../../services/FileLoader";
  */
 const Login = (props) => {
     const [user, setUser] = React.useState({userName: '', password: ''});
+    const loginState = useContext(StateContext).login;
 
 
     /**
@@ -50,6 +52,10 @@ const Login = (props) => {
 
     };
 
+    const abort = () => {
+        loginState.changeLoginState(false, false, ()=>{})
+    };
+
 
     const login = () => {
         fetch(FileLoader.url + "login", {
@@ -67,14 +73,15 @@ const Login = (props) => {
             // if (res.status === 200) {
             //     props.onSuccess();
             // }
-            props.onSuccess();
+            loginState.onLoggedIn();
+            loginState.changeLoginState(false, true, ()=>{})
         }).catch(error => {
             console.error(error);
         });
     };
 
     return (
-        <Dialog open={props.open} onBackdropClick={() => props.onAbort()} onEscapeKeyDown={()=> props.onAbort()}>
+        <Dialog open={loginState.open} onBackdropClick={() => abort()} onEscapeKeyDown={()=> abort()}>
             <DialogTitle>Login</DialogTitle>
             <DialogContent>
                 <DialogContentText>Bitte logge dich erstmal ein.</DialogContentText>
@@ -89,7 +96,7 @@ const Login = (props) => {
                 </div>
             </DialogContent>
             <DialogActions>
-                <Button variant={"outlined"} color={"secondary"} onClick={() => props.onAbort()}>Abbrechen</Button>
+                <Button variant={"outlined"} color={"secondary"} onClick={() => abort()}>Abbrechen</Button>
                 <Button variant={"outlined"}
                         color={"primary"}
                         onClick={() => login()}>
