@@ -65,7 +65,7 @@ class Editor extends Component {
             }
         }
         this.setState({newImageList: []});
-        this.props.onEdit(true);
+        this.context.page.changeReadOnly(true);
 
     };
 
@@ -221,7 +221,7 @@ class Editor extends Component {
                         color={"primary"}>
                     <SaveIcon className=""/>Speichern
                 </Button>
-                <Button onClick={() => this.props.onEdit(true)} className="editorButton" variant={"contained"}
+                <Button onClick={() => this.context.page.changeReadOnly(true)} className="editorButton" variant={"contained"}
                         color={"inherit"}>
                     <ClearIcon className=""/>Abbrechen
                 </Button>

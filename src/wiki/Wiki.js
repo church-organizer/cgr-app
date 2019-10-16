@@ -83,40 +83,7 @@ class Wiki extends Component {
      * @param callback
      */
     loginFirst(callback) {
-        this.setState({login: {isLoggedIn: false, open: true, callback: callback}});
-    }
-
-
-    /**
-     * gets called if the login succeded
-     * calls the callback which required a login
-     * and closes the login form
-     */
-    onSuccess() {
-        this.state.login.callback();
-        this.setState({
-            login: {
-                isLoggedIn: true,
-                open: false,
-                callback: () => {
-                }
-            }
-        })
-    }
-
-    /**
-     * closes the login form without any further action
-     * no login
-     */
-    onAbort() {
-        this.setState({
-            login: {
-                isLoggedIn: false,
-                open: false,
-                callback: () => {
-                }
-            }
-        });
+        this.context.login.changeLoginState(true, false, callback);
     }
 
     pageOrSearchContent() {
@@ -140,9 +107,7 @@ class Wiki extends Component {
     render() {
         return (
             <div className={"base " + this.setSideBarCss()}>
-                <Login open={this.state.login.open}
-                       onSuccess={() => this.onSuccess()}
-                       onAbort={() => this.onAbort()}/>
+                <Login/>
                 <Message open={this.state.error.open} title={this.state.error.title} message={this.state.error.message}
                          isError>
                     <Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>

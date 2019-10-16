@@ -4,6 +4,7 @@ import {PageContent} from './PageContent';
 import Fade from "@material-ui/core/Fade";
 import "./Page.css"
 import changeContentIfMatch from "../../services/SearchContent";
+import StateContext from "../../contexts/StateContext";
 
 /**
  * WikiPage, shows the PageContent of a Wikipage
@@ -17,7 +18,7 @@ class Page extends Component {
         filename: "",
         search: this.getDataFromSearchbar()
     };
-
+    static contextType = StateContext;
     /**
      * Reloads the PageContent of the Page if the Path changed
      */
@@ -45,7 +46,7 @@ class Page extends Component {
     }
 
     getContent(){
-        return this.props.readOnly ? this.state.content : this.state.originContent;
+        return this.context.page.readOnly ? this.state.content : this.state.originContent;
     }
 
     render() {
@@ -55,12 +56,9 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <PageContent closeSidebar={this.props.closeSidebar}
-                                 reload={()=> {this.reload(true)}}
-                                 readOnly={this.props.readOnly}
+                    <PageContent reload={()=> {this.reload(true)}}
                                  title={this.state.filename}
                                  content={this.getContent()}
-                                 onEdit={this.props.onEdit}
                     />
                 </div>
             </Fade>
