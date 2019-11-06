@@ -1,4 +1,5 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState, useEffect} from "react";
+import { Redirect } from 'react-router-dom';
 import {
     Dialog, DialogActions, DialogContent,
     DialogContentText,
@@ -10,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import StateContext from "../../contexts/StateContext";
 import { login } from '../../services/Authentication';
 import Cookies from 'js-cookie'
-
+import { isAuthenticated } from '../../services/Authentication';
 
 /**
  * Mask for Login
@@ -24,7 +25,19 @@ const Login = (props) => {
     const [password, setPassword] = useState('');
     const loginState = useContext(StateContext).login;
 
-
+    // todo: use isAuthenticated in secured routes and not here
+    useEffect(() => {
+        isAuthenticated().then(response => {
+            if (response.data.authorized) {
+                loginState.changeLoginState(false, true, true, response.data.username);
+            }
+        }).catch((err) => {
+            loginState.changeLoginState(true, false, false, '');
+            console.log('error: ', err);
+            return <Redirect to='/login' />
+        });
+    }, []);
+    
     /**
      * gets called if the input fields changes
      * @param value the changed value
@@ -77,7 +90,7 @@ const Login = (props) => {
                 <Button variant={"outlined"} color={"secondary"} onClick={() => abort()}>Abbrechen</Button>
                 <Button variant={"outlined"}
                         color={"primary"}
-                        onClick={() => handleClick()}>
+                        onClick={() => handleClick}>
                     Login
                 </Button>
             </DialogActions>
