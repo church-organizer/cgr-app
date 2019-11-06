@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {
     Dialog, DialogActions, DialogContent,
     DialogContentText,
@@ -7,8 +7,9 @@ import {
 } from "@material-ui/core";
 import './Login.css'
 import Button from "@material-ui/core/Button";
-import FileLoader from "../../services/FileLoader";
 import StateContext from "../../contexts/StateContext";
+import { login } from '../../services/Authentication';
+import Cookies from 'js-cookie'
 
 
 /**
@@ -19,7 +20,8 @@ import StateContext from "../../contexts/StateContext";
  * @constructor
  */
 const Login = (props) => {
-    const [user, setUser] = React.useState({userName: '', password: ''});
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const loginState = useContext(StateContext).login;
 
 
@@ -30,55 +32,31 @@ const Login = (props) => {
      */
     const onChange = (value, type) => {
         if (type === "name") {
-            setUser({userName: value, password: user.password});
+            setUsername(value);
         } else if (type === "password") {
-            setUser({userName: user.userName, password: value});
+            setPassword(value);
         }
     };
 
-    /**
-     * loads the jwt from cache
-     * so the user doesnt have to log in every time
-     */
-    const loadFromCache = () => {
-
-    };
-
-    /**
-     * saves the token in the cache
-     * @param token
-     */
-    const saveInCache = (token) => {
-
-    };
 
     const abort = () => {
-        loginState.changeLoginState(false, false, ()=>{})
+        loginState.changeLoginState(false, false, true, '');
     };
 
 
-    const login = () => {
-        fetch(FileLoader.url + "login", {
-            method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: user.userName,
-                password: user.password
-            })
-        }).then(res => {
-            console.log(res);
-            // if (res.status === 200) {
-            //     props.onSuccess();
-            // }
-            loginState.onLoggedIn();
-            loginState.changeLoginState(false, true, ()=>{})
-        }).catch(error => {
-            console.error(error);
+    const checkLogin = () => {
+        login(username, password).then((res) => {
+            Cookies.set('jwt', res.data.jwt);
+            loginState.changeLoginState(false, true, true, username);
+        }).catch((err) => {
+            console.log(`login Error: `, err);
         });
-    };
+    }
+
+    const handleClick = (event) => {
+        event.preventDefault();
+        checkLogin();
+    }
 
     return (
         <Dialog open={loginState.open} onBackdropClick={() => abort()} onEscapeKeyDown={()=> abort()}>
@@ -86,10 +64,10 @@ const Login = (props) => {
             <DialogContent>
                 <DialogContentText>Bitte logge dich erstmal ein.</DialogContentText>
                 <div className="input">
-                    <TextField value={user.userName} autoFocus required fullWidth margin={"dense"}
+                    <TextField value={username} autoFocus required fullWidth margin={"dense"}
                                variant={"outlined"} placeholder={"username"} type={"text"}
                                onChange={(event) => onChange(event.target.value, "name")}/>
-                    <TextField value={user.password} className={"inputFields"} fullWidth required
+                    <TextField value={password} className={"inputFields"} fullWidth required
                                placeholder={"password"} margin={"dense"}
                                variant={"outlined"} type={"password"}
                                onChange={(event => onChange(event.target.value, "password"))}/>
@@ -99,7 +77,7 @@ const Login = (props) => {
                 <Button variant={"outlined"} color={"secondary"} onClick={() => abort()}>Abbrechen</Button>
                 <Button variant={"outlined"}
                         color={"primary"}
-                        onClick={() => login()}>
+                        onClick={() => handleClick()}>
                     Login
                 </Button>
             </DialogActions>

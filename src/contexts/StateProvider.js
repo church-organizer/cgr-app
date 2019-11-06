@@ -18,9 +18,9 @@ class StateProvider extends Component {
         },
         login: {
             open: false,
+            isLoaded: false,
             isLoggedIn: false,
-            onLoggedIn: () => {
-            }
+            username: ''
         }
     };
 
@@ -84,13 +84,13 @@ class StateProvider extends Component {
                 login: {
                     open: this.state.login.open,
                     isLoggedIn: this.state.login.isLoggedIn,
-                    onLoggedIn: this.state.login.onLoggedIn,
-                    changeLoginState: (open, isLoggedIn, onLoggedIn) => {
+                    changeLoginState: (open, isLoggedIn, isLoaded, username) => {
                         this.setState({
                             login: {
                                 open: open,
                                 isLoggedIn: isLoggedIn,
-                                onLoggedIn: onLoggedIn
+                                isLoaded: isLoaded,
+                                username: username
                             }
                         })
                     }
