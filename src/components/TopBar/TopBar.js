@@ -6,6 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import Path from "./Path";
 import IconButton from "@material-ui/core/IconButton";
 import StateContext from "../../contexts/StateContext";
+import Login from './Login';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -29,6 +30,7 @@ const TopBar = (props) => {
     const classes = useStyle();
     const [dir, setDir] = useState({dir: [], path: ""});
     const edit = !useContext(StateContext).page.readOnly;
+    const loginState = useContext(StateContext).login;
 
     function reload() {
         if (dir.path !== window.location.pathname) {
@@ -59,8 +61,9 @@ const TopBar = (props) => {
                     <Grid item xs={9}>
                         <Path folder={dir.dir}/>
                     </Grid>
-                    <Grid item xs={3}>
-                        <IconButton disabled={!allowEditContent()}
+                    { loginState.isLoggedIn &&
+                    <Grid item xs={1}>
+                        <IconButton 
                                     className={edit ? classes.rotate : classes.rotateLeft}
                                     onClick={() => {
                                         props.onClick(edit)
@@ -71,6 +74,9 @@ const TopBar = (props) => {
                             {!edit ? <EditIcon fontSize={"inherit"}/> :
                                 <ClearIcon fontSize={"inherit"}/>}
                         </IconButton>
+                    </Grid> }
+                    <Grid item xs={1}>
+                        <Login></Login>
                     </Grid>
                 </Grid>
             </div>

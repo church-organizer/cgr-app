@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Drawer, Chip, Avatar,
     makeStyles
@@ -15,6 +15,7 @@ import Zoom from "@material-ui/core/Zoom";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
 import FileLoader from "../../services/FileLoader";
 import StateContext from "../../contexts/StateContext";
+import { postPath } from '../../services/strapi.service';
 
 
 const initWidth = 250;
@@ -81,6 +82,8 @@ const SideBar = (props) => {
     const classes = useStyles();
     const sidebar = useContext(StateContext).sidebar;
     const page = useContext(StateContext).page;
+    const loginState = useContext(StateContext).login;
+    const [pathName, setPathName] = useState('');
 
 
     /**
@@ -91,6 +94,11 @@ const SideBar = (props) => {
         sidebar.changeSideBarOpen(state, sidebar.openCategory);
     };
 
+    const handleChange = (event) => {
+        event.preventDefault();
+        setPathName(event.target.value);
+    }
+
     const changeOpenCloseButton = () => {
         if (!matches) {
             return (
@@ -100,6 +108,22 @@ const SideBar = (props) => {
         }
         return "";
     };
+
+    const newPath = (
+        <div>
+            <input type="text" placeholder="Bereich:" value={pathName} onChange={e => setPathName(e.target.value)}></input>
+            <input type="button" value="Hinzufuegen" onClick={
+                () => {
+                    if (pathName) {
+                        postPath(pathName).then((res) => {
+                            setPathName('');
+                            window.location.reload();
+                        });
+                    }
+                }
+            } />
+        </div>
+    );
 
     const structure = props.structure;
     return (
@@ -133,7 +157,7 @@ const SideBar = (props) => {
                     </div>
                     <SideBarLinks setOpen={(value) => !matches ? onChange(value): {}}
                                   structure={structure}/>
-                    {changeOpenCloseButton()}
+                    { loginState.isLoggedIn && newPath }
                 </div>
             </Drawer>
         </div>

@@ -4,7 +4,6 @@ import './Wiki.css';
 import TopBar from "../components/TopBar/TopBar";
 import SideBar from "../components/SideBar/SideBar";
 import Footer from "../components/Footer/Footer";
-import FileLoader from "../services/FileLoader";
 import AdvancedSearch from "../components/Search/AdvancedSearch";
 import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
