@@ -9,8 +9,7 @@ import {
 import './Login.css'
 import Button from "@material-ui/core/Button";
 import StateContext from "../../contexts/StateContext";
-import { login } from '../../services/Authentication';
-import Cookies from 'js-cookie'
+import { login, saveJwt } from '../../services/Authentication';
 import { isAuthenticated } from '../../services/Authentication';
 
 /**
@@ -59,7 +58,7 @@ const Login = (props) => {
 
     const checkLogin = () => {
         login(username, password).then((res) => {
-            Cookies.set('jwt', res.data.jwt);
+            saveJwt(res.data.jwt);
             loginState.changeLoginState(false, true, true, username);
         }).catch((err) => {
             console.log(`login Error: `, err);
