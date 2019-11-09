@@ -5,6 +5,7 @@ import Fade from "@material-ui/core/Fade";
 import "./Page.css"
 import StateContext from "../../contexts/StateContext";
 import {getArticleByFilter} from "../../services/strapi.service";
+import Button from "@material-ui/core/Button";
 
 /**
  * WikiPage, shows the PageContent of a Wikipage
@@ -28,9 +29,19 @@ class Page extends Component {
             let path = window.location.pathname;
             path = path.split("/");
             getArticleByFilter(`title=${path[path.length - 1]}&articlepath.path=${path[path.length - 2].toLowerCase()}`).then(res => {
-                const text = res.data[0].content;
-                // const content = changeContentIfMatch(text, this.context.search.content);
-                this.setState({content: text, filename: res.data[0].title, originContent: text})
+                if (res.data.length > 0) {
+                    const text = res.data[0].content;
+                    // const content = changeContentIfMatch(text, this.context.search.content);
+                    this.setState({content: text, filename: res.data[0].title, originContent: text});
+                } else {
+                    this.context.message.changeMessageState(true,
+                        "",
+                        "Es gibt keinen passenden Eintrag",
+                        [<Button onClick={() =>{window.history.back(); this.context.message.close()}} color={"primary"}>Zurück</Button>,
+                            <Button color={"primary"} onClick={() => this.context.message.close()}>Schließen</Button>],
+                        true
+                    );
+                }
             });
         }
     }
