@@ -25,12 +25,14 @@ const Login = (props) => {
 
     // todo: use isAuthenticated in secured routes and not here
     useEffect(() => {
-        checkLoggedIn().then(() => {
-            loginState.changeLoginState(false, true, true, 'test');
+        checkLoggedIn().then((res) => {
+            if (res) {
+                loginState.changeLoginState(false, true, true, 'test');
+            } else {
+                loginState.changeLoginState(true, false, false, '');
+            }
         }).catch((err) => {
-            loginState.changeLoginState(true, false, false, '');
             console.log('error: ', err);
-            return <Redirect to='/login' />
         });
     }, []);
     
@@ -86,7 +88,8 @@ const Login = (props) => {
                 <Button variant={"outlined"} color={"secondary"} onClick={() => abort()}>Abbrechen</Button>
                 <Button variant={"outlined"}
                         color={"primary"}
-                        onClick={() => handleClick}>
+                        onClick={(event) => 
+                            handleClick(event)}>
                     Login
                 </Button>
             </DialogActions>
