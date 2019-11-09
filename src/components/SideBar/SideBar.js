@@ -88,7 +88,6 @@ const SideBar = (props) => {
      * @param state
      */
     const onChange = (state) => {
-        console.log(state);
         sidebar.changeSideBarOpen(state, sidebar.openCategory);
     };
 
