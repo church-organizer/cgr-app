@@ -32,7 +32,8 @@ const TopBar = (props) => {
 
     function reload() {
         if (dir.path !== window.location.pathname) {
-            const path = window.location.pathname.slice(1);
+            const path = window.location.pathname.slice(1).replace(/%20/g, " ");
+            console.log(path);
             if (path !== "" && path !== "/") {
                 setDir({dir: path.split("/"), path: window.location.pathname});
             } else {
