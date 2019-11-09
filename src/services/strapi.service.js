@@ -23,15 +23,49 @@ export async function getArticleByFilter(filter) {
 }
 
 export async function getArticleByID(articleId) {
-    return await axios.get(host + 'articles?_id=' + articleId, options);
+    return await axios.get(host + 'articles/' + articleId, options);
+}
+
+export async function postArticle(content, title, id) {
+    const body = {
+        content: content,
+        title: title,
+        path: id
+    }
+    return axios.post(host + 'articles/', body, options);
+}
+
+export async function updateArticle(content, title, id) {
+    const body = {
+        content: content,
+        title: title,
+    }
+    return axios.put(host + 'articles/' + id, body, options);
+}
+
+export async function deleteArticle(id) {
+    return axios.delete(host + 'articles/' + id, options);
 }
 
 export async function getPaths() {
     return await axios.get(host + 'articlepaths', options);
 }
 
-export async function getPath(pathId) {
-    return await axios.get(host + 'paths/' + pathId, options);
+export async function getPathById(pathId) {
+    return await axios.get(host + 'articlepaths/' + pathId, options);
+}
+
+
+export async function getPathByFiter(filter) {
+    return await axios.get(host + 'articlepaths?' + filter, options);
+}
+
+export async function postPath(name) {
+    return await axios.post(host + 'articlepaths', { path:name }, options);
+}
+
+export async function updatePath(name, id) {
+    return await axios.put(host + 'articlepaths/' + id, { path:name }, options);
 }
 
 export async function getMe() {
