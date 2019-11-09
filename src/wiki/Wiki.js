@@ -90,22 +90,7 @@ class Wiki extends Component {
         if (this.context.search.content === "") {
             return (
                 <div>
-                    <TopBar
-                        onClick={
-                            (readOnly) => {
-                                if (this.context.login.isLoggedIn) {
-                                    this.changeReadOnlyState(false);
-                                } else {
-                                    if (!readOnly) {
-                                        this.loginFirst();
-                                        if (this.context.login.isLoggedIn) {
-                                            this.changeReadOnlyState(false);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        path={this.dir}/>
+                    <TopBar path={this.dir}/>
                     <Page/>
                 </div>
             );
