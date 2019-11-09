@@ -14,12 +14,16 @@ export function setOptions() {
     }
 }
 
-export async function getArticles(name) {
-    return await axios.get(host + name, options);
+export async function getArticles() {
+    return await axios.get(host + 'articles', options);
 }
 
-export async function getArticle(name, articleId) {
-    return await axios.get(host + name, {_id: articleId}, options);
+export async function getArticleByFilter(filter) {
+    return await axios.get(host + 'articles?' + filter, options);
+}
+
+export async function getArticleByID(articleId) {
+    return await axios.get(host + 'articles?_id=' + articleId, options);
 }
 
 export async function getPaths() {
