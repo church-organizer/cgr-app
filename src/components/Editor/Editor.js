@@ -4,15 +4,15 @@ import "easymde/dist/easymde.min.css";
 import Markdown from "../Page/Markdown";
 import ReactDOMServer from "react-dom/server";
 import Button from "@material-ui/core/Button";
-import FileLoader from "../../services/FileLoader";
 import ClearIcon from '@material-ui/icons/Clear';
 import SaveIcon from '@material-ui/icons/Save';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Fade from "@material-ui/core/Fade";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import "./Editor.css"
 import EditorHelp from "./EditorHelp";
 import StateContext from "../../contexts/StateContext";
-import { postArticle, updateArticle } from '../../services/strapi.service';
+import { postArticle, updateArticle, deleteArticle } from '../../services/strapi.service';
 
 
 class Editor extends Component {
@@ -234,6 +234,14 @@ class Editor extends Component {
                 <Button onClick={() => this.context.page.changeReadOnly(true)} className="editorButton" variant={"contained"}
                         color={"inherit"}>
                     <ClearIcon className=""/>Abbrechen
+                </Button>
+                <Button className="editorButton"
+                        onClick={async () => {
+                            await deleteArticle(this.props.articleId)
+                        }}
+                        variant={"contained"}
+                        color={"primary"}>
+                    <DeleteIcon className=""/>Loeschen
                 </Button>
             </div>
         );
