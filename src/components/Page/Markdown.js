@@ -2,7 +2,7 @@ import React from "react";
 import ReactHtmlParser from 'react-html-parser';
 import marked from "marked";
 import "./Markdown.css"
-import FileLoader from "../../services/FileLoader";
+// import FileLoader from "../../services/FileLoader";
 
 const Markdown = (props) => {
     let content = props.source;
@@ -30,7 +30,7 @@ const Markdown = (props) => {
                 let newUrl = match;
                 let imageName = newUrl.match(logoRegex)[0];
                 imageName = imageName.replace(/(\(|\))/g, "");
-                newUrl = newUrl.replace(logoRegex, "("+FileLoader.url + "image/" + imageName + ")");
+                // newUrl = newUrl.replace(logoRegex, "("+FileLoader.url + "image/" + imageName + ")");
                 content = content.replace(match, newUrl);
             }
         }

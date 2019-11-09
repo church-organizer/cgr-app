@@ -9,7 +9,7 @@ import {
 import './Login.css'
 import Button from "@material-ui/core/Button";
 import StateContext from "../../contexts/StateContext";
-import { login, saveJwt, checkLoggedIn } from '../../services/Authentication';
+import { login, saveJwt, checkLoggedIn } from '../../services/authentication.service';
 
 /**
  * Mask for Login

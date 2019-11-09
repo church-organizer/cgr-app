@@ -4,7 +4,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import IconButton from "@material-ui/core/IconButton";
 import * as LoginPopup from '../Login/Login';
-import { logout } from '../../services/Authentication';
+import { logout } from '../../services/authentication.service';
 
 const Login = (props) => {
     const loginState = useContext(StateContext).login;

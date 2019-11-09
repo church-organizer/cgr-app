@@ -13,7 +13,6 @@ import Button from "@material-ui/core/Button";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import Zoom from "@material-ui/core/Zoom";
 import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
-import FileLoader from "../../services/FileLoader";
 import StateContext from "../../contexts/StateContext";
 import { postPath } from '../../services/strapi.service';
 
@@ -145,8 +144,8 @@ const SideBar = (props) => {
                     <div>
                         <Link className={classes.header} to={"/"} onClick={()=> page.changeReadOnly(true)}>
                             <Chip size={"medium"}
-                                  avatar={<Avatar classes={{root: classes.noBackground}}
-                                                  src={FileLoader.url + "images/logo.png"}/>}
+                                //   avatar={<Avatar classes={{root: classes.noBackground}}
+                                //                   src={FileLoader.url + "images/logo.png"}/>}
                                   className={classes.avatar}
                                   variant="outlined" color={"primary"}
                                   label="Wiki" classes={{colorPrimary: classes.whiteColor}}/>

@@ -12,7 +12,8 @@ import CircularProgress from "@material-ui/core/CircularProgress/CircularProgres
 import "./Editor.css"
 import EditorHelp from "./EditorHelp";
 import StateContext from "../../contexts/StateContext";
-import { postArticle, updateArticle, deleteArticle } from '../../services/strapi.service';
+import { updateArticle, deleteArticle, postImage } from '../../services/strapi.service';
+import { getJwt } from '../../services/authentication.service';
 
 
 class Editor extends Component {
@@ -44,9 +45,30 @@ class Editor extends Component {
     /**
      * saves the content and makes it readonly again
      */
-    onSaveClick = () => {
+    onSaveClick = async () => {
         this.setState({loading: true});
-        updateArticle(this.state.content, this.props.title, this.props.articleId).then((result) => {
+
+        const formData = new FormData();
+        const image = document.getElementById("formOne");
+
+        formData.append(`files`, image);
+
+        // image.addEventListener('submit', e => {
+        //   e.preventDefault();
+        //     console.log(`here`);
+        //   const request = new XMLHttpRequest();
+      
+        //   request.open('POST', 'https://api.cg-rahden.de/upload');
+        //   request.setRequestHeader('Authorization', 'Bearer ' + getJwt());
+        //   request.send(new FormData(image));
+        // });
+
+        await postImage(formData).then((res) => {
+            console.log(res);
+        }).catch(err => console.log(err)
+        );
+
+        await updateArticle(this.state.content, this.props.title, this.props.articleId).then(() => {
             this.props.reload();
             this.setState({loading: false});
         })
@@ -86,7 +108,7 @@ class Editor extends Component {
         const button = document.getElementsByClassName("image")[0];
         const fileUpload = document.getElementById("uploadImage");
         fileUpload.addEventListener("change", () => this.addToImageList());
-        button.addEventListener("click", () => this.openImageSelect());
+        button.addEventListener("click", (event) => this.openImageSelect(event));
         this.removeDefaultHelpButtonFromEditor();
         this.addSimpleHelpToStatusbar();
     };
@@ -146,14 +168,17 @@ class Editor extends Component {
      * adds the selected Image to the image list
      * the image list will be uploaded when the page is saved
      */
-    addToImageList(){
-        const list = this.state.newImageList;
-        const image = document.getElementById("uploadImage").files[0];
-        list.push(image);
-        this.setState({
-            newImageList: list,
-            content: this.changeContentAtPosition(this.state.position,8, image.name),
-        });
+    addToImageList() {
+        // const formData = new FormData();
+        // const image = document.getElementById("uploadImage").files[0];
+        // formData.append('myImage', image);
+        
+        // const list = this.state.newImageList;
+        // list.push(image);
+        // this.setState({
+        //     newImageList: list,
+        //     content: this.changeContentAtPosition(this.state.position, 8, image.name),
+        // });
     }
 
     /**
@@ -161,7 +186,9 @@ class Editor extends Component {
      * and sets the state so when the editor adds the image part in the md content it removes the next 8 chars
      * after the cursor
      */
-    openImageSelect() {
+    
+     openImageSelect(event) {
+        event.preventDefault();
         document.getElementById("uploadImage").click();
     };
 
@@ -202,8 +229,11 @@ class Editor extends Component {
                     </div>
                 </Fade>
                 <EditorHelp open={this.state.openHelp} onClose={()=> this.changeStateOpenHelpForMarkdownContent(false)}/>
-                <input style={{display: "none"}} id="uploadImage" type="file" name="file"
-                       accept="image/gif,image/jpeg,image/jpg,image/png"/>
+                <form id="imageForm" method="POST" enctype="multipart/form-data">
+                    <input style={{display: "none"}} id="uploadImage" type="file" name="file"
+                        accept="image/gif,image/jpeg,image/jpg,image/png"/>
+                    <input type="submit" value="Submit"></input>
+                </form>
                 <SimpleMDE onChange={this.handleChange} value={this.state.content} extraKeys={this.extraKeys}
                            getLineAndCursor={pPosition => this.setState({
                                position: {
@@ -243,6 +273,10 @@ class Editor extends Component {
                         color={"primary"}>
                     <DeleteIcon className=""/>Loeschen
                 </Button>
+                <form id="formOne">
+                    <input type="file" name="files" />
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
         );
     }

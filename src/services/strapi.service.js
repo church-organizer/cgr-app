@@ -1,4 +1,5 @@
-import { getJwt } from '../services/Authentication';
+import { getJwt } from './authentication.service';
+import qs from 'qs';
 const axios = require('axios');
 export const host = 'https://api.cg-rahden.de/'; 
 
@@ -92,4 +93,16 @@ export async function updatePath(name, id) {
 
 export async function getMe() {
     return getContent('users/me');
+}
+
+export async function postImage(formData) {
+    const config = {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${getJwt()}`
+        },
+        data: qs.stringify(formData),
+    };
+
+    return await axios.post(host + "upload", qs.stringify(formData), config);
 }

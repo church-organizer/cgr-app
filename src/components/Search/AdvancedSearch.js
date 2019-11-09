@@ -1,12 +1,11 @@
 import React, {useContext, useState} from "react";
 import {Container, makeStyles, Typography} from "@material-ui/core";
-import FileLoader from "../../services/FileLoader";
 import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import Markdown from "../Page/Markdown";
 import "./Search.css"
 import Path from "../TopBar/Path";
-import changeContentIfMatch from "../../services/SearchContent";
+import changeContentIfMatch from "../../services/content.service";
 import StateContext from "../../contexts/StateContext";
 
 
@@ -59,14 +58,14 @@ const AdvancedSearch = (props) => {
     };
 
     const sendSearchRequest = (search) => {
-        FileLoader.search(search).then((res) => {
-            const result = res.result;
-            let arr = [];
-            for (let item in result) {
-                arr.push([result[item][0], item, result[item][1]])
-            }
-            applySearch(arr, res.time, search);
-        });
+        // FileLoader.search(search).then((res) => {
+        //     const result = res.result;
+        //     let arr = [];
+        //     for (let item in result) {
+        //         arr.push([result[item][0], item, result[item][1]])
+        //     }
+        //     applySearch(arr, res.time, search);
+        // });
     };
 
     /**

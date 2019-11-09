@@ -10,7 +10,7 @@ import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
 import StateContext from "../contexts/StateContext";
 import { getPaths } from '../services/strapi.service';
-import { checkLoggedIn } from '../services/Authentication';
+import { checkLoggedIn } from '../services/authentication.service';
 
 /**
  * Shows all of the Wiki Entries
@@ -90,7 +90,9 @@ class Wiki extends Component {
         if (this.context.search.content === "") {
             return (
                 <div>
-                    <TopBar path={this.dir}/>
+                    <TopBar 
+                        onClick = {(state) => this.changeReadOnlyState(state)}
+                        path={this.dir}/>
                     <Page/>
                 </div>
             );
