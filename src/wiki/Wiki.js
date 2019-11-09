@@ -10,6 +10,7 @@ import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
 import StateContext from "../contexts/StateContext";
+import { getPaths } from '../services/strapi.service';
 
 /**
  * Shows all of the Wiki Entries
@@ -18,7 +19,7 @@ import StateContext from "../contexts/StateContext";
 class Wiki extends Component {
     dir = [];
     state = {
-        structure: {},
+        structure: [],
     };
     static contextType = StateContext;
     //später würde ich über Css-Classes/Ids machen
@@ -28,17 +29,27 @@ class Wiki extends Component {
 
     constructor(props) {
         super(props);
-        FileLoader.getStructure()
-            .then(structure => this.setState({structure: structure}))
-            .catch(error => {
-                this.context.message.changeMessageState(true,
-                    "",
-                    error.toString(),
-                    [<Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>,
-                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>],
-                    true
-                    );
+        getPaths().then(res => {
+            const structure = [];
+            res.data.map(entry => {
+                const name = entry.path;
+                const paths = entry.articles.map(article => article.title);
+                structure.push({
+                    name: name,
+                    paths: paths
+                });
             });
+            this.setState({structure: structure});
+        })
+        .catch(error => {
+            this.context.message.changeMessageState(true,
+                "",
+                error.toString(),
+                [<Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>,
+                <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>],
+                true
+                );
+        });
     }
 
     /**
@@ -82,7 +93,7 @@ class Wiki extends Component {
         }
     }
 
-    render() {
+    render() {        
         return (
             <div className={"base " + this.setSideBarCss()}>
                 <Login/>

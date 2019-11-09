@@ -32,7 +32,8 @@ export async function checkLoggedIn() {
   
     const me = await getMe();
     if (me.data && validateJwt()) {
-      return true;
+        console.log(me.data)
+      return me.data;
     }
     return false;
 }

@@ -1,4 +1,4 @@
-import { getJwt } from '../services/login.service';
+import { getJwt } from '../services/Authentication';
 const axios = require('axios');
 export const host = 'https://api.cg-rahden.de/'; 
 export let options;
@@ -22,8 +22,8 @@ export async function getArticle(name, articleId) {
     return await axios.get(host + name, {_id: articleId}, options);
 }
 
-export async function getPaths(name) {
-    return await axios.get(host + name, options);
+export async function getPaths() {
+    return await axios.get(host + 'articlepaths', options);
 }
 
 export async function getPath(name, pathId) {
@@ -31,5 +31,5 @@ export async function getPath(name, pathId) {
 }
 
 export async function getMe() {
-    return getContent('users/me');
+    return await axios.get('users/me', options);
 }

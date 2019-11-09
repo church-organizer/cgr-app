@@ -1,5 +1,5 @@
 class FileLoader {
-    static url = 'https://wiki.loetkemann.com/';
+    static url = 'http://192.168.10.220:3001/';
 
 
     static getPage(path = "") {

@@ -9,8 +9,7 @@ import {
 import './Login.css'
 import Button from "@material-ui/core/Button";
 import StateContext from "../../contexts/StateContext";
-import { login, saveJwt } from '../../services/Authentication';
-import { isAuthenticated } from '../../services/Authentication';
+import { login, saveJwt, checkLoggedIn } from '../../services/Authentication';
 
 /**
  * Mask for Login
@@ -26,10 +25,8 @@ const Login = (props) => {
 
     // todo: use isAuthenticated in secured routes and not here
     useEffect(() => {
-        isAuthenticated().then(response => {
-            if (response.data.authorized) {
-                loginState.changeLoginState(false, true, true, response.data.username);
-            }
+        checkLoggedIn().then(() => {
+            loginState.changeLoginState(false, true, true, 'test');
         }).catch((err) => {
             loginState.changeLoginState(true, false, false, '');
             console.log('error: ', err);

@@ -9,10 +9,6 @@ const SideBarLinks = (props) => {
     const sidebar = useContext(StateContext).sidebar;
     const searchWord = useContext(StateContext).search.content;
     const structure = props.structure;
-    let folder = [];
-    for (let item in props.structure) {
-        folder.push(item);
-    }
 
     const show = (index, link) => {
         return (sidebar.openCategory === index && searchWord === "") || (searchWord !== "" && link.match(searchWord) !== null)
@@ -30,15 +26,18 @@ const SideBarLinks = (props) => {
         sidebar.changeSideBarOpen(sidebar.open, category);
     };
 
-    return (folder.map((item, index) => {
+
+    console.log(structure);
+    
+    return (structure.map((item, index) => {
         return (
             <div key={index} className={(index === sidebar.openCategory) ? "shadow-inset-center active" : ""}>
-                <SideBarItem key={index} to={"/" + item} label={item} header
+                <SideBarItem key={index} to={"/" + item.name} label={item.name} header
                              onClick={() => {
                                  changeSidebarCategory(index);
                                  resetReadOnlyState()
                              }}/>
-                {structure[item].map((link, subindex) => {
+                {item.paths.map((link, subindex) => {
                     return (
                         <Collapse key={subindex} in={show(index, link)} unmountOnExit>
                             <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}
