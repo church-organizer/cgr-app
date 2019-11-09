@@ -27,7 +27,7 @@ class Page extends Component {
             this.path = window.location.pathname;
             let path = window.location.pathname;
             path = path.split("/");
-            getArticleByFilter(`title=${path[path.length - 1]}&articlepath.path=${path[path.length - 2]}`).then(res => {
+            getArticleByFilter(`title=${path[path.length - 1]}&articlepath.path=${path[path.length - 2].toLowerCase()}`).then(res => {
                 const text = res.data[0].content;
                 // const content = changeContentIfMatch(text, this.context.search.content);
                 this.setState({content: text, filename: res.data[0].title, originContent: text})
