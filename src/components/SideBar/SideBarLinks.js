@@ -26,8 +26,6 @@ const SideBarLinks = (props) => {
         sidebar.changeSideBarOpen(sidebar.open, category);
     };
 
-
-    console.log(structure);
     
     return (structure.map((item, index) => {
         return (

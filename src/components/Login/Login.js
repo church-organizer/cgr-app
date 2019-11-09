@@ -22,20 +22,16 @@ const Login = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const loginState = useContext(StateContext).login;
-
-    // todo: use isAuthenticated in secured routes and not here
+    
     useEffect(() => {
         checkLoggedIn().then((res) => {
             if (res) {
-                loginState.changeLoginState(false, true, true, 'test');
-            } else {
-                loginState.changeLoginState(true, false, false, '');
+                loginState.changeLoginState(false, true, true, res.username);
             }
         }).catch((err) => {
             console.log('error: ', err);
         });
     }, []);
-    
     /**
      * gets called if the input fields changes
      * @param value the changed value

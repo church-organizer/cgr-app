@@ -1,10 +1,8 @@
-import Cookies from 'js-cookie'
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
-import { getMe } from './strapi.service';
+import { getMe, setOptions } from './strapi.service';
 
 const HOST = 'http://api.cg-rahden.de/';
-const AUTH_PATH = 'users/me';
 const LOGIN_PATH = 'auth/local';
 
 export function getJwt() {
@@ -30,11 +28,12 @@ export async function checkLoggedIn() {
       return false;
     }
   
+    setOptions();
     const me = await getMe();
     if (me.data && validateJwt()) {
-        console.log(me.data)
       return me.data;
     }
+
     return false;
 }
   

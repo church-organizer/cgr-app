@@ -30,10 +30,10 @@ export async function getPaths() {
     return await axios.get(host + 'articlepaths', options);
 }
 
-export async function getPath(name, pathId) {
-    return await axios.get(host + name, {_id: pathId}, options)
+export async function getPath(pathId) {
+    return await axios.get(host + 'paths/' + pathId, options);
 }
 
 export async function getMe() {
-    return await axios.get('users/me', options);
+    return await axios.get(host + 'users/me', options);
 }

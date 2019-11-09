@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
 import StateContext from "../contexts/StateContext";
 import { getPaths } from '../services/strapi.service';
+import { checkLoggedIn } from '../services/Authentication';
 
 /**
  * Shows all of the Wiki Entries
@@ -71,11 +72,19 @@ class Wiki extends Component {
 
     /**
      * opens the login form and saves the callback
-     * the callback will be called if login succeded
-     * @param callback
      */
-    loginFirst(callback) {
-        this.context.login.changeLoginState(true, false, callback);
+    loginFirst() {
+        if (!this.context.login.isLoggedIn) {
+            checkLoggedIn().then((res) => {
+                if (res) {
+                    this.context.login.changeLoginState(false, true, true, res.username);
+                } else {
+                    this.context.login.changeLoginState(true, false, false, '');
+                }
+            }).catch((err) => {
+                console.log('error: ', err);
+            });
+        }
     }
 
     pageOrSearchContent() {
@@ -83,7 +92,20 @@ class Wiki extends Component {
             return (
                 <div>
                     <TopBar
-                        onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
+                        onClick={
+                            (readOnly) => {
+                                if (this.context.login.isLoggedIn) {
+                                    this.changeReadOnlyState(false);
+                                } else {
+                                    if (!readOnly) {
+                                        this.loginFirst();
+                                        if (this.context.login.isLoggedIn) {
+                                            this.changeReadOnlyState(false);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         path={this.dir}/>
                     <Page/>
                 </div>
