@@ -25,7 +25,7 @@ export function PageContent(props) {
             </Typography>
             <Divider/>
             {page.readOnly ? <Markdown source={props.content}/> :
-                <Editor reload={props.reload} content={props.content} title={props.title} pathId={props.pathId}/>}
+                <Editor reload={props.reload} content={props.content} title={props.title} pathId={props.pathId} articleId={props.articleId}/>}
         </Paper>
     );
 }

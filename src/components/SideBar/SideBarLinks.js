@@ -28,9 +28,13 @@ const SideBarLinks = (props) => {
 
     
     return (structure.map((item, index) => {
+        if(item.paths.length <= 0){ // gibt es keine Einträge braucht es auch nicht angezeigt werden
+            return '';
+        }
         return (
             <div key={index} className={(index === sidebar.openCategory) ? "shadow-inset-center active" : ""}>
-                <SideBarItem key={index} to={"/" + item.name} label={item.name} header
+                <SideBarItem key={index} to={"/" + item.name} label={item.name[0].toUpperCase() + item.name.slice(1)}
+                             header
                              onClick={() => {
                                  changeSidebarCategory(index);
                                  resetReadOnlyState()
@@ -38,7 +42,7 @@ const SideBarLinks = (props) => {
                 {item.paths.map((link, subindex) => {
                     return (
                         <Collapse key={subindex} in={show(index, link)} unmountOnExit>
-                            <SideBarItem key={subindex} to={"/" + item + "/" + link} label={link}
+                            <SideBarItem key={subindex} to={"/" + item.name + "/" + link} label={link}
                                          onClick={(sideBarState) => {
                                              changeSidebarState(sideBarState);
                                              resetReadOnlyState();

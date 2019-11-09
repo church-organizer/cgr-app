@@ -12,7 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress/CircularProgres
 import "./Editor.css"
 import EditorHelp from "./EditorHelp";
 import StateContext from "../../contexts/StateContext";
-import { postArticle } from '../../services/strapi.service';
+import { postArticle, updateArticle } from '../../services/strapi.service';
 
 
 class Editor extends Component {
@@ -46,12 +46,17 @@ class Editor extends Component {
      */
     onSaveClick = () => {
         this.setState({loading: true});
-        postArticle(this.state.content, this.props.title, this.props.pathId).then((result) => {
-            console.log(result);
+        updateArticle(this.state.content, this.props.title, this.props.articleId).then((result) => {
+            this.props.reload();
+            this.setState({loading: false});
         })
         .catch(err => {
             console.log(err);
+            this.setState({loading: false});
         });
+
+        this.context.page.changeReadOnly(true);
+
         // FileLoader.saveFile(window.location.pathname, this.state.content).then((result) => {
         //     if (this.state.newImageList.length === 0) {
         //         this.props.reload();
@@ -72,8 +77,6 @@ class Editor extends Component {
         //     }
         // }
         // this.setState({newImageList: []});
-        this.context.page.changeReadOnly(true);
-
     };
 
     /**
