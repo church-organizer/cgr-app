@@ -26,11 +26,11 @@ export async function getArticleByID(articleId) {
     return await axios.get(host + 'articles/' + articleId, options);
 }
 
-export async function postArticle(content, title, id) {
+export async function postArticle(content, title, pathId) {
     const body = {
         content: content,
         title: title,
-        path: id
+        path: pathId
     }
     return axios.post(host + 'articles/', body, options);
 }
@@ -54,7 +54,6 @@ export async function getPaths() {
 export async function getPathById(pathId) {
     return await axios.get(host + 'articlepaths/' + pathId, options);
 }
-
 
 export async function getPathByFiter(filter) {
     return await axios.get(host + 'articlepaths?' + filter, options);

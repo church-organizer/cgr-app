@@ -12,6 +12,7 @@ import CircularProgress from "@material-ui/core/CircularProgress/CircularProgres
 import "./Editor.css"
 import EditorHelp from "./EditorHelp";
 import StateContext from "../../contexts/StateContext";
+import { postArticle } from '../../services/strapi.service';
 
 
 class Editor extends Component {
@@ -45,26 +46,32 @@ class Editor extends Component {
      */
     onSaveClick = () => {
         this.setState({loading: true});
-        FileLoader.saveFile(window.location.pathname, this.state.content).then((result) => {
-            if (this.state.newImageList.length === 0) {
-                this.props.reload();
-                this.setState({loading: false});
-            }
+        postArticle(this.state.content, this.props.title, this.props.pathId).then((result) => {
+            console.log(result);
+        })
+        .catch(err => {
+            console.log(err);
         });
-        if (this.state.newImageList.length > 0) {
-            const list = this.state.newImageList;
-            for (let i = 0; i < list.length; i++) {
-                // when the last one is ready, its finished loading
-                const isLast = i === list.length - 1;
-                FileLoader.uploadImage(list[i]).then(() => {
-                    if (isLast) {
-                        this.props.reload();
-                        this.setState({loading: false});
-                    }
-                }).catch(err => console.error(err));
-            }
-        }
-        this.setState({newImageList: []});
+        // FileLoader.saveFile(window.location.pathname, this.state.content).then((result) => {
+        //     if (this.state.newImageList.length === 0) {
+        //         this.props.reload();
+        //         this.setState({loading: false});
+        //     }
+        // });
+        // if (this.state.newImageList.length > 0) {
+        //     const list = this.state.newImageList;
+        //     for (let i = 0; i < list.length; i++) {
+        //         // when the last one is ready, its finished loading
+        //         const isLast = i === list.length - 1;
+        //         FileLoader.uploadImage(list[i]).then(() => {
+        //             if (isLast) {
+        //                 this.props.reload();
+        //                 this.setState({loading: false});
+        //             }
+        //         }).catch(err => console.error(err));
+        //     }
+        // }
+        // this.setState({newImageList: []});
         this.context.page.changeReadOnly(true);
 
     };

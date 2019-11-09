@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import FileLoader from "../../services/FileLoader";
 import {PageContent} from './PageContent';
 import Fade from "@material-ui/core/Fade";
 import "./Page.css"
@@ -15,7 +14,8 @@ class Page extends Component {
     state = {
         content: "",
         originContent: "",
-        filename: "",
+        title: "",
+        pathId: "",
     };
     static contextType = StateContext;
 
@@ -30,7 +30,7 @@ class Page extends Component {
             getArticleByFilter(`title=${path[path.length - 1]}&articlepath.path=${path[path.length - 2].toLowerCase()}`).then(res => {
                 const text = res.data[0].content;
                 // const content = changeContentIfMatch(text, this.context.search.content);
-                this.setState({content: text, filename: res.data[0].title, originContent: text})
+                this.setState({content: text, title: res.data[0].title, originContent: text, pathId: res.data[0].articlepath._id})
             });
         }
     }
@@ -55,8 +55,8 @@ class Page extends Component {
         return (
             <Fade in={true} timeout={0.6}>
                 <div id="page-content">
-                    <PageContent reload={() => this.reload(true)} title={this.state.filename}
-                                 content={this.getContent()}
+                    <PageContent reload={() => this.reload(true)} title={this.state.title}
+                                 content={this.getContent()} pathId={this.state.pathId}
                     />
                 </div>
             </Fade>
