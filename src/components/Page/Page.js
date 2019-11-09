@@ -4,6 +4,7 @@ import {PageContent} from './PageContent';
 import Fade from "@material-ui/core/Fade";
 import "./Page.css"
 import StateContext from "../../contexts/StateContext";
+import {getArticleByFilter} from "../../services/strapi.service";
 
 /**
  * WikiPage, shows the PageContent of a Wikipage
@@ -25,10 +26,11 @@ class Page extends Component {
         if (window.location.pathname !== this.path || force) {
             this.path = window.location.pathname;
             let path = window.location.pathname;
-            FileLoader.getPage(path).then(text => {
-                path = path.split("/");
+            path = path.split("/");
+            getArticleByFilter(`title=${path[path.length - 1]}&articlepath.path=${path[path.length - 2]}`).then(res => {
+                const text = res.data[0].content;
                 // const content = changeContentIfMatch(text, this.context.search.content);
-                this.setState({content: text, filename: path[path.length - 1], originContent: text})
+                this.setState({content: text, filename: res.data[0].title, originContent: text})
             });
         }
     }

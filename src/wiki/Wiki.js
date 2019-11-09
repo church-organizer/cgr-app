@@ -10,6 +10,8 @@ import Message from "../components/Error/Message";
 import Button from "@material-ui/core/Button";
 import Login from "../components/Login/Login";
 import StateContext from "../contexts/StateContext";
+import { getPaths } from '../services/strapi.service';
+import { checkLoggedIn } from '../services/Authentication';
 
 /**
  * Shows all of the Wiki Entries
@@ -18,7 +20,7 @@ import StateContext from "../contexts/StateContext";
 class Wiki extends Component {
     dir = [];
     state = {
-        structure: {},
+        structure: [],
     };
     static contextType = StateContext;
     //später würde ich über Css-Classes/Ids machen
@@ -28,17 +30,27 @@ class Wiki extends Component {
 
     constructor(props) {
         super(props);
-        FileLoader.getStructure()
-            .then(structure => this.setState({structure: structure}))
-            .catch(error => {
-                this.context.message.changeMessageState(true,
-                    "",
-                    error.toString(),
-                    [<Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>,
-                    <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>],
-                    true
-                    );
+        getPaths().then(res => {
+            const structure = [];
+            res.data.map(entry => {
+                const name = entry.path;
+                const paths = entry.articles.map(article => article.title);
+                structure.push({
+                    name: name,
+                    paths: paths
+                });
             });
+            this.setState({structure: structure});
+        })
+        .catch(error => {
+            this.context.message.changeMessageState(true,
+                "",
+                error.toString(),
+                [<Button href={window.location.pathname} color={"primary"}>Die Seite neu laden</Button>,
+                <Button href="https://cg-rahden.de" color={"primary"}>Zur CGR Startseite</Button>],
+                true
+                );
+        });
     }
 
     /**
@@ -60,11 +72,19 @@ class Wiki extends Component {
 
     /**
      * opens the login form and saves the callback
-     * the callback will be called if login succeded
-     * @param callback
      */
-    loginFirst(callback) {
-        this.context.login.changeLoginState(true, false, callback);
+    loginFirst() {
+        if (!this.context.login.isLoggedIn) {
+            checkLoggedIn().then((res) => {
+                if (res) {
+                    this.context.login.changeLoginState(false, true, true, res.username);
+                } else {
+                    this.context.login.changeLoginState(true, false, false, '');
+                }
+            }).catch((err) => {
+                console.log('error: ', err);
+            });
+        }
     }
 
     pageOrSearchContent() {
@@ -72,7 +92,20 @@ class Wiki extends Component {
             return (
                 <div>
                     <TopBar
-                        onClick={(readOnly) => !readOnly ? this.loginFirst(() => this.changeReadOnlyState(readOnly)) : this.changeReadOnlyState(readOnly)}
+                        onClick={
+                            (readOnly) => {
+                                if (this.context.login.isLoggedIn) {
+                                    this.changeReadOnlyState(false);
+                                } else {
+                                    if (!readOnly) {
+                                        this.loginFirst();
+                                        if (this.context.login.isLoggedIn) {
+                                            this.changeReadOnlyState(false);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                         path={this.dir}/>
                     <Page/>
                 </div>
@@ -82,7 +115,7 @@ class Wiki extends Component {
         }
     }
 
-    render() {
+    render() {        
         return (
             <div className={"base " + this.setSideBarCss()}>
                 <Login/>
